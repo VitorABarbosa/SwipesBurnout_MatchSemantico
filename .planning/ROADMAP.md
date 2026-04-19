@@ -22,7 +22,7 @@ O projeto parte do zero (greenfield) e entrega, em 7 fases sequenciais, um pipel
 
 ## Detalhes das Fases
 
-### Fase 1: Fundação
+### Phase 1: Fundação
 **Objetivo**: Toda a infraestrutura base está pronta — pacote Python instalável, ambiente reproduzível, schema de dados validado e repositório ChromaDB encapsulado — de forma que qualquer fase seguinte possa importar `connect_ai/` e começar a trabalhar.
 **Depende de**: Nada (primeira fase)
 **Requisitos**: ENV-01, ENV-02, ENV-03, ENV-04, ENV-05, ENV-06, ENV-07, DATA-01, DATA-02, DATA-03, DATA-04, REPO-01, REPO-02, REPO-03, REPO-04
@@ -34,7 +34,7 @@ O projeto parte do zero (greenfield) e entrega, em 7 fases sequenciais, um pipel
   5. README.md em PT-BR lista os passos de setup, execução do front e do notebook e pode ser seguido do zero
 **Planos**: TBD
 
-### Fase 2: Seed Data Sintético
+### Phase 2: Seed Data Sintético
 **Objetivo**: Existir um gerador de perfis sintéticos com seed fixa que produz um pool matematicamente garantido de conter ≥ 10 perfis compatíveis com o perfil de teste (score ≥ 85), de forma reproduzível entre execuções.
 **Depende de**: Fase 1
 **Requisitos**: SEED-01, SEED-02, SEED-03, SEED-04
@@ -45,7 +45,7 @@ O projeto parte do zero (greenfield) e entrega, em 7 fases sequenciais, um pipel
   4. Os perfis gerados cobrem diversidade de cidade, faixa etária, gênero e objetivo sem viés óbvio
 **Planos**: TBD
 
-### Fase 3: Agentes e Grafo LangGraph
+### Phase 3: Agentes e Grafo LangGraph
 **Objetivo**: Os três agentes (Perfilador, Casamenteiro, RAG Justificador) estão implementados como nós distintos de um grafo LangGraph com AgentState compartilhado, e o grafo pode ser visualizado como artefato.
 **Depende de**: Fase 1
 **Requisitos**: AGT-01, AGT-02, AGT-03, AGT-04, AGT-05, AGT-06, AGT-07
@@ -56,7 +56,7 @@ O projeto parte do zero (greenfield) e entrega, em 7 fases sequenciais, um pipel
   4. O AgentState acumula dados de forma correta ao transitar do Perfilador → Casamenteiro → RAG (verificado por asserção de campos em teste manual)
 **Planos**: TBD
 
-### Fase 4: Pipeline de Ingestão
+### Phase 4: Pipeline de Ingestão
 **Objetivo**: Dado um perfil válido (ou um lote), o pipeline de ingestão executa o fluxo completo — validação → Perfilador → embedding via `text-embedding-004` → persistência no ChromaDB — com logs claros e sem duplicação.
 **Depende de**: Fase 2 e Fase 3
 **Requisitos**: ING-01, ING-02, ING-03, ING-04
@@ -66,7 +66,7 @@ O projeto parte do zero (greenfield) e entrega, em 7 fases sequenciais, um pipel
   3. Após a ingestão do lote completo, uma query de busca vetorial no ChromaDB retorna resultados (banco não está vazio)
 **Planos**: TBD
 
-### Fase 5: Pipeline de Consumo e Scoring
+### Phase 5: Pipeline de Consumo e Scoring
 **Objetivo**: Para o perfil de teste, o pipeline de consumo end-to-end — filtros hard → busca vetorial Top-30 → scoring ponderado 60/20/10/5/5 → corte ≥ 85 — devolve 10 matches com score ≥ 85, com breakdown dos 5 fatores. Este é o gate crítico da entrega.
 
 > **Procedimento de fallback:** Se esta fase não produzir 10 matches ≥ 85, PARE e retorne à Fase 2 para recalibrar a distribuição do seed data (mais sobreposição de interesses, perfil de teste mais "central" no espaço semântico). Não avance para Fase 6 ou 7 sem passar este gate.
@@ -81,7 +81,7 @@ O projeto parte do zero (greenfield) e entrega, em 7 fases sequenciais, um pipel
   5. A aplicação dos filtros hard antes da busca vetorial é verificável — candidatos incompatíveis por gênero/objetivo/faixa etária não aparecem no Top-30
 **Planos**: TBD
 
-### Fase 6: Front Streamlit
+### Phase 6: Front Streamlit
 **Objetivo**: A interface Streamlit está funcional e permite, sem intervenção no terminal, cadastrar um perfil, popular o banco com seed data, executar o pipeline de consumo e visualizar os 10 matches em cards com breakdown e justificativa do RAG.
 **Depende de**: Fase 5
 **Requisitos**: APP-01, APP-02, APP-03, APP-04, APP-05, APP-06, APP-07
@@ -93,7 +93,7 @@ O projeto parte do zero (greenfield) e entrega, em 7 fases sequenciais, um pipel
   5. Quando o pipeline não retorna 10 matches ≥ 85, uma mensagem de erro clara em PT-BR é exibida (não uma tela branca ou traceback)
 **Planos**: TBD
 
-### Fase 7: Demo, Notebook e Entregáveis Finais
+### Phase 7: Demo, Notebook e Entregáveis Finais
 **Objetivo**: Todos os entregáveis do CP5 estão prontos — notebook Colab roda end-to-end sem erros, visualizações e métricas estão em `relatorio/`, documentação de ética e LGPD está completa, e os critérios de aceitação oficiais do enunciado são todos atendidos.
 **Depende de**: Fase 5 e Fase 6
 **Requisitos**: NB-01, NB-02, NB-03, NB-04, OUT-01, OUT-02, OUT-03, OUT-04, OUT-05, OUT-06, OUT-07, ETH-01, ETH-02, ETH-03, ACC-01, ACC-02, ACC-03, ACC-04, ACC-05, ACC-06, ACC-07, ACC-08, ACC-09, ACC-10
