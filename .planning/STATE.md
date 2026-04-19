@@ -10,28 +10,28 @@ Ver: .planning/PROJECT.md (atualizado em 2026-04-19)
 ## Posição Atual
 
 Fase: 1 de 7 (Fundação)
-Plano: 1 de 4 na fase atual
+Plano: 2 de 4 na fase atual
 Status: Em execução
-Última atividade: 2026-04-19 — Plano 01-01 concluído (pacote `connect_ai` instalável + módulo de configuração com 8 testes passando)
+Última atividade: 2026-04-19 — Plano 01-02 concluído (schema Pydantic `Perfil` + `construir_documento_semantico` com 19 testes passando)
 
-Progresso: [█░░░░░░░░░] 4%
+Progresso: [██░░░░░░░░] 8%
 
 ## Métricas de Desempenho
 
 **Velocidade:**
-- Total de planos concluídos: 1
-- Duração média: 4 min
-- Tempo total de execução: 4 min
+- Total de planos concluídos: 2
+- Duração média: 3.5 min
+- Tempo total de execução: 7 min
 
 **Por Fase:**
 
 | Fase | Planos | Total | Média/Plano |
 |------|--------|-------|-------------|
-| 1    | 1      | 4 min | 4 min       |
+| 1    | 2      | 7 min | 3.5 min     |
 
 **Tendência Recente:**
-- Últimos 5 planos: 01-01 (4 min)
-- Tendência: —
+- Últimos 5 planos: 01-01 (4 min), 01-02 (3 min)
+- Tendência: estável (~3-4 min por plano)
 
 *Atualizado após cada conclusão de plano*
 
@@ -50,6 +50,11 @@ Decisões relevantes para o trabalho atual:
 - 01-01: `app/` excluído do pacote `connect_ai` — Streamlit roda via `streamlit run app/streamlit_app.py`
 - 01-01: ChromaDB em modo embedded (sem `chromadb-client`)
 - 01-01: `ConfigError` subclasse de `RuntimeError` — captura específica + mensagem PT-BR substitui `KeyError` cru
+- 01-02: `Literal` (em vez de `Enum`) para `Genero`/`GeneroPreferido`/`Objetivo` — Pydantic-nativo, serializa string limpa para metadata
+- 01-02: `personalidade_ia` opcional (default `None`) — Perfilador (Fase 3) preenche; separa "ainda não processado" de "processado e vazio"
+- 01-02: `genero_preferido` aceita `"todos"` — modela "sem preferência" explicitamente para o filtro hard
+- 01-02: `construir_documento_semantico` é a fonte ÚNICA da verdade do texto enviado ao `text-embedding-004` — divergência entre ingestão e consumo invalida o threshold ≥ 85
+- 01-02: Função omite seção `"Personalidade"` quando vazia — defesa contra vazamento de `"None"` no embedding
 
 ### Pendências (Todos)
 
@@ -63,5 +68,5 @@ Nenhuma ainda.
 ## Continuidade da Sessão
 
 Última sessão: 2026-04-19
-Parou em: Concluído 01-01-PLAN.md — pacote `connect_ai` instalável + módulo de configuração com 8 testes passando. Próximo: 01-02 (schema Pydantic `Perfil`).
+Parou em: Concluído 01-02-PLAN.md — schema Pydantic `Perfil` + função canônica `construir_documento_semantico` com 19 testes passando (27 ao todo na suíte). Próximo: 01-03 (repositório ChromaDB).
 Arquivo de retomada: Nenhum

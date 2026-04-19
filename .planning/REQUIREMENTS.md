@@ -19,10 +19,10 @@ Cada requisito mapeia para exatamente uma fase do roadmap.
 
 ### Schema e Modelo de Dados
 
-- [ ] **DATA-01**: Dataclass/Pydantic do perfil contemplando os 3 grupos de campos (estruturados, semânticos, multimodais) e o campo gerado `personalidade_ia`
-- [ ] **DATA-02**: Validação dos campos estruturados (tipos, faixa etária, gêneros aceitos, objetivos válidos: namoro/casual/amizade)
-- [ ] **DATA-03**: Função utilitária para gerar UUID dos perfis
-- [ ] **DATA-04**: Função para construir o "documento semântico" a ser embedado: `bio + interesses + objetivo + personalidade_ia`
+- [x] **DATA-01**: Dataclass/Pydantic do perfil contemplando os 3 grupos de campos (estruturados, semânticos, multimodais) e o campo gerado `personalidade_ia`
+- [x] **DATA-02**: Validação dos campos estruturados (tipos, faixa etária, gêneros aceitos, objetivos válidos: namoro/casual/amizade)
+- [x] **DATA-03**: Função utilitária para gerar UUID dos perfis
+- [x] **DATA-04**: Função para construir o "documento semântico" a ser embedado: `bio + interesses + objetivo + personalidade_ia`
 
 ### ChromaDB e Repositório
 

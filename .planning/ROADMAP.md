@@ -32,7 +32,7 @@ O projeto parte do zero (greenfield) e entrega, em 7 fases sequenciais, um pipel
   3. Um perfil sintético pode ser instanciado, validado e seu "documento semântico" gerado sem erros
   4. O wrapper ChromaDB insere um perfil, recupera por busca e a conversão distância coseno → score 0–100 devolve valor correto para um exemplo conhecido
   5. README.md em PT-BR lista os passos de setup, execução do front e do notebook e pode ser seguido do zero
-**Plans:** 4 plans
+**Plans:** 2/4 plans executed
 Plans:
 - [x] 01-01-PLAN.md — Estrutura do pacote, dependências, pyproject.toml, .env.example, .gitignore e módulo de configuração com leitura segura de chaves (ENV-01..06)
 - [ ] 01-02-PLAN.md — Schema Pydantic `Perfil`, gerador de UUID e função `construir_documento_semantico` (DATA-01..04)
@@ -120,7 +120,7 @@ Plans:
 
 | Fase | Planos Concluídos | Status | Concluída em |
 |------|-------------------|--------|--------------|
-| 1. Fundação | 1/4 | Em andamento | - |
+| 1. Fundação | 2/4 | In Progress|  |
 | 2. Seed Data Sintético | 0/? | Não iniciada | - |
 | 3. Agentes e Grafo LangGraph | 0/? | Não iniciada | - |
 | 4. Pipeline de Ingestão | 0/? | Não iniciada | - |
