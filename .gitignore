@@ -1,16 +1,15 @@
-# Ambiente Python
+# Ambientes virtuais
+.venv/
+venv/
+env/
+ENV/
+.Python
+
+# Bytecode Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
-.Python
-venv/
-.venv/
-env/
-ENV/
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
 
 # Distribuição / build
 build/
@@ -18,29 +17,37 @@ dist/
 *.egg-info/
 *.egg
 
-# Configuração local / segredos
+# Configuração local com segredos
 .env
 .env.local
 *.key
 
-# IDE
+# Persistência local do ChromaDB (decisão de PROJECT.md)
+chroma_db/
+.chroma/
+*.chroma
+*.sqlite3
+
+# Cache de testes e coverage
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# IDE / Editor
 .vscode/
 .idea/
 *.swp
 
-# Sistema
+# Sistema operacional
 .DS_Store
 Thumbs.db
-
-# ChromaDB local (persistência)
-chroma_db/
-*.chroma
-*.sqlite3
 
 # Streamlit
 .streamlit/secrets.toml
 
-# Notebooks
+# Notebooks (checkpoints e outputs sensíveis)
 .ipynb_checkpoints/
 
 # Logs e outputs temporários
