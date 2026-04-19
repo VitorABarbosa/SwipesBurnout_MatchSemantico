@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "connect_ai"
+version = "0.1.0"
+description = "CONNECT.AI — motor de matchmaking semântico multi-agente (CP5 FIAP)"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Matheus Barbosa", email = "rm561085@fiap.com.br" },
+    { name = "Guilherme Henrique", email = "rm559977@fiap.com.br" },
+    { name = "Vitor Adauto", email = "rm560247@fiap.com.br" },
+]
+dependencies = [
+    "langgraph>=0.2.0",
+    "chromadb>=0.5.0",
+    "google-generativeai>=0.8.0",
+    "streamlit>=1.36.0",
+    "pandas>=2.2.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0.0"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["connect_ai*"]
+exclude = ["app*", "tests*", "notebook*", "relatorio*"]

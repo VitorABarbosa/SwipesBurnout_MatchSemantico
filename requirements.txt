@@ -1,0 +1,23 @@
+# Orquestracao de agentes
+langgraph>=0.2.0
+
+# Banco vetorial
+chromadb>=0.5.0
+
+# LLM Google (Gemini Pro/Vision + text-embedding-004)
+google-generativeai>=0.8.0
+
+# Front
+streamlit>=1.36.0
+
+# Manipulacao de dados e tabelas para o relatorio
+pandas>=2.2.0
+
+# Configuracao via .env
+python-dotenv>=1.0.0
+
+# Validacao de schema (DATA-01 usa Pydantic)
+pydantic>=2.6.0
+
+# Testes
+pytest>=8.0.0
