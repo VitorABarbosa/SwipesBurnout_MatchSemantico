@@ -9,12 +9,12 @@ Cada requisito mapeia para exatamente uma fase do roadmap.
 
 ### Setup e Ambiente
 
-- [ ] **ENV-01**: Estrutura de pacote Python (`connect_ai/`, `app/`, `notebook/`, `relatorio/`, `tests/`) criada
-- [ ] **ENV-02**: `requirements.txt` com todas as dependências obrigatórias (`langgraph`, `chromadb`, `google-generativeai`, `streamlit`, `pandas`, `python-dotenv`, etc.)
-- [ ] **ENV-03**: `pyproject.toml` configurado para instalação em modo editável (`pip install -e .`)
-- [ ] **ENV-04**: Leitura de chaves de API exclusivamente via `.env` ou variável de ambiente; nunca hardcoded
-- [ ] **ENV-05**: `.env.example` documentando todas as variáveis necessárias
-- [ ] **ENV-06**: Mensagem de erro clara e em PT-BR quando uma chave de API estiver ausente
+- [x] **ENV-01**: Estrutura de pacote Python (`connect_ai/`, `app/`, `notebook/`, `relatorio/`, `tests/`) criada
+- [x] **ENV-02**: `requirements.txt` com todas as dependências obrigatórias (`langgraph`, `chromadb`, `google-generativeai`, `streamlit`, `pandas`, `python-dotenv`, etc.)
+- [x] **ENV-03**: `pyproject.toml` configurado para instalação em modo editável (`pip install -e .`)
+- [x] **ENV-04**: Leitura de chaves de API exclusivamente via `.env` ou variável de ambiente; nunca hardcoded
+- [x] **ENV-05**: `.env.example` documentando todas as variáveis necessárias
+- [x] **ENV-06**: Mensagem de erro clara e em PT-BR quando uma chave de API estiver ausente
 - [ ] **ENV-07**: README.md em PT-BR com instruções de setup, execução do front e do notebook
 
 ### Schema e Modelo de Dados
@@ -160,12 +160,12 @@ Mapeamento requisito → fase. Atualizado durante a criação do roadmap em 2026
 
 | Requisito | Fase | Status |
 |---|---|---|
-| ENV-01 | Fase 1 — Fundação | Pendente |
-| ENV-02 | Fase 1 — Fundação | Pendente |
-| ENV-03 | Fase 1 — Fundação | Pendente |
-| ENV-04 | Fase 1 — Fundação | Pendente |
-| ENV-05 | Fase 1 — Fundação | Pendente |
-| ENV-06 | Fase 1 — Fundação | Pendente |
+| ENV-01 | Fase 1 — Fundação | Concluído |
+| ENV-02 | Fase 1 — Fundação | Concluído |
+| ENV-03 | Fase 1 — Fundação | Concluído |
+| ENV-04 | Fase 1 — Fundação | Concluído |
+| ENV-05 | Fase 1 — Fundação | Concluído |
+| ENV-06 | Fase 1 — Fundação | Concluído |
 | ENV-07 | Fase 1 — Fundação | Pendente |
 | DATA-01 | Fase 1 — Fundação | Pendente |
 | DATA-02 | Fase 1 — Fundação | Pendente |

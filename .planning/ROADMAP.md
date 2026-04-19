@@ -34,7 +34,7 @@ O projeto parte do zero (greenfield) e entrega, em 7 fases sequenciais, um pipel
   5. README.md em PT-BR lista os passos de setup, execução do front e do notebook e pode ser seguido do zero
 **Plans:** 4 plans
 Plans:
-- [ ] 01-01-PLAN.md — Estrutura do pacote, dependências, pyproject.toml, .env.example, .gitignore e módulo de configuração com leitura segura de chaves (ENV-01..06)
+- [x] 01-01-PLAN.md — Estrutura do pacote, dependências, pyproject.toml, .env.example, .gitignore e módulo de configuração com leitura segura de chaves (ENV-01..06)
 - [ ] 01-02-PLAN.md — Schema Pydantic `Perfil`, gerador de UUID e função `construir_documento_semantico` (DATA-01..04)
 - [ ] 01-03-PLAN.md — Função `distancia_cosseno_para_score` + wrapper `Repositorio` do ChromaDB com filtros hard via metadados (REPO-01..04)
 - [ ] 01-04-PLAN.md — README.md em PT-BR com instruções completas de setup, execução do front e do notebook (ENV-07)
@@ -120,7 +120,7 @@ Plans:
 
 | Fase | Planos Concluídos | Status | Concluída em |
 |------|-------------------|--------|--------------|
-| 1. Fundação | 0/4 | Planejada | - |
+| 1. Fundação | 1/4 | Em andamento | - |
 | 2. Seed Data Sintético | 0/? | Não iniciada | - |
 | 3. Agentes e Grafo LangGraph | 0/? | Não iniciada | - |
 | 4. Pipeline de Ingestão | 0/? | Não iniciada | - |

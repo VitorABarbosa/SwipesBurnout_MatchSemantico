@@ -10,27 +10,27 @@ Ver: .planning/PROJECT.md (atualizado em 2026-04-19)
 ## Posição Atual
 
 Fase: 1 de 7 (Fundação)
-Plano: 0 de ? na fase atual
-Status: Pronto para planejar
-Última atividade: 2026-04-19 — Roadmap criado; projeto inicializado (greenfield)
+Plano: 1 de 4 na fase atual
+Status: Em execução
+Última atividade: 2026-04-19 — Plano 01-01 concluído (pacote `connect_ai` instalável + módulo de configuração com 8 testes passando)
 
-Progresso: [░░░░░░░░░░] 0%
+Progresso: [█░░░░░░░░░] 4%
 
 ## Métricas de Desempenho
 
 **Velocidade:**
-- Total de planos concluídos: 0
-- Duração média: —
-- Tempo total de execução: 0h
+- Total de planos concluídos: 1
+- Duração média: 4 min
+- Tempo total de execução: 4 min
 
 **Por Fase:**
 
 | Fase | Planos | Total | Média/Plano |
 |------|--------|-------|-------------|
-| -    | -      | -     | -           |
+| 1    | 1      | 4 min | 4 min       |
 
 **Tendência Recente:**
-- Últimos 5 planos: —
+- Últimos 5 planos: 01-01 (4 min)
 - Tendência: —
 
 *Atualizado após cada conclusão de plano*
@@ -45,6 +45,11 @@ Decisões relevantes para o trabalho atual:
 - Inicialização: Mocks textuais para Gemini Vision (custo zero, determinístico)
 - Inicialização: Estrutura modular `connect_ai/` + Streamlit + notebook fino
 - Inicialização: Modo YOLO + granularidade Standard + execução sequencial
+- 01-01: Build-backend `setuptools` (em vez de hatch/poetry) — mais simples e estável para `pip install -e .`
+- 01-01: Lower bounds nas dependências (sem upper) — facilita reprodutibilidade no Colab
+- 01-01: `app/` excluído do pacote `connect_ai` — Streamlit roda via `streamlit run app/streamlit_app.py`
+- 01-01: ChromaDB em modo embedded (sem `chromadb-client`)
+- 01-01: `ConfigError` subclasse de `RuntimeError` — captura específica + mensagem PT-BR substitui `KeyError` cru
 
 ### Pendências (Todos)
 
@@ -58,5 +63,5 @@ Nenhuma ainda.
 ## Continuidade da Sessão
 
 Última sessão: 2026-04-19
-Parou em: Criação do ROADMAP.md e STATE.md — roadmap aprovado, pronto para planejar a Fase 1
+Parou em: Concluído 01-01-PLAN.md — pacote `connect_ai` instalável + módulo de configuração com 8 testes passando. Próximo: 01-02 (schema Pydantic `Perfil`).
 Arquivo de retomada: Nenhum
