@@ -122,3 +122,59 @@ def test_personalidade_ia_pode_ser_preenchida():
         **_perfil_valido_kwargs(personalidade_ia="Introvertida com forte interesse cultural.")
     )
     assert "Introvertida" in perfil.personalidade_ia
+
+
+# ===================================================================
+# Testes da funcao construir_documento_semantico
+# ===================================================================
+
+from connect_ai.schema import construir_documento_semantico
+
+
+def test_documento_inclui_bio_interesses_objetivo():
+    """O documento deve concatenar bio + interesses + objetivo de forma legivel."""
+    perfil = Perfil(**_perfil_valido_kwargs(
+        bio="Adoro jazz",
+        interesses=["musica", "leitura"],
+        objetivo="namoro",
+    ))
+    doc = construir_documento_semantico(perfil)
+    assert "Adoro jazz" in doc
+    assert "musica" in doc
+    assert "leitura" in doc
+    assert "namoro" in doc
+
+
+def test_documento_inclui_personalidade_quando_preenchida():
+    """Quando personalidade_ia esta preenchida, deve aparecer no documento com marcador."""
+    perfil = Perfil(**_perfil_valido_kwargs(
+        personalidade_ia="Introvertida e cultural"
+    ))
+    doc = construir_documento_semantico(perfil)
+    assert "Introvertida e cultural" in doc
+    assert "Personalidade" in doc
+
+
+def test_documento_omite_personalidade_quando_ausente():
+    """Sem personalidade_ia, NAO deve vazar 'None'/'null' nem emitir a secao."""
+    perfil = Perfil(**_perfil_valido_kwargs(personalidade_ia=None))
+    doc = construir_documento_semantico(perfil)
+    # Nao deve vazar tokens "None" / "null" no texto enviado ao embedding
+    assert "None" not in doc
+    assert "null" not in doc
+    assert "Personalidade" not in doc
+
+
+def test_documento_e_estavel():
+    """Determinismo: chamar 2x com o mesmo perfil retorna a mesma string."""
+    perfil = Perfil(**_perfil_valido_kwargs())
+    assert construir_documento_semantico(perfil) == construir_documento_semantico(perfil)
+
+
+def test_documento_contem_marcadores_ptbr():
+    """Documento deve usar marcadores PT-BR human-readable."""
+    perfil = Perfil(**_perfil_valido_kwargs())
+    doc = construir_documento_semantico(perfil)
+    assert "Bio:" in doc
+    assert "Interesses:" in doc
+    assert "Objetivo:" in doc
