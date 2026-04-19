@@ -156,17 +156,88 @@ Listados como "futuras melhorias" no relatório.
 
 ## Rastreabilidade
 
-Mapeamento requisito → fase. Atualizado durante a criação do roadmap.
+Mapeamento requisito → fase. Atualizado durante a criação do roadmap em 2026-04-19.
 
 | Requisito | Fase | Status |
 |---|---|---|
-| (a preencher pelo roadmapper) | — | Pendente |
+| ENV-01 | Fase 1 — Fundação | Pendente |
+| ENV-02 | Fase 1 — Fundação | Pendente |
+| ENV-03 | Fase 1 — Fundação | Pendente |
+| ENV-04 | Fase 1 — Fundação | Pendente |
+| ENV-05 | Fase 1 — Fundação | Pendente |
+| ENV-06 | Fase 1 — Fundação | Pendente |
+| ENV-07 | Fase 1 — Fundação | Pendente |
+| DATA-01 | Fase 1 — Fundação | Pendente |
+| DATA-02 | Fase 1 — Fundação | Pendente |
+| DATA-03 | Fase 1 — Fundação | Pendente |
+| DATA-04 | Fase 1 — Fundação | Pendente |
+| REPO-01 | Fase 1 — Fundação | Pendente |
+| REPO-02 | Fase 1 — Fundação | Pendente |
+| REPO-03 | Fase 1 — Fundação | Pendente |
+| REPO-04 | Fase 1 — Fundação | Pendente |
+| SEED-01 | Fase 2 — Seed Data Sintético | Pendente |
+| SEED-02 | Fase 2 — Seed Data Sintético | Pendente |
+| SEED-03 | Fase 2 — Seed Data Sintético | Pendente |
+| SEED-04 | Fase 2 — Seed Data Sintético | Pendente |
+| AGT-01 | Fase 3 — Agentes e Grafo LangGraph | Pendente |
+| AGT-02 | Fase 3 — Agentes e Grafo LangGraph | Pendente |
+| AGT-03 | Fase 3 — Agentes e Grafo LangGraph | Pendente |
+| AGT-04 | Fase 3 — Agentes e Grafo LangGraph | Pendente |
+| AGT-05 | Fase 3 — Agentes e Grafo LangGraph | Pendente |
+| AGT-06 | Fase 3 — Agentes e Grafo LangGraph | Pendente |
+| AGT-07 | Fase 3 — Agentes e Grafo LangGraph | Pendente |
+| ING-01 | Fase 4 — Pipeline de Ingestão | Pendente |
+| ING-02 | Fase 4 — Pipeline de Ingestão | Pendente |
+| ING-03 | Fase 4 — Pipeline de Ingestão | Pendente |
+| ING-04 | Fase 4 — Pipeline de Ingestão | Pendente |
+| CONS-01 | Fase 5 — Pipeline de Consumo e Scoring | Pendente |
+| CONS-02 | Fase 5 — Pipeline de Consumo e Scoring | Pendente |
+| CONS-03 | Fase 5 — Pipeline de Consumo e Scoring | Pendente |
+| SCR-01 | Fase 5 — Pipeline de Consumo e Scoring | Pendente |
+| SCR-02 | Fase 5 — Pipeline de Consumo e Scoring | Pendente |
+| SCR-03 | Fase 5 — Pipeline de Consumo e Scoring | Pendente |
+| SCR-04 | Fase 5 — Pipeline de Consumo e Scoring | Pendente |
+| SCR-05 | Fase 5 — Pipeline de Consumo e Scoring | Pendente |
+| TEST-01 | Fase 5 — Pipeline de Consumo e Scoring | Pendente |
+| TEST-02 | Fase 5 — Pipeline de Consumo e Scoring | Pendente |
+| TEST-03 | Fase 5 — Pipeline de Consumo e Scoring | Pendente |
+| APP-01 | Fase 6 — Front Streamlit | Pendente |
+| APP-02 | Fase 6 — Front Streamlit | Pendente |
+| APP-03 | Fase 6 — Front Streamlit | Pendente |
+| APP-04 | Fase 6 — Front Streamlit | Pendente |
+| APP-05 | Fase 6 — Front Streamlit | Pendente |
+| APP-06 | Fase 6 — Front Streamlit | Pendente |
+| APP-07 | Fase 6 — Front Streamlit | Pendente |
+| NB-01 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| NB-02 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| NB-03 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| NB-04 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| OUT-01 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| OUT-02 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| OUT-03 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| OUT-04 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| OUT-05 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| OUT-06 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| OUT-07 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| ETH-01 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| ETH-02 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| ETH-03 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| ACC-01 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| ACC-02 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| ACC-03 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| ACC-04 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| ACC-05 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| ACC-06 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| ACC-07 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| ACC-08 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| ACC-09 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
+| ACC-10 | Fase 7 — Demo, Notebook e Entregáveis Finais | Pendente |
 
 **Cobertura:**
-- Requisitos v1: a totalizar
-- Mapeados para fases: a preencher
-- Não mapeados: a preencher
+- Requisitos v1: 72
+- Mapeados para fases: 72
+- Não mapeados: 0 (cobertura 100%)
 
 ---
 *Requisitos definidos em: 2026-04-19*
-*Última atualização: 2026-04-19 na definição inicial*
+*Última atualização: 2026-04-19 — rastreabilidade preenchida pelo roadmapper*
