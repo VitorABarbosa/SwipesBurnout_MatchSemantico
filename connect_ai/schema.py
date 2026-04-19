@@ -108,3 +108,36 @@ class Perfil(BaseModel):
                 "faixa_etaria_pref deve ter o limite inferior <= limite superior."
             )
         return self
+
+
+def construir_documento_semantico(perfil: Perfil) -> str:
+    """Monta o "documento semantico" a ser embedado pelo `text-embedding-004`.
+
+    Concatena `bio` + `interesses` + `objetivo` + `personalidade_ia` em um
+    texto PT-BR estruturado. Esta funcao e a fonte UNICA da verdade do que e
+    enviado ao modelo de embeddings — todos os pipelines (ingestao e consumo)
+    DEVEM usa-la para garantir consistencia entre o vetor armazenado no
+    ChromaDB e o vetor de query usado para buscar matches. Inconsistencia
+    entre as duas chamadas inviabiliza o threshold de score >= 85.
+
+    Quando `personalidade_ia` esta vazio (None ou string em branco), a secao
+    "Personalidade" e OMITIDA do texto. Isso evita vazar o token literal
+    "None" no documento embedado, o que prejudicaria a representacao vetorial.
+
+    Args:
+        perfil: Instancia validada de `Perfil`.
+
+    Returns:
+        String em PT-BR no formato:
+          "Bio: <bio>. Interesses: <i1>, <i2>, ... . Objetivo: <obj>. Personalidade: <p>"
+        A secao "Personalidade" so aparece quando `perfil.personalidade_ia`
+        esta de fato preenchido (apos a passagem pelo Perfilador).
+    """
+    partes = [
+        f"Bio: {perfil.bio.strip()}.",
+        f"Interesses: {', '.join(perfil.interesses)}.",
+        f"Objetivo: {perfil.objetivo}.",
+    ]
+    if perfil.personalidade_ia and perfil.personalidade_ia.strip():
+        partes.append(f"Personalidade: {perfil.personalidade_ia.strip()}.")
+    return " ".join(partes)
