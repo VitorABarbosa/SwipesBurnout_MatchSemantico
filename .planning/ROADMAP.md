@@ -32,7 +32,12 @@ O projeto parte do zero (greenfield) e entrega, em 7 fases sequenciais, um pipel
   3. Um perfil sintético pode ser instanciado, validado e seu "documento semântico" gerado sem erros
   4. O wrapper ChromaDB insere um perfil, recupera por busca e a conversão distância coseno → score 0–100 devolve valor correto para um exemplo conhecido
   5. README.md em PT-BR lista os passos de setup, execução do front e do notebook e pode ser seguido do zero
-**Planos**: TBD
+**Plans:** 4 plans
+Plans:
+- [ ] 01-01-PLAN.md — Estrutura do pacote, dependências, pyproject.toml, .env.example, .gitignore e módulo de configuração com leitura segura de chaves (ENV-01..06)
+- [ ] 01-02-PLAN.md — Schema Pydantic `Perfil`, gerador de UUID e função `construir_documento_semantico` (DATA-01..04)
+- [ ] 01-03-PLAN.md — Função `distancia_cosseno_para_score` + wrapper `Repositorio` do ChromaDB com filtros hard via metadados (REPO-01..04)
+- [ ] 01-04-PLAN.md — README.md em PT-BR com instruções completas de setup, execução do front e do notebook (ENV-07)
 
 ### Phase 2: Seed Data Sintético
 **Objetivo**: Existir um gerador de perfis sintéticos com seed fixa que produz um pool matematicamente garantido de conter ≥ 10 perfis compatíveis com o perfil de teste (score ≥ 85), de forma reproduzível entre execuções.
@@ -115,7 +120,7 @@ O projeto parte do zero (greenfield) e entrega, em 7 fases sequenciais, um pipel
 
 | Fase | Planos Concluídos | Status | Concluída em |
 |------|-------------------|--------|--------------|
-| 1. Fundação | 0/? | Não iniciada | - |
+| 1. Fundação | 0/4 | Planejada | - |
 | 2. Seed Data Sintético | 0/? | Não iniciada | - |
 | 3. Agentes e Grafo LangGraph | 0/? | Não iniciada | - |
 | 4. Pipeline de Ingestão | 0/? | Não iniciada | - |
