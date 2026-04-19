@@ -15,7 +15,7 @@ Cada requisito mapeia para exatamente uma fase do roadmap.
 - [x] **ENV-04**: Leitura de chaves de API exclusivamente via `.env` ou variável de ambiente; nunca hardcoded
 - [x] **ENV-05**: `.env.example` documentando todas as variáveis necessárias
 - [x] **ENV-06**: Mensagem de erro clara e em PT-BR quando uma chave de API estiver ausente
-- [ ] **ENV-07**: README.md em PT-BR com instruções de setup, execução do front e do notebook
+- [x] **ENV-07**: README.md em PT-BR com instruções de setup, execução do front e do notebook
 
 ### Schema e Modelo de Dados
 

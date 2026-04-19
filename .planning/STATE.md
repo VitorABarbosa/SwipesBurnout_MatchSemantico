@@ -10,28 +10,28 @@ Ver: .planning/PROJECT.md (atualizado em 2026-04-19)
 ## Posição Atual
 
 Fase: 1 de 7 (Fundação)
-Plano: 2 de 4 na fase atual
+Plano: 3 de 4 na fase atual (executado fora de ordem — 01-03 ainda pendente)
 Status: Em execução
-Última atividade: 2026-04-19 — Plano 01-02 concluído (schema Pydantic `Perfil` + `construir_documento_semantico` com 19 testes passando)
+Última atividade: 2026-04-19 — Plano 01-04 concluído (README.md em PT-BR com 256 linhas, instruções de setup, execução do front Streamlit, execução do notebook Colab e troubleshooting; ENV-07 fechado)
 
-Progresso: [██░░░░░░░░] 8%
+Progresso: [█░░░░░░░░░] 11%
 
 ## Métricas de Desempenho
 
 **Velocidade:**
-- Total de planos concluídos: 2
-- Duração média: 3.5 min
-- Tempo total de execução: 7 min
+- Total de planos concluídos: 3
+- Duração média: 3 min
+- Tempo total de execução: 9 min
 
 **Por Fase:**
 
 | Fase | Planos | Total | Média/Plano |
 |------|--------|-------|-------------|
-| 1    | 2      | 7 min | 3.5 min     |
+| 1    | 3      | 9 min | 3 min       |
 
 **Tendência Recente:**
-- Últimos 5 planos: 01-01 (4 min), 01-02 (3 min)
-- Tendência: estável (~3-4 min por plano)
+- Últimos 5 planos: 01-01 (4 min), 01-02 (3 min), 01-04 (2 min)
+- Tendência: estável e levemente acelerando (~2-4 min por plano)
 
 *Atualizado após cada conclusão de plano*
 
@@ -55,6 +55,10 @@ Decisões relevantes para o trabalho atual:
 - 01-02: `genero_preferido` aceita `"todos"` — modela "sem preferência" explicitamente para o filtro hard
 - 01-02: `construir_documento_semantico` é a fonte ÚNICA da verdade do texto enviado ao `text-embedding-004` — divergência entre ingestão e consumo invalida o threshold ≥ 85
 - 01-02: Função omite seção `"Personalidade"` quando vazia — defesa contra vazamento de `"None"` no embedding
+- 01-04: README como arquivo único (em vez de docs/ multi-arquivo) — escopo de CP5 não justifica fragmentação
+- 01-04: Forward references explícitas para `app/streamlit_app.py` e `notebook/demo_cp5.ipynb` com nota "(criado nas fases seguintes)" — evita reescrever README a cada fase
+- 01-04: Instruções de venv para 3 plataformas (Linux/macOS, Windows PowerShell, Windows Git Bash) — equipe usa Windows mas avaliador pode usar Mac/Linux
+- 01-04: Troubleshooting cita erros reais já codificados (`ConfigError` do 01-01, `get_or_create_collection` do 01-03) — alinha doc com mensagens reais do código
 
 ### Pendências (Todos)
 
@@ -68,5 +72,5 @@ Nenhuma ainda.
 ## Continuidade da Sessão
 
 Última sessão: 2026-04-19
-Parou em: Concluído 01-02-PLAN.md — schema Pydantic `Perfil` + função canônica `construir_documento_semantico` com 19 testes passando (27 ao todo na suíte). Próximo: 01-03 (repositório ChromaDB).
+Parou em: Concluído 01-04-PLAN.md — README.md em PT-BR com 256 linhas e 12 seções nível-2 (visão geral, equipe, stack, setup multiplataforma, configuração de chave Google AI Studio, execução do front e notebook, troubleshooting). ENV-07 fechado. Próximo: 01-03 (repositório ChromaDB) — único plano restante da Fase 1.
 Arquivo de retomada: Nenhum
