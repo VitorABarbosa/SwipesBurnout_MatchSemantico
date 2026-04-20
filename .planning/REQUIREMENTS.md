@@ -33,10 +33,10 @@ Cada requisito mapeia para exatamente uma fase do roadmap.
 
 ### Seed Data Sintético
 
-- [ ] **SEED-01**: Gerador de perfis sintéticos diversificados (cidade, idade, gênero, objetivo, interesses, bio)
-- [ ] **SEED-02**: Pool calibrado matematicamente para garantir que existem ≥ 10 perfis compatíveis com cada perfil de teste (score ≥ 85)
-- [ ] **SEED-03**: Pelo menos 1 perfil de teste pré-definido e documentado no código (não-aleatório), usado nas demos e testes
-- [ ] **SEED-04**: Reprodutibilidade — geração com seed fixa para resultados estáveis entre execuções
+- [x] **SEED-01**: Gerador de perfis sintéticos diversificados (cidade, idade, gênero, objetivo, interesses, bio)
+- [x] **SEED-02**: Pool calibrado matematicamente para garantir que existem ≥ 10 perfis compatíveis com cada perfil de teste (score ≥ 85)
+- [x] **SEED-03**: Pelo menos 1 perfil de teste pré-definido e documentado no código (não-aleatório), usado nas demos e testes
+- [x] **SEED-04**: Reprodutibilidade — geração com seed fixa para resultados estáveis entre execuções
 
 ### Agentes (LangGraph)
 

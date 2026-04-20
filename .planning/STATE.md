@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Em execução
-last_updated: "2026-04-20T18:32:18.277Z"
+last_updated: "2026-04-20T20:01:00.000Z"
 progress:
   total_phases: 7
   completed_phases: 1
-  total_plans: 4
-  completed_plans: 4
+  total_plans: 6
+  completed_plans: 5
 ---
 
 # Estado do Projeto
@@ -18,33 +18,34 @@ progress:
 Ver: .planning/PROJECT.md (atualizado em 2026-04-19)
 
 **Valor central:** Para qualquer perfil submetido, devolver 10 matches com score de compatibilidade ≥ 85, com breakdown dos fatores e justificativa textual gerada por IA.
-**Foco atual:** Fase 1 — Fundação
+**Foco atual:** Fase 2 — Seed Data Sintético
 
 ## Posição Atual
 
-Fase: 1 de 7 (Fundação)
-Plano: 3 de 4 na fase atual (executado fora de ordem — 01-03 ainda pendente)
+Fase: 2 de 7 (Seed Data Sintético)
+Plano: 1 de 2 na fase atual (02-01 concluído — suite TDD RED)
 Status: Em execução
-Última atividade: 2026-04-19 — Plano 01-04 concluído (README.md em PT-BR com 256 linhas, instruções de setup, execução do front Streamlit, execução do notebook Colab e troubleshooting; ENV-07 fechado)
+Última atividade: 2026-04-20 — Plano 02-01 concluído (tests/test_seed_data.py com 5 testes TDD RED cobrindo SEED-01..04, todos falhando com ModuleNotFoundError)
 
-Progresso: [█░░░░░░░░░] 11%
+Progresso: [██░░░░░░░░] 20%
 
 ## Métricas de Desempenho
 
 **Velocidade:**
-- Total de planos concluídos: 3
-- Duração média: 3 min
-- Tempo total de execução: 9 min
+- Total de planos concluídos: 4
+- Duração média: 2.5 min
+- Tempo total de execução: 10 min
 
 **Por Fase:**
 
 | Fase | Planos | Total | Média/Plano |
 |------|--------|-------|-------------|
 | 1    | 3      | 9 min | 3 min       |
+| 2    | 1      | 1 min | 1 min       |
 
 **Tendência Recente:**
-- Últimos 5 planos: 01-01 (4 min), 01-02 (3 min), 01-04 (2 min)
-- Tendência: estável e levemente acelerando (~2-4 min por plano)
+- Últimos 5 planos: 01-01 (4 min), 01-02 (3 min), 01-04 (2 min), 02-01 (1 min)
+- Tendência: estável e levemente acelerando (~1-4 min por plano)
 
 *Atualizado após cada conclusão de plano*
 
@@ -72,6 +73,8 @@ Decisões relevantes para o trabalho atual:
 - 01-04: Forward references explícitas para `app/streamlit_app.py` e `notebook/demo_cp5.ipynb` com nota "(criado nas fases seguintes)" — evita reescrever README a cada fase
 - 01-04: Instruções de venv para 3 plataformas (Linux/macOS, Windows PowerShell, Windows Git Bash) — equipe usa Windows mas avaliador pode usar Mac/Linux
 - 01-04: Troubleshooting cita erros reais já codificados (`ConfigError` do 01-01, `get_or_create_collection` do 01-03) — alinha doc com mensagens reais do código
+- 02-01: Análise estatica pura (sem ChromaDB) para test_pool_tem_10_compativeis — criterios: interesses_em_comum >= 3 + objetivo == "namoro" + faixa_etaria_pref cobre idade 27
+- 02-01: PERFIL_TESTE campos fixos documentados: nome="Ana Lima", objetivo="namoro", idade=27, >= 5 interesses incluindo musica e viagem
 
 ### Pendências (Todos)
 
@@ -84,6 +87,6 @@ Nenhuma ainda.
 
 ## Continuidade da Sessão
 
-Última sessão: 2026-04-19
-Parou em: Concluído 01-04-PLAN.md — README.md em PT-BR com 256 linhas e 12 seções nível-2 (visão geral, equipe, stack, setup multiplataforma, configuração de chave Google AI Studio, execução do front e notebook, troubleshooting). ENV-07 fechado. Próximo: 01-03 (repositório ChromaDB) — único plano restante da Fase 1.
+Última sessão: 2026-04-20
+Parou em: Concluído 02-01-PLAN.md — tests/test_seed_data.py com 5 testes TDD RED cobrindo SEED-01..04. Todos falham com ModuleNotFoundError (fase RED verificada). SEED-01, SEED-02, SEED-03, SEED-04 fechados. Próximo: 02-02 (implementação connect_ai/seed_data.py — fase GREEN).
 Arquivo de retomada: Nenhum
