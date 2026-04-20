@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Em execução
-last_updated: "2026-04-20T20:44:19.302Z"
+last_updated: "2026-04-20T20:49:00.000Z"
 progress:
   total_phases: 7
   completed_phases: 2
   total_plans: 9
-  completed_plans: 7
+  completed_plans: 8
 ---
 
 # Estado do Projeto
@@ -18,16 +18,16 @@ progress:
 Ver: .planning/PROJECT.md (atualizado em 2026-04-19)
 
 **Valor central:** Para qualquer perfil submetido, devolver 10 matches com score de compatibilidade ≥ 85, com breakdown dos fatores e justificativa textual gerada por IA.
-**Foco atual:** Fase 3 — Agentes e Grafo LangGraph (03-01 RED concluído)
+**Foco atual:** Fase 3 — Agentes e Grafo LangGraph (03-02 GREEN concluído)
 
 ## Posição Atual
 
 Fase: 3 de 7 (Agentes e Grafo LangGraph — Em andamento)
-Plano: 1 de 3 na fase atual (03-01 concluído — fase RED dos testes)
+Plano: 2 de 3 na fase atual (03-02 concluído — GREEN para connect_ai/agentes.py)
 Status: Em execução
-Última atividade: 2026-04-20 — Plano 03-01 concluído (tests/test_agentes.py com 10 testes + tests/test_grafo.py com 5 testes, RED confirmado com ModuleNotFoundError, 51/51 suite existente passando)
+Última atividade: 2026-04-20 — Plano 03-02 concluído (connect_ai/agentes.py com AgentState TypedDict + 3 agentes, 10/10 testes passando, 61/61 suite completa sem regressoes)
 
-Progresso: [████████░░] 78%
+Progresso: [████████░░] 89%
 
 ## Métricas de Desempenho
 
@@ -42,10 +42,10 @@ Progresso: [████████░░] 78%
 |------|--------|-------|-------------|
 | 1    | 3      | 9 min | 3 min       |
 | 2    | 2      | 6 min | 3 min       |
-| 3    | 1      | 5 min | 5 min       |
+| 3    | 2      | 8 min | 4 min       |
 
 **Tendência Recente:**
-- Últimos 5 planos: 01-04 (2 min), 02-01 (1 min), 02-02 (5 min), 03-01 (5 min)
+- Últimos 5 planos: 02-01 (1 min), 02-02 (5 min), 03-01 (5 min), 03-02 (3 min)
 - Tendência: estável (~1-5 min por plano)
 
 *Atualizado após cada conclusão de plano*
@@ -82,6 +82,9 @@ Decisões relevantes para o trabalho atual:
 - 03-01: AgentState como dict TypedDict-style com 5 campos (perfil, candidatos, matches, justificativas, erro) verificado via operador `in` nos testes
 - 03-01: `salvar_visualizacao_grafo` gera .mmd (Mermaid) sempre; .png opcional — testes validam apenas .mmd para evitar dependencia de graphviz
 - 03-01: Imports lazy em test_grafo.py (dentro das funcoes de teste) para garantir que cada teste falha individualmente em RED
+- 03-02: _cache_personalidade como dict global em vez de functools.lru_cache — Pydantic BaseModel nao e hashavel; dict keyed por perfil.id e mais simples e igualmente deterministico
+- 03-02: _calcular_score_stub retorna 90.0 hardcoded para todos os candidatos — substituido na Fase 5 por scoring ponderado com pesos 60/20/10/5/5
+- 03-02: agente_casamenteiro importa gerar_pool_perfis lazily (dentro da funcao) — evita dependencia circular no nivel de modulo
 
 ### Pendências (Todos)
 
@@ -95,5 +98,5 @@ Nenhuma ainda.
 ## Continuidade da Sessão
 
 Última sessão: 2026-04-20
-Parou em: Concluído 03-01-PLAN.md — tests/test_agentes.py (10 testes RED, AGT-01..04, AGT-07) e tests/test_grafo.py (5 testes RED, AGT-05, AGT-06) criados. ModuleNotFoundError confirmado. 51/51 suite existente passando. Próximo: 03-02 GREEN (implementar connect_ai/agentes.py).
+Parou em: Concluído 03-02-PLAN.md — connect_ai/agentes.py implementado (181 linhas), 10/10 testes test_agentes.py passando GREEN, 61/61 suite completa sem regressoes. Próximo: 03-03 GREEN (implementar connect_ai/grafo.py).
 Arquivo de retomada: Nenhum

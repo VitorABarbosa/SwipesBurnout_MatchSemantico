@@ -179,13 +179,13 @@ Mapeamento requisito → fase. Atualizado durante a criação do roadmap em 2026
 | SEED-02 | Fase 2 — Seed Data Sintético | Concluído |
 | SEED-03 | Fase 2 — Seed Data Sintético | Concluído |
 | SEED-04 | Fase 2 — Seed Data Sintético | Concluído |
-| AGT-01 | Fase 3 — Agentes e Grafo LangGraph | Pendente |
-| AGT-02 | Fase 3 — Agentes e Grafo LangGraph | Pendente |
-| AGT-03 | Fase 3 — Agentes e Grafo LangGraph | Pendente |
-| AGT-04 | Fase 3 — Agentes e Grafo LangGraph | Pendente |
+| AGT-01 | Fase 3 — Agentes e Grafo LangGraph | Concluído |
+| AGT-02 | Fase 3 — Agentes e Grafo LangGraph | Concluído |
+| AGT-03 | Fase 3 — Agentes e Grafo LangGraph | Concluído |
+| AGT-04 | Fase 3 — Agentes e Grafo LangGraph | Concluído |
 | AGT-05 | Fase 3 — Agentes e Grafo LangGraph | Pendente |
 | AGT-06 | Fase 3 — Agentes e Grafo LangGraph | Pendente |
-| AGT-07 | Fase 3 — Agentes e Grafo LangGraph | Pendente |
+| AGT-07 | Fase 3 — Agentes e Grafo LangGraph | Concluído |
 | ING-01 | Fase 4 — Pipeline de Ingestão | Pendente |
 | ING-02 | Fase 4 — Pipeline de Ingestão | Pendente |
 | ING-03 | Fase 4 — Pipeline de Ingestão | Pendente |
