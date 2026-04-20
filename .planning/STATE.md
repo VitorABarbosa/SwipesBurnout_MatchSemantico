@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Em execução
-last_updated: "2026-04-20T20:09:42.860Z"
+last_updated: "2026-04-20T20:44:19.302Z"
 progress:
   total_phases: 7
   completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
+  total_plans: 9
+  completed_plans: 7
 ---
 
 # Estado do Projeto
@@ -18,23 +18,23 @@ progress:
 Ver: .planning/PROJECT.md (atualizado em 2026-04-19)
 
 **Valor central:** Para qualquer perfil submetido, devolver 10 matches com score de compatibilidade ≥ 85, com breakdown dos fatores e justificativa textual gerada por IA.
-**Foco atual:** Fase 3 — Agente Perfilador (Fase 2 concluída)
+**Foco atual:** Fase 3 — Agentes e Grafo LangGraph (03-01 RED concluído)
 
 ## Posição Atual
 
-Fase: 2 de 7 (Seed Data Sintético — CONCLUÍDA)
-Plano: 2 de 2 na fase atual (02-02 concluído — implementação GREEN)
+Fase: 3 de 7 (Agentes e Grafo LangGraph — Em andamento)
+Plano: 1 de 3 na fase atual (03-01 concluído — fase RED dos testes)
 Status: Em execução
-Última atividade: 2026-04-20 — Plano 02-02 concluído (connect_ai/seed_data.py com SEED_FIXA=42, PERFIL_TESTE e gerar_pool_perfis(); 5/5 testes passando, 51/51 suite completa)
+Última atividade: 2026-04-20 — Plano 03-01 concluído (tests/test_agentes.py com 10 testes + tests/test_grafo.py com 5 testes, RED confirmado com ModuleNotFoundError, 51/51 suite existente passando)
 
-Progresso: [██████████] 100%
+Progresso: [████████░░] 78%
 
 ## Métricas de Desempenho
 
 **Velocidade:**
-- Total de planos concluídos: 6
-- Duração média: 2.5 min
-- Tempo total de execução: 15 min
+- Total de planos concluídos: 7
+- Duração média: ~2.5 min
+- Tempo total de execução: 20 min
 
 **Por Fase:**
 
@@ -42,9 +42,10 @@ Progresso: [██████████] 100%
 |------|--------|-------|-------------|
 | 1    | 3      | 9 min | 3 min       |
 | 2    | 2      | 6 min | 3 min       |
+| 3    | 1      | 5 min | 5 min       |
 
 **Tendência Recente:**
-- Últimos 5 planos: 01-02 (3 min), 01-04 (2 min), 02-01 (1 min), 02-02 (5 min)
+- Últimos 5 planos: 01-04 (2 min), 02-01 (1 min), 02-02 (5 min), 03-01 (5 min)
 - Tendência: estável (~1-5 min por plano)
 
 *Atualizado após cada conclusão de plano*
@@ -78,6 +79,9 @@ Decisões relevantes para o trabalho atual:
 - 02-02: `random.Random(seed)` local em vez de `random.seed()` global — reproducibilidade isolada sem side-effects em testes paralelos
 - 02-02: 20 perfis alta-compat + 80 diversidade + shuffle — garante SEED-02 (>= 10 compativeis) sem vies posicional no pool
 - 02-02: IDs deterministicos (`seed-compat-XXXX`, `seed-diverso-XXXX`) em vez de `gerar_uuid()` — reproducibilidade total incluindo IDs
+- 03-01: AgentState como dict TypedDict-style com 5 campos (perfil, candidatos, matches, justificativas, erro) verificado via operador `in` nos testes
+- 03-01: `salvar_visualizacao_grafo` gera .mmd (Mermaid) sempre; .png opcional — testes validam apenas .mmd para evitar dependencia de graphviz
+- 03-01: Imports lazy em test_grafo.py (dentro das funcoes de teste) para garantir que cada teste falha individualmente em RED
 
 ### Pendências (Todos)
 
@@ -91,5 +95,5 @@ Nenhuma ainda.
 ## Continuidade da Sessão
 
 Última sessão: 2026-04-20
-Parou em: Concluído 02-02-PLAN.md — connect_ai/seed_data.py implementado (fase GREEN). 5/5 testes passando, 51/51 suite completa. SEED-01, SEED-02, SEED-03, SEED-04 todos satisfeitos. Fase 2 completa. Próximo: Fase 3 (Agente Perfilador).
+Parou em: Concluído 03-01-PLAN.md — tests/test_agentes.py (10 testes RED, AGT-01..04, AGT-07) e tests/test_grafo.py (5 testes RED, AGT-05, AGT-06) criados. ModuleNotFoundError confirmado. 51/51 suite existente passando. Próximo: 03-02 GREEN (implementar connect_ai/agentes.py).
 Arquivo de retomada: Nenhum

@@ -40,13 +40,13 @@ Cada requisito mapeia para exatamente uma fase do roadmap.
 
 ### Agentes (LangGraph)
 
-- [ ] **AGT-01**: `AgentState` (TypedDict) com todos os campos compartilhados entre os 3 nós
-- [ ] **AGT-02**: Agente Perfilador implementado com mock textual do Gemini Vision (output determinístico que simula análise multimodal)
-- [ ] **AGT-03**: Agente Casamenteiro implementado, executando filtros hard + busca vetorial Top-30 + scoring + corte ≥ 85
-- [ ] **AGT-04**: Agente RAG Justificador implementado, gerando justificativas textuais em PT-BR para cada um dos Top-10
-- [ ] **AGT-05**: Grafo LangGraph montado com os 3 nós e estado fluindo corretamente entre eles
-- [ ] **AGT-06**: Função para visualização do grafo (Mermaid/PNG) salva como artefato e exibida no front e no notebook
-- [ ] **AGT-07**: Determinismo dos LLMs garantido onde aplicável (`temperature=0` ou cache do output do Perfilador)
+- [x] **AGT-01**: `AgentState` (TypedDict) com todos os campos compartilhados entre os 3 nós
+- [x] **AGT-02**: Agente Perfilador implementado com mock textual do Gemini Vision (output determinístico que simula análise multimodal)
+- [x] **AGT-03**: Agente Casamenteiro implementado, executando filtros hard + busca vetorial Top-30 + scoring + corte ≥ 85
+- [x] **AGT-04**: Agente RAG Justificador implementado, gerando justificativas textuais em PT-BR para cada um dos Top-10
+- [x] **AGT-05**: Grafo LangGraph montado com os 3 nós e estado fluindo corretamente entre eles
+- [x] **AGT-06**: Função para visualização do grafo (Mermaid/PNG) salva como artefato e exibida no front e no notebook
+- [x] **AGT-07**: Determinismo dos LLMs garantido onde aplicável (`temperature=0` ou cache do output do Perfilador)
 
 ### Pipeline de Ingestão
 
