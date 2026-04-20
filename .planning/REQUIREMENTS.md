@@ -175,10 +175,10 @@ Mapeamento requisito → fase. Atualizado durante a criação do roadmap em 2026
 | REPO-02 | Fase 1 — Fundação | Concluído |
 | REPO-03 | Fase 1 — Fundação | Concluído |
 | REPO-04 | Fase 1 — Fundação | Concluído |
-| SEED-01 | Fase 2 — Seed Data Sintético | Pendente |
-| SEED-02 | Fase 2 — Seed Data Sintético | Pendente |
-| SEED-03 | Fase 2 — Seed Data Sintético | Pendente |
-| SEED-04 | Fase 2 — Seed Data Sintético | Pendente |
+| SEED-01 | Fase 2 — Seed Data Sintético | Concluído |
+| SEED-02 | Fase 2 — Seed Data Sintético | Concluído |
+| SEED-03 | Fase 2 — Seed Data Sintético | Concluído |
+| SEED-04 | Fase 2 — Seed Data Sintético | Concluído |
 | AGT-01 | Fase 3 — Agentes e Grafo LangGraph | Pendente |
 | AGT-02 | Fase 3 — Agentes e Grafo LangGraph | Pendente |
 | AGT-03 | Fase 3 — Agentes e Grafo LangGraph | Pendente |

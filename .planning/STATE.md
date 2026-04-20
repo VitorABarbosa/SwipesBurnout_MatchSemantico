@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Em execução
-last_updated: "2026-04-20T20:01:00.000Z"
+last_updated: "2026-04-20T20:15:00.000Z"
 progress:
   total_phases: 7
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Estado do Projeto
@@ -18,34 +18,34 @@ progress:
 Ver: .planning/PROJECT.md (atualizado em 2026-04-19)
 
 **Valor central:** Para qualquer perfil submetido, devolver 10 matches com score de compatibilidade ≥ 85, com breakdown dos fatores e justificativa textual gerada por IA.
-**Foco atual:** Fase 2 — Seed Data Sintético
+**Foco atual:** Fase 3 — Agente Perfilador (Fase 2 concluída)
 
 ## Posição Atual
 
-Fase: 2 de 7 (Seed Data Sintético)
-Plano: 1 de 2 na fase atual (02-01 concluído — suite TDD RED)
+Fase: 2 de 7 (Seed Data Sintético — CONCLUÍDA)
+Plano: 2 de 2 na fase atual (02-02 concluído — implementação GREEN)
 Status: Em execução
-Última atividade: 2026-04-20 — Plano 02-01 concluído (tests/test_seed_data.py com 5 testes TDD RED cobrindo SEED-01..04, todos falhando com ModuleNotFoundError)
+Última atividade: 2026-04-20 — Plano 02-02 concluído (connect_ai/seed_data.py com SEED_FIXA=42, PERFIL_TESTE e gerar_pool_perfis(); 5/5 testes passando, 51/51 suite completa)
 
-Progresso: [██░░░░░░░░] 20%
+Progresso: [██████████] 100%
 
 ## Métricas de Desempenho
 
 **Velocidade:**
-- Total de planos concluídos: 4
+- Total de planos concluídos: 6
 - Duração média: 2.5 min
-- Tempo total de execução: 10 min
+- Tempo total de execução: 15 min
 
 **Por Fase:**
 
 | Fase | Planos | Total | Média/Plano |
 |------|--------|-------|-------------|
 | 1    | 3      | 9 min | 3 min       |
-| 2    | 1      | 1 min | 1 min       |
+| 2    | 2      | 6 min | 3 min       |
 
 **Tendência Recente:**
-- Últimos 5 planos: 01-01 (4 min), 01-02 (3 min), 01-04 (2 min), 02-01 (1 min)
-- Tendência: estável e levemente acelerando (~1-4 min por plano)
+- Últimos 5 planos: 01-02 (3 min), 01-04 (2 min), 02-01 (1 min), 02-02 (5 min)
+- Tendência: estável (~1-5 min por plano)
 
 *Atualizado após cada conclusão de plano*
 
@@ -75,6 +75,9 @@ Decisões relevantes para o trabalho atual:
 - 01-04: Troubleshooting cita erros reais já codificados (`ConfigError` do 01-01, `get_or_create_collection` do 01-03) — alinha doc com mensagens reais do código
 - 02-01: Análise estatica pura (sem ChromaDB) para test_pool_tem_10_compativeis — criterios: interesses_em_comum >= 3 + objetivo == "namoro" + faixa_etaria_pref cobre idade 27
 - 02-01: PERFIL_TESTE campos fixos documentados: nome="Ana Lima", objetivo="namoro", idade=27, >= 5 interesses incluindo musica e viagem
+- 02-02: `random.Random(seed)` local em vez de `random.seed()` global — reproducibilidade isolada sem side-effects em testes paralelos
+- 02-02: 20 perfis alta-compat + 80 diversidade + shuffle — garante SEED-02 (>= 10 compativeis) sem vies posicional no pool
+- 02-02: IDs deterministicos (`seed-compat-XXXX`, `seed-diverso-XXXX`) em vez de `gerar_uuid()` — reproducibilidade total incluindo IDs
 
 ### Pendências (Todos)
 
@@ -83,10 +86,10 @@ Nenhuma ainda.
 ### Bloqueadores / Preocupações
 
 - **Fase 5 (gate crítico):** A viabilidade do threshold ≥ 85 precisa ser validada empiricamente. Se falhar, o procedimento é retornar à Fase 2 para recalibrar o seed data antes de avançar.
-- **Fase 2:** A calibragem do seed data (distribuição de interesses, cidades, objetivos) é decisão crítica que impacta diretamente o gate da Fase 5.
+- **Fase 2 RESOLVIDA:** Pool calibrado entregue — 20 perfis de alta-compat garantem >= 10 matches estruturais com PERFIL_TESTE. Gate da Fase 5 tem base matematica.
 
 ## Continuidade da Sessão
 
 Última sessão: 2026-04-20
-Parou em: Concluído 02-01-PLAN.md — tests/test_seed_data.py com 5 testes TDD RED cobrindo SEED-01..04. Todos falham com ModuleNotFoundError (fase RED verificada). SEED-01, SEED-02, SEED-03, SEED-04 fechados. Próximo: 02-02 (implementação connect_ai/seed_data.py — fase GREEN).
+Parou em: Concluído 02-02-PLAN.md — connect_ai/seed_data.py implementado (fase GREEN). 5/5 testes passando, 51/51 suite completa. SEED-01, SEED-02, SEED-03, SEED-04 todos satisfeitos. Fase 2 completa. Próximo: Fase 3 (Agente Perfilador).
 Arquivo de retomada: Nenhum

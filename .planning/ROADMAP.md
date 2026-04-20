@@ -48,7 +48,7 @@ Plans:
   2. O perfil de teste está documentado no código (campos explícitos, não aleatórios)
   3. Análise estática do pool mostra ≥ 10 perfis com sobreposição de interesses, objetivo e faixa etária compatíveis com o perfil de teste (validação matemática antes da ingestão real)
   4. Os perfis gerados cobrem diversidade de cidade, faixa etária, gênero e objetivo sem viés óbvio
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 Plans:
 - [ ] 02-01-PLAN.md — Testes TDD (fase RED): tests/test_seed_data.py com 5 testes cobrindo SEED-01..04, todos falhando antes da implementacao (SEED-01, SEED-02, SEED-03, SEED-04)
 - [ ] 02-02-PLAN.md — Implementacao: connect_ai/seed_data.py com SEED_FIXA=42, PERFIL_TESTE explicito e gerar_pool_perfis() ate 5 passed (SEED-01, SEED-02, SEED-03, SEED-04)
@@ -124,7 +124,7 @@ Plans:
 | Fase | Planos Concluídos | Status | Concluída em |
 |------|-------------------|--------|--------------|
 | 1. Fundação | 3/4 | In Progress |  |
-| 2. Seed Data Sintético | 1/2 | In Progress|  |
+| 2. Seed Data Sintético | 2/2 | Complete   | 2026-04-20 |
 | 3. Agentes e Grafo LangGraph | 0/? | Não iniciada | - |
 | 4. Pipeline de Ingestão | 0/? | Não iniciada | - |
 | 5. Pipeline de Consumo e Scoring | 0/? | Não iniciada | - |
