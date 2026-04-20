@@ -26,10 +26,10 @@ Cada requisito mapeia para exatamente uma fase do roadmap.
 
 ### ChromaDB e Repositório
 
-- [ ] **REPO-01**: Wrapper de repositório ChromaDB encapsulando criação, inserção, busca filtrada e reset da coleção
-- [ ] **REPO-02**: Persistência local do ChromaDB em diretório dedicado e `.gitignore`-ado
-- [ ] **REPO-03**: Metadados estruturados (idade, cidade, gênero, gênero preferido, faixa etária preferida, objetivo) gravados junto ao vetor para suportar filtros hard
-- [ ] **REPO-04**: Conversão correta de distância coseno → similaridade → escala 0–100, encapsulada em função única e testada
+- [x] **REPO-01**: Wrapper de repositório ChromaDB encapsulando criação, inserção, busca filtrada e reset da coleção
+- [x] **REPO-02**: Persistência local do ChromaDB em diretório dedicado e `.gitignore`-ado
+- [x] **REPO-03**: Metadados estruturados (idade, cidade, gênero, gênero preferido, faixa etária preferida, objetivo) gravados junto ao vetor para suportar filtros hard
+- [x] **REPO-04**: Conversão correta de distância coseno → similaridade → escala 0–100, encapsulada em função única e testada
 
 ### Seed Data Sintético
 
@@ -171,10 +171,10 @@ Mapeamento requisito → fase. Atualizado durante a criação do roadmap em 2026
 | DATA-02 | Fase 1 — Fundação | Pendente |
 | DATA-03 | Fase 1 — Fundação | Pendente |
 | DATA-04 | Fase 1 — Fundação | Pendente |
-| REPO-01 | Fase 1 — Fundação | Pendente |
-| REPO-02 | Fase 1 — Fundação | Pendente |
-| REPO-03 | Fase 1 — Fundação | Pendente |
-| REPO-04 | Fase 1 — Fundação | Pendente |
+| REPO-01 | Fase 1 — Fundação | Concluído |
+| REPO-02 | Fase 1 — Fundação | Concluído |
+| REPO-03 | Fase 1 — Fundação | Concluído |
+| REPO-04 | Fase 1 — Fundação | Concluído |
 | SEED-01 | Fase 2 — Seed Data Sintético | Pendente |
 | SEED-02 | Fase 2 — Seed Data Sintético | Pendente |
 | SEED-03 | Fase 2 — Seed Data Sintético | Pendente |
