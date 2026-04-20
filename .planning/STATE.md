@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Em execução
-last_updated: "2026-04-20T20:49:00.000Z"
+last_updated: "2026-04-20T20:53:05.439Z"
 progress:
   total_phases: 7
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 9
-  completed_plans: 8
+  completed_plans: 9
 ---
 
 # Estado do Projeto
@@ -18,16 +18,16 @@ progress:
 Ver: .planning/PROJECT.md (atualizado em 2026-04-19)
 
 **Valor central:** Para qualquer perfil submetido, devolver 10 matches com score de compatibilidade ≥ 85, com breakdown dos fatores e justificativa textual gerada por IA.
-**Foco atual:** Fase 3 — Agentes e Grafo LangGraph (03-02 GREEN concluído)
+**Foco atual:** Fase 3 — Agentes e Grafo LangGraph (03-03 GREEN concluído — Fase 3 COMPLETA)
 
 ## Posição Atual
 
-Fase: 3 de 7 (Agentes e Grafo LangGraph — Em andamento)
-Plano: 2 de 3 na fase atual (03-02 concluído — GREEN para connect_ai/agentes.py)
+Fase: 3 de 7 (Agentes e Grafo LangGraph — CONCLUÍDA)
+Plano: 3 de 3 na fase atual (03-03 concluído — GREEN para connect_ai/grafo.py)
 Status: Em execução
-Última atividade: 2026-04-20 — Plano 03-02 concluído (connect_ai/agentes.py com AgentState TypedDict + 3 agentes, 10/10 testes passando, 61/61 suite completa sem regressoes)
+Última atividade: 2026-04-20 — Plano 03-03 concluído (connect_ai/grafo.py com StateGraph 3 nos, pipeline_consumo compilado, relatorio/grafo_pipeline.mmd gerado, 66/66 suite completa sem regressoes)
 
-Progresso: [████████░░] 89%
+Progresso: [██████████] 100%
 
 ## Métricas de Desempenho
 
@@ -42,10 +42,10 @@ Progresso: [████████░░] 89%
 |------|--------|-------|-------------|
 | 1    | 3      | 9 min | 3 min       |
 | 2    | 2      | 6 min | 3 min       |
-| 3    | 2      | 8 min | 4 min       |
+| 3    | 3      | 13 min | 4.3 min     |
 
 **Tendência Recente:**
-- Últimos 5 planos: 02-01 (1 min), 02-02 (5 min), 03-01 (5 min), 03-02 (3 min)
+- Últimos 5 planos: 02-02 (5 min), 03-01 (5 min), 03-02 (3 min), 03-03 (5 min)
 - Tendência: estável (~1-5 min por plano)
 
 *Atualizado após cada conclusão de plano*
@@ -85,6 +85,8 @@ Decisões relevantes para o trabalho atual:
 - 03-02: _cache_personalidade como dict global em vez de functools.lru_cache — Pydantic BaseModel nao e hashavel; dict keyed por perfil.id e mais simples e igualmente deterministico
 - 03-02: _calcular_score_stub retorna 90.0 hardcoded para todos os candidatos — substituido na Fase 5 por scoring ponderado com pesos 60/20/10/5/5
 - 03-02: agente_casamenteiro importa gerar_pool_perfis lazily (dentro da funcao) — evita dependencia circular no nivel de modulo
+- 03-03: pipeline_consumo compilado no nivel de modulo — importado diretamente pelo Streamlit (Fase 6) e notebook (Fase 7)
+- 03-03: salvar_visualizacao_grafo silencia excecao do PNG — .mmd e o artefato confiavel; .png e bonus quando graphviz presente
 
 ### Pendências (Todos)
 
@@ -98,5 +100,5 @@ Nenhuma ainda.
 ## Continuidade da Sessão
 
 Última sessão: 2026-04-20
-Parou em: Concluído 03-02-PLAN.md — connect_ai/agentes.py implementado (181 linhas), 10/10 testes test_agentes.py passando GREEN, 61/61 suite completa sem regressoes. Próximo: 03-03 GREEN (implementar connect_ai/grafo.py).
+Parou em: Concluído 03-03-PLAN.md — connect_ai/grafo.py implementado (83 linhas), StateGraph 3 nos, pipeline_consumo compilado, 5/5 testes test_grafo.py passando GREEN, 66/66 suite completa sem regressoes. Fase 3 CONCLUIDA. Próximo: Fase 4 (Pipeline de Ingestao).
 Arquivo de retomada: Nenhum

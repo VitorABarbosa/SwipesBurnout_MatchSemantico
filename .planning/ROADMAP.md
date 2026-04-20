@@ -62,7 +62,7 @@ Plans:
   2. O Agente Perfilador executa o mock textual determinístico e sempre devolve o mesmo `personalidade_ia` para o mesmo input
   3. Os três agentes são identificáveis como nós distintos no grafo exportado — não como uma função única
   4. O AgentState acumula dados de forma correta ao transitar do Perfilador → Casamenteiro → RAG (verificado por asserção de campos em teste manual)
-**Plans:** 2/3 plans executed
+**Plans:** 3/3 plans complete
 Plans:
 - [x] 03-01-PLAN.md — TDD RED: tests/test_agentes.py e tests/test_grafo.py com todos os testes falhando (AGT-01..07)
 - [x] 03-02-PLAN.md — Implementacao: connect_ai/agentes.py com AgentState TypedDict + 3 funcoes de agente (GREEN para test_agentes.py) (AGT-01, AGT-02, AGT-03, AGT-04, AGT-07)
@@ -129,7 +129,7 @@ Plans:
 |------|-------------------|--------|--------------|
 | 1. Fundação | 3/4 | In Progress |  |
 | 2. Seed Data Sintético | 2/2 | Complete   | 2026-04-20 |
-| 3. Agentes e Grafo LangGraph | 2/3 | In Progress|  |
+| 3. Agentes e Grafo LangGraph | 3/3 | Complete   | 2026-04-20 |
 | 4. Pipeline de Ingestão | 0/? | Não iniciada | - |
 | 5. Pipeline de Consumo e Scoring | 0/? | Não iniciada | - |
 | 6. Front Streamlit | 0/? | Não iniciada | - |
