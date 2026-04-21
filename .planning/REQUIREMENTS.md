@@ -57,14 +57,14 @@ Cada requisito mapeia para exatamente uma fase do roadmap.
 
 ### Pipeline de Consumo e Scoring
 
-- [ ] **CONS-01**: Função `buscar_matches(perfil_solicitante)` que orquestra o pipeline de consumo end-to-end
-- [ ] **CONS-02**: Aplicação dos filtros hard (faixa etária, cidade/região, gênero preferido, objetivo) via metadados do ChromaDB antes da busca vetorial
-- [ ] **CONS-03**: Busca vetorial Top-K (`K=30`) com cosine distance no ChromaDB
-- [ ] **SCR-01**: Cálculo do score ponderado 60/20/10/5/5 implementado em módulo `scoring.py` testável isoladamente
-- [ ] **SCR-02**: Cada componente do score (semântico, interesses, objetivo, idade, geografia) com função própria, testada
-- [ ] **SCR-03**: Score final normalizado em escala 0–100 com truncamento explícito
-- [ ] **SCR-04**: Filtro final ≥ 85, retornando até 10 candidatos
-- [ ] **SCR-05**: Output estruturado contendo: id, score total, breakdown dos 5 fatores, dados de exibição do match
+- [x] **CONS-01**: Função `buscar_matches(perfil_solicitante)` que orquestra o pipeline de consumo end-to-end
+- [x] **CONS-02**: Aplicação dos filtros hard (faixa etária, cidade/região, gênero preferido, objetivo) via metadados do ChromaDB antes da busca vetorial
+- [x] **CONS-03**: Busca vetorial Top-K (`K=30`) com cosine distance no ChromaDB
+- [x] **SCR-01**: Cálculo do score ponderado 60/20/10/5/5 implementado em módulo `scoring.py` testável isoladamente
+- [x] **SCR-02**: Cada componente do score (semântico, interesses, objetivo, idade, geografia) com função própria, testada
+- [x] **SCR-03**: Score final normalizado em escala 0–100 com truncamento explícito
+- [x] **SCR-04**: Filtro final ≥ 85, retornando até 10 candidatos
+- [x] **SCR-05**: Output estruturado contendo: id, score total, breakdown dos 5 fatores, dados de exibição do match
 
 ### Front Streamlit
 
@@ -101,9 +101,9 @@ Cada requisito mapeia para exatamente uma fase do roadmap.
 
 ### Testes
 
-- [ ] **TEST-01**: Testes unitários do `scoring.py` cobrindo cada um dos 5 fatores e a composição final
-- [ ] **TEST-02**: Teste de integração do pipeline de consumo garantindo que para o perfil de teste retornam 10 matches ≥ 85
-- [ ] **TEST-03**: Teste do wrapper de repositório (insert, search filtrado, reset)
+- [x] **TEST-01**: Testes unitários do `scoring.py` cobrindo cada um dos 5 fatores e a composição final
+- [x] **TEST-02**: Teste de integração do pipeline de consumo garantindo que para o perfil de teste retornam 10 matches ≥ 85
+- [x] **TEST-03**: Teste do wrapper de repositório (insert, search filtrado, reset)
 
 ### Critérios de Aceitação (auditoria final)
 

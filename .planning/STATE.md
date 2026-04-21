@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Em execução
-last_updated: "2026-04-21T21:38:57.769Z"
+last_updated: "2026-04-21T22:18:00.000Z"
 progress:
   total_phases: 7
   completed_phases: 4
-  total_plans: 11
-  completed_plans: 11
+  total_plans: 13
+  completed_plans: 12
 ---
 
 # Estado do Projeto
@@ -18,16 +18,16 @@ progress:
 Ver: .planning/PROJECT.md (atualizado em 2026-04-19)
 
 **Valor central:** Para qualquer perfil submetido, devolver 10 matches com score de compatibilidade ≥ 85, com breakdown dos fatores e justificativa textual gerada por IA.
-**Foco atual:** Fase 5 — Scoring e Consumo (proxima fase)
+**Foco atual:** Fase 5 — Scoring e Consumo (em execução — Wave 1 RED concluida)
 
 ## Posição Atual
 
-Fase: 4 de 7 (Pipeline de Ingestao — CONCLUIDA)
-Plano: 2 de 2 na fase atual (04-02 concluído — GREEN para connect_ai/ingestao.py)
+Fase: 5 de 7 (Pipeline de Consumo e Scoring — em execução)
+Plano: 1 de 2 na fase atual (05-01 concluído — Wave 1 RED: 30 testes criados)
 Status: Em execução
-Última atividade: 2026-04-21 — Plano 04-02 concluído (connect_ai/ingestao.py implementado com ingerir_perfil e ingerir_lote; 6/6 testes GREEN, 72 testes da suite completa passando)
+Última atividade: 2026-04-21 — Plano 05-01 concluído (20 testes RED para connect_ai/scoring.py + 10 testes RED para pipeline de consumo; suite existente 27/27 green)
 
-Progresso: [██████████] 100%
+Progresso: [████████▌ ] 92%
 
 ## Métricas de Desempenho
 
@@ -94,6 +94,10 @@ Decisões relevantes para o trabalho atual:
 - 04-02: ingerir_lote itera ingerir_perfil individualmente — cada perfil gera seu embedding separado; falhas individuais nao abortam lote
 - 04-02: genai.configure() chamado dentro de _gerar_embedding (nao no nivel de modulo) — evita efeito colateral global ao importar sem GOOGLE_API_KEY
 - 04-02: obter_chave_api("GOOGLE_API_KEY", padrao="") em vez de os.environ.get() — centraliza leitura de env no config e carrega .env automaticamente
+- 05-01: Imports lazy (dentro das funcoes) em test_scoring.py — cada teste falha individualmente com ModuleNotFoundError, nao ha ImportError no nivel de coleta do pytest
+- 05-01: Fixtures colecao_temp e colecao_com_seed com tmp_path — isolamento total por teste sem polucao de chroma_db/ real
+- 05-01: test_gate_critico_dez_matches_acima_85 inclui mensagem diagnostica com scores obtidos — facilita debug da Wave 2 se gate falhar
+- 05-01: test_calcular_score_gate_85_com_cinco_interesses confirma score_final=84 (nao 85) — gate 85 e atingido pela similaridade semantica real dos embeddings, nao por valores literais no teste unitario
 
 ### Pendências (Todos)
 
@@ -107,5 +111,5 @@ Nenhuma ainda.
 ## Continuidade da Sessão
 
 Última sessão: 2026-04-21
-Parou em: Concluído 04-02-PLAN.md — connect_ai/ingestao.py implementado com ingerir_perfil e ingerir_lote; ING-01..ING-04 fechados com 6/6 testes GREEN; 72 testes da suite completa passando. Proxima fase: 05 — Scoring e Consumo.
+Parou em: Concluído 05-01-PLAN.md — Wave 1 RED: 20 testes RED para connect_ai/scoring.py (SCR-01..SCR-05, TEST-01) + 10 testes RED para pipeline de consumo (CONS-01..CONS-03, TEST-02, TEST-03); suite existente 27/27 green. Proxima: 05-02 Wave 2 GREEN.
 Arquivo de retomada: Nenhum

@@ -94,7 +94,7 @@ Plans:
   3. O score de cada match inclui breakdown explícito dos 5 fatores (semântico, interesses, objetivo, idade, geografia) visível no output estruturado
   4. O teste do wrapper de repositório (insert, busca filtrada, reset) passa sem erros (TEST-03)
   5. A aplicação dos filtros hard antes da busca vetorial é verificável — candidatos incompatíveis por gênero/objetivo/faixa etária não aparecem no Top-30
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 Plans:
 - [ ] 05-01-PLAN.md — TDD RED: tests/test_scoring.py (20 testes dos 5 fatores e composicao) + tests/test_consumo.py (10 testes do pipeline end-to-end e gate critico) (SCR-01, SCR-02, SCR-03, SCR-04, SCR-05, CONS-01, CONS-02, CONS-03, TEST-01, TEST-02, TEST-03)
 - [ ] 05-02-PLAN.md — Implementacao GREEN: connect_ai/scoring.py (6 funcoes) + buscar_matches em agentes.py + interesses_csv em repositorio.py (SCR-01, SCR-02, SCR-03, SCR-04, SCR-05, CONS-01, CONS-02, CONS-03, TEST-01, TEST-02, TEST-03)
@@ -137,6 +137,6 @@ Plans:
 | 2. Seed Data Sintético | 2/2 | Complete   | 2026-04-20 |
 | 3. Agentes e Grafo LangGraph | 3/3 | Complete    | 2026-04-20 |
 | 4. Pipeline de Ingestão | 2/2 | Complete    | 2026-04-21 |
-| 5. Pipeline de Consumo e Scoring | 0/2 | Não iniciada | - |
+| 5. Pipeline de Consumo e Scoring | 1/2 | In Progress|  |
 | 6. Front Streamlit | 0/? | Não iniciada | - |
 | 7. Demo, Notebook e Entregáveis Finais | 0/? | Não iniciada | - |
