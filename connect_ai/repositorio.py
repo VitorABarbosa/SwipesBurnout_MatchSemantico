@@ -136,6 +136,7 @@ class Repositorio:
             "faixa_etaria_max": int(faixa_max),
             "objetivo": str(perfil.objetivo),
             "nome": str(perfil.nome),  # util para exibicao no front
+            "interesses_csv": ",".join(perfil.interesses),  # ex: "musica,viagem,leitura"
         }
 
     # ------------------------------------------------------------------ #

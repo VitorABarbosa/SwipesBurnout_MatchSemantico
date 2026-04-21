@@ -15,6 +15,7 @@ from typing import Any, Dict, List, Optional
 from typing_extensions import TypedDict
 
 from connect_ai.schema import Perfil
+from connect_ai.repositorio import Repositorio
 
 
 class AgentState(TypedDict):
@@ -85,12 +86,141 @@ def agente_perfilador(state: AgentState) -> AgentState:
 
 
 def _calcular_score_stub(candidato: Dict[str, Any], perfil_ref: Perfil) -> float:
-    """Stub: retorna 90.0 para todos os candidatos.
+    """DEPRECATED: use calcular_score de connect_ai.scoring diretamente.
 
-    FASE 3 APENAS. A Fase 5 substitui por connect_ai.scoring.calcular_score
-    com pesos 60/20/10/5/5 (semantico/interesses/objetivo/idade/geografia).
+    Mantido para compatibilidade com agente_casamenteiro (stub da Fase 3).
+    Quando o candidato nao possui 'distancia_coseno' (uso da Fase 3 sem ChromaDB),
+    retorna 90.0 hardcoded — comportamento original preservado para os testes existentes.
+    A funcao buscar_matches (Fase 5) usa calcular_score com distancia real do ChromaDB.
     """
-    return 90.0
+    if "distancia_coseno" not in candidato:
+        # Modo Fase 3: sem distancia real, retorna score fixo (comportamento original)
+        return 90.0
+    from connect_ai.scoring import calcular_score
+    interesses_b = candidato.get("interesses", [])
+    resultado = calcular_score(
+        distancia_coseno=float(candidato["distancia_coseno"]),
+        interesses_a=list(perfil_ref.interesses),
+        interesses_b=list(interesses_b) if isinstance(interesses_b, (list, tuple)) else [],
+        objetivo_a=str(perfil_ref.objetivo),
+        objetivo_b=str(candidato.get("objetivo", "")),
+        idade_a=int(perfil_ref.idade),
+        idade_b=int(candidato.get("idade", perfil_ref.idade)),
+        cidade_a=str(perfil_ref.cidade),
+        cidade_b=str(candidato.get("cidade", "")),
+    )
+    return resultado["score_final"]
+
+
+def buscar_matches(perfil_solicitante: Perfil, colecao: "Repositorio") -> List[Dict[str, Any]]:
+    """Orquestra o pipeline de consumo end-to-end (CONS-01..03, SCR-04..05).
+
+    Fluxo:
+      1. Enriquece o perfil com personalidade_ia via agente_perfilador (determinismo AGT-07).
+      2. Gera embedding do documento semantico via _gerar_embedding.
+      3. Aplica filtros hard via metadata do ChromaDB (CONS-02):
+         - objetivo: so candidatos com mesmo objetivo
+         - genero: so candidatos com genero == perfil.genero_preferido (se != "todos")
+      4. Busca vetorial Top-30 no ChromaDB (CONS-03, K=30).
+      5. Para cada resultado, parseia interesses_csv do metadata e calcula score
+         ponderado 60/20/10/5/5 via calcular_score (SCR-01..03).
+      6. Filtra score >= 85 e retorna Top-10 ordenado por score desc (SCR-04).
+      7. Cada dict de retorno inclui breakdown dos 5 fatores (SCR-05).
+
+    PITFALL: ChromaDB retorna distancia [0,2], nao similaridade. A conversao
+    e feita dentro de score_semantico em connect_ai.scoring.
+
+    INTERESSES: Gravados como string CSV ("interesses_csv") no metadata do ChromaDB
+    pelo metodo _metadata_de_perfil de repositorio.py. Parseados aqui para lista antes
+    de chamar score_interesses.
+
+    Args:
+        perfil_solicitante: Perfil de quem busca matches.
+        colecao: Instancia de Repositorio com perfis ja ingeridos.
+
+    Returns:
+        Lista de ate 10 dicts, cada um contendo:
+          id, score, nome, cidade, idade, genero,
+          score_semantico, score_interesses, score_objetivo,
+          score_idade, score_geografia.
+        Ordenada por score decrescente. Vazia se nenhum candidato >= 85.
+    """
+    from connect_ai.scoring import calcular_score
+    from connect_ai.ingestao import _gerar_embedding
+
+    # Passo 1: enriquecer personalidade_ia (determinismo via cache)
+    state_enriquecido = agente_perfilador({
+        "perfil": perfil_solicitante,
+        "candidatos": [],
+        "matches": [],
+        "justificativas": {},
+        "erro": None,
+    })
+    perfil = state_enriquecido["perfil"]
+
+    # Passo 2: gerar embedding do documento semantico
+    from connect_ai.schema import construir_documento_semantico
+    texto = construir_documento_semantico(perfil)
+    embedding_query = _gerar_embedding(texto)
+
+    # Passo 3: montar filtros hard para ChromaDB (CONS-02)
+    filtros: Dict[str, Any] = {"objetivo": str(perfil.objetivo)}
+    if perfil.genero_preferido != "todos":
+        filtros = {
+            "$and": [
+                {"objetivo": {"$eq": str(perfil.objetivo)}},
+                {"genero": {"$eq": str(perfil.genero_preferido)}},
+            ]
+        }
+
+    # Passo 4: busca vetorial Top-30 (CONS-03)
+    candidatos = colecao.buscar(
+        embedding_query=embedding_query,
+        n_resultados=30,
+        filtros=filtros,
+    )
+
+    # Passo 5 e 6: calcular score e filtrar >= 85
+    matches = []
+    for resultado in candidatos:
+        meta = resultado.metadata
+
+        # Parsear interesses_csv gravado por repositorio._metadata_de_perfil
+        # Formato: "musica,viagem,leitura" -> ["musica", "viagem", "leitura"]
+        interesses_csv = str(meta.get("interesses_csv", ""))
+        interesses_b: List[str] = [i.strip() for i in interesses_csv.split(",") if i.strip()]
+
+        breakdown = calcular_score(
+            distancia_coseno=float(resultado.distancia),
+            interesses_a=list(perfil.interesses),
+            interesses_b=interesses_b,
+            objetivo_a=str(perfil.objetivo),
+            objetivo_b=str(meta.get("objetivo", "")),
+            idade_a=int(perfil.idade),
+            idade_b=int(meta.get("idade", perfil.idade)),
+            cidade_a=str(perfil.cidade),
+            cidade_b=str(meta.get("cidade", "")),
+        )
+
+        if breakdown["score_final"] >= 85.0:
+            matches.append({
+                "id": resultado.id,
+                "score": breakdown["score_final"],
+                "nome": str(meta.get("nome", "")),
+                "cidade": str(meta.get("cidade", "")),
+                "idade": int(meta.get("idade", 0)),
+                "genero": str(meta.get("genero", "")),
+                "objetivo": str(meta.get("objetivo", "")),
+                "score_semantico": breakdown["score_semantico"],
+                "score_interesses": breakdown["score_interesses"],
+                "score_objetivo": breakdown["score_objetivo"],
+                "score_idade": breakdown["score_idade"],
+                "score_geografia": breakdown["score_geografia"],
+            })
+
+    # Passo 7: ordenar por score desc e limitar a 10 (SCR-04)
+    matches.sort(key=lambda m: m["score"], reverse=True)
+    return matches[:10]
 
 
 def agente_casamenteiro(state: AgentState) -> AgentState:
