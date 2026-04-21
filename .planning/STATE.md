@@ -22,10 +22,10 @@ Ver: .planning/PROJECT.md (atualizado em 2026-04-19)
 
 ## Posição Atual
 
-Fase: 5 de 7 (Pipeline de Consumo e Scoring — em execução)
-Plano: 1 de 2 na fase atual (05-01 concluído — Wave 1 RED: 30 testes criados)
-Status: Em execução
-Última atividade: 2026-04-21 — Plano 05-01 concluído (20 testes RED para connect_ai/scoring.py + 10 testes RED para pipeline de consumo; suite existente 27/27 green)
+Fase: 5 de 7 (Pipeline de Consumo e Scoring — BLOQUEADO)
+Plano: 2 de 2 na fase atual (05-02 — Wave 2 implementada, gate critico falhou)
+Status: BLOQUEADO — gate test_gate_critico_dez_matches_acima_85 falhou
+Última atividade: 2026-04-21 — Plano 05-02: scoring.py criado (20 testes GREEN), buscar_matches implementado (9/10 testes GREEN), gate falhou (impossibilidade matematica formula max=84 vs threshold=85)
 
 Progresso: [████████▌ ] 92%
 
@@ -105,11 +105,10 @@ Nenhuma ainda.
 
 ### Bloqueadores / Preocupações
 
-- **Fase 5 (gate crítico):** A viabilidade do threshold ≥ 85 precisa ser validada empiricamente. Se falhar, o procedimento é retornar à Fase 2 para recalibrar o seed data antes de avançar.
-- **Fase 2 RESOLVIDA:** Pool calibrado entregue — 20 perfis de alta-compat garantem >= 10 matches estruturais com PERFIL_TESTE. Gate da Fase 5 tem base matematica.
+- **BLOQUEADOR ATIVO (05-02):** Gate critico FALHOU — test_gate_critico_dez_matches_acima_85. Impossibilidade matematica: formula calcular_score max=84 (60+4+10+5+5), threshold gate=85. Requer decisao arquitetural: (A) normalizar score_interesses em calcular_score e atualizar test_calcular_score_composicao_pesos e test_calcular_score_gate_85_com_cinco_interesses de 84->100, OU (B) ajustar threshold gate para 84 nos testes. Nao avançar para Fase 6 sem resolver.
 
 ## Continuidade da Sessão
 
 Última sessão: 2026-04-21
-Parou em: Concluído 05-01-PLAN.md — Wave 1 RED: 20 testes RED para connect_ai/scoring.py (SCR-01..SCR-05, TEST-01) + 10 testes RED para pipeline de consumo (CONS-01..CONS-03, TEST-02, TEST-03); suite existente 27/27 green. Proxima: 05-02 Wave 2 GREEN.
-Arquivo de retomada: Nenhum
+Parou em: BLOQUEADO em 05-02 — gate critico test_gate_critico_dez_matches_acima_85 falhou. Implementacao completa (scoring.py criado, buscar_matches adicionado, interesses_csv em repositorio.py). 101/102 testes passam. 1 falha: gate matematicamente impossivel com formula atual. Aguardando decisao sobre normalizacao de score_interesses.
+Arquivo de retomada: .planning/phases/05-pipeline-de-consumo-e-scoring/05-02-SUMMARY.md
