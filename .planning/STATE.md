@@ -18,14 +18,14 @@ progress:
 Ver: .planning/PROJECT.md (atualizado em 2026-04-19)
 
 **Valor central:** Para qualquer perfil submetido, devolver 10 matches com score de compatibilidade ≥ 85, com breakdown dos fatores e justificativa textual gerada por IA.
-**Foco atual:** Fase 3 — Agentes e Grafo LangGraph (03-03 GREEN concluído — Fase 3 COMPLETA)
+**Foco atual:** Fase 4 — Pipeline de Ingestao (04-01 RED concluído)
 
 ## Posição Atual
 
-Fase: 3 de 7 (Agentes e Grafo LangGraph — CONCLUÍDA)
-Plano: 3 de 3 na fase atual (03-03 concluído — GREEN para connect_ai/grafo.py)
+Fase: 4 de 7 (Pipeline de Ingestao — Em execução)
+Plano: 1 de 2 na fase atual (04-01 concluído — RED para tests/test_ingestao.py)
 Status: Em execução
-Última atividade: 2026-04-20 — Plano 03-03 concluído (connect_ai/grafo.py com StateGraph 3 nos, pipeline_consumo compilado, relatorio/grafo_pipeline.mmd gerado, 66/66 suite completa sem regressoes)
+Última atividade: 2026-04-21 — Plano 04-01 concluído (tests/test_ingestao.py com 6 testes RED, todos falhando com ModuleNotFoundError: No module named 'connect_ai.ingestao')
 
 Progresso: [██████████] 100%
 
@@ -87,6 +87,9 @@ Decisões relevantes para o trabalho atual:
 - 03-02: agente_casamenteiro importa gerar_pool_perfis lazily (dentro da funcao) — evita dependencia circular no nivel de modulo
 - 03-03: pipeline_consumo compilado no nivel de modulo — importado diretamente pelo Streamlit (Fase 6) e notebook (Fase 7)
 - 03-03: salvar_visualizacao_grafo silencia excecao do PNG — .mmd e o artefato confiavel; .png e bonus quando graphviz presente
+- 04-01: Imports lazy em test_ingestao.py (dentro das funcoes de teste) — replica padrao do 03-01 para garantir RED individual por teste
+- 04-01: perfil_unico com campos fixos (id="test-ing-001") em vez de PERFIL_TESTE — evita acoplamento entre suites de teste
+- 04-01: colecao_temporaria usa tmp_path + nome_colecao="test_ingestao" — isolamento total sem conflito com outros testes
 
 ### Pendências (Todos)
 
@@ -99,6 +102,6 @@ Nenhuma ainda.
 
 ## Continuidade da Sessão
 
-Última sessão: 2026-04-20
-Parou em: Concluído 03-03-PLAN.md — connect_ai/grafo.py implementado (83 linhas), StateGraph 3 nos, pipeline_consumo compilado, 5/5 testes test_grafo.py passando GREEN, 66/66 suite completa sem regressoes. Fase 3 CONCLUIDA. Próximo: Fase 4 (Pipeline de Ingestao).
+Última sessão: 2026-04-21
+Parou em: Concluído 04-01-PLAN.md — tests/test_ingestao.py com 6 testes RED (ModuleNotFoundError), cobrindo ING-01..ING-04 para connect_ai/ingestao.py. Próximo: Plano 04-02 (GREEN — implementar connect_ai/ingestao.py).
 Arquivo de retomada: Nenhum

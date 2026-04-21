@@ -76,7 +76,10 @@ Plans:
   1. `ingerir_lote(perfis_seed)` insere todos os perfis sintéticos no ChromaDB e os logs em PT-BR mostram contagem correta de sucesso/falha
   2. Re-ingerir o mesmo perfil não aumenta o total de documentos no ChromaDB (idempotência verificável por contagem antes/depois)
   3. Após a ingestão do lote completo, uma query de busca vetorial no ChromaDB retorna resultados (banco não está vazio)
-**Planos**: TBD
+**Plans:** 1/2 plans executed
+Plans:
+- [ ] 04-01-PLAN.md — TDD RED: tests/test_ingestao.py com 6 testes falhando cobrindo ING-01..ING-04 (ING-01, ING-02, ING-03, ING-04)
+- [ ] 04-02-PLAN.md — Implementacao GREEN: connect_ai/ingestao.py com ingerir_perfil + ingerir_lote + mock de embedding (ING-01, ING-02, ING-03, ING-04)
 
 ### Phase 5: Pipeline de Consumo e Scoring
 **Objetivo**: Para o perfil de teste, o pipeline de consumo end-to-end — filtros hard → busca vetorial Top-30 → scoring ponderado 60/20/10/5/5 → corte ≥ 85 — devolve 10 matches com score ≥ 85, com breakdown dos 5 fatores. Este é o gate crítico da entrega.
@@ -130,7 +133,7 @@ Plans:
 | 1. Fundação | 3/4 | In Progress |  |
 | 2. Seed Data Sintético | 2/2 | Complete   | 2026-04-20 |
 | 3. Agentes e Grafo LangGraph | 3/3 | Complete    | 2026-04-20 |
-| 4. Pipeline de Ingestão | 0/? | Não iniciada | - |
+| 4. Pipeline de Ingestão | 1/2 | In Progress|  |
 | 5. Pipeline de Consumo e Scoring | 0/? | Não iniciada | - |
 | 6. Front Streamlit | 0/? | Não iniciada | - |
 | 7. Demo, Notebook e Entregáveis Finais | 0/? | Não iniciada | - |

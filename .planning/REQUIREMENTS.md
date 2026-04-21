@@ -50,10 +50,10 @@ Cada requisito mapeia para exatamente uma fase do roadmap.
 
 ### Pipeline de Ingestão
 
-- [ ] **ING-01**: Função `ingerir_perfil(perfil)` que executa o fluxo completo: validação → Perfilador → embedding → persistência
-- [ ] **ING-02**: Função `ingerir_lote(perfis)` para processar a base inicial de seed data
-- [ ] **ING-03**: Logs claros em PT-BR de cada etapa da ingestão (perfis processados, falhas, tempo)
-- [ ] **ING-04**: Idempotência — re-ingerir o mesmo perfil não duplica registros
+- [x] **ING-01**: Função `ingerir_perfil(perfil)` que executa o fluxo completo: validação → Perfilador → embedding → persistência
+- [x] **ING-02**: Função `ingerir_lote(perfis)` para processar a base inicial de seed data
+- [x] **ING-03**: Logs claros em PT-BR de cada etapa da ingestão (perfis processados, falhas, tempo)
+- [x] **ING-04**: Idempotência — re-ingerir o mesmo perfil não duplica registros
 
 ### Pipeline de Consumo e Scoring
 
