@@ -133,7 +133,7 @@ Plans:
 | 1. Fundação | 3/4 | In Progress |  |
 | 2. Seed Data Sintético | 2/2 | Complete   | 2026-04-20 |
 | 3. Agentes e Grafo LangGraph | 3/3 | Complete    | 2026-04-20 |
-| 4. Pipeline de Ingestão | 2/2 | Complete   | 2026-04-21 |
+| 4. Pipeline de Ingestão | 2/2 | Complete    | 2026-04-21 |
 | 5. Pipeline de Consumo e Scoring | 0/? | Não iniciada | - |
 | 6. Front Streamlit | 0/? | Não iniciada | - |
 | 7. Demo, Notebook e Entregáveis Finais | 0/? | Não iniciada | - |
