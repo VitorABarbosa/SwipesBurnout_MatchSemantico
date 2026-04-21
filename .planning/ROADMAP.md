@@ -76,7 +76,7 @@ Plans:
   1. `ingerir_lote(perfis_seed)` insere todos os perfis sintéticos no ChromaDB e os logs em PT-BR mostram contagem correta de sucesso/falha
   2. Re-ingerir o mesmo perfil não aumenta o total de documentos no ChromaDB (idempotência verificável por contagem antes/depois)
   3. Após a ingestão do lote completo, uma query de busca vetorial no ChromaDB retorna resultados (banco não está vazio)
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 Plans:
 - [ ] 04-01-PLAN.md — TDD RED: tests/test_ingestao.py com 6 testes falhando cobrindo ING-01..ING-04 (ING-01, ING-02, ING-03, ING-04)
 - [ ] 04-02-PLAN.md — Implementacao GREEN: connect_ai/ingestao.py com ingerir_perfil + ingerir_lote + mock de embedding (ING-01, ING-02, ING-03, ING-04)
@@ -133,7 +133,7 @@ Plans:
 | 1. Fundação | 3/4 | In Progress |  |
 | 2. Seed Data Sintético | 2/2 | Complete   | 2026-04-20 |
 | 3. Agentes e Grafo LangGraph | 3/3 | Complete    | 2026-04-20 |
-| 4. Pipeline de Ingestão | 1/2 | In Progress|  |
+| 4. Pipeline de Ingestão | 2/2 | Complete   | 2026-04-21 |
 | 5. Pipeline de Consumo e Scoring | 0/? | Não iniciada | - |
 | 6. Front Streamlit | 0/? | Não iniciada | - |
 | 7. Demo, Notebook e Entregáveis Finais | 0/? | Não iniciada | - |

@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Em execução
-last_updated: "2026-04-20T20:57:00.094Z"
+last_updated: "2026-04-21T21:43:00.000Z"
 progress:
   total_phases: 7
-  completed_phases: 3
-  total_plans: 9
-  completed_plans: 9
+  completed_phases: 4
+  total_plans: 11
+  completed_plans: 11
 ---
 
 # Estado do Projeto
@@ -18,14 +18,14 @@ progress:
 Ver: .planning/PROJECT.md (atualizado em 2026-04-19)
 
 **Valor central:** Para qualquer perfil submetido, devolver 10 matches com score de compatibilidade ≥ 85, com breakdown dos fatores e justificativa textual gerada por IA.
-**Foco atual:** Fase 4 — Pipeline de Ingestao (04-01 RED concluído)
+**Foco atual:** Fase 5 — Scoring e Consumo (proxima fase)
 
 ## Posição Atual
 
-Fase: 4 de 7 (Pipeline de Ingestao — Em execução)
-Plano: 1 de 2 na fase atual (04-01 concluído — RED para tests/test_ingestao.py)
+Fase: 4 de 7 (Pipeline de Ingestao — CONCLUIDA)
+Plano: 2 de 2 na fase atual (04-02 concluído — GREEN para connect_ai/ingestao.py)
 Status: Em execução
-Última atividade: 2026-04-21 — Plano 04-01 concluído (tests/test_ingestao.py com 6 testes RED, todos falhando com ModuleNotFoundError: No module named 'connect_ai.ingestao')
+Última atividade: 2026-04-21 — Plano 04-02 concluído (connect_ai/ingestao.py implementado com ingerir_perfil e ingerir_lote; 6/6 testes GREEN, 72 testes da suite completa passando)
 
 Progresso: [██████████] 100%
 
@@ -90,6 +90,10 @@ Decisões relevantes para o trabalho atual:
 - 04-01: Imports lazy em test_ingestao.py (dentro das funcoes de teste) — replica padrao do 03-01 para garantir RED individual por teste
 - 04-01: perfil_unico com campos fixos (id="test-ing-001") em vez de PERFIL_TESTE — evita acoplamento entre suites de teste
 - 04-01: colecao_temporaria usa tmp_path + nome_colecao="test_ingestao" — isolamento total sem conflito com outros testes
+- 04-02: Mock de embedding via hashlib.md5 (deterministico, 768d) — fallback gracioso quando GOOGLE_API_KEY ausente sem quebrar reproducibilidade
+- 04-02: ingerir_lote itera ingerir_perfil individualmente — cada perfil gera seu embedding separado; falhas individuais nao abortam lote
+- 04-02: genai.configure() chamado dentro de _gerar_embedding (nao no nivel de modulo) — evita efeito colateral global ao importar sem GOOGLE_API_KEY
+- 04-02: obter_chave_api("GOOGLE_API_KEY", padrao="") em vez de os.environ.get() — centraliza leitura de env no config e carrega .env automaticamente
 
 ### Pendências (Todos)
 
@@ -103,5 +107,5 @@ Nenhuma ainda.
 ## Continuidade da Sessão
 
 Última sessão: 2026-04-21
-Parou em: Concluído 04-01-PLAN.md — tests/test_ingestao.py com 6 testes RED (ModuleNotFoundError), cobrindo ING-01..ING-04 para connect_ai/ingestao.py. Próximo: Plano 04-02 (GREEN — implementar connect_ai/ingestao.py).
+Parou em: Concluído 04-02-PLAN.md — connect_ai/ingestao.py implementado com ingerir_perfil e ingerir_lote; ING-01..ING-04 fechados com 6/6 testes GREEN; 72 testes da suite completa passando. Proxima fase: 05 — Scoring e Consumo.
 Arquivo de retomada: Nenhum
