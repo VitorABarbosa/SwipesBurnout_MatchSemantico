@@ -1,0 +1,17 @@
+graph TD
+    A["Entrada: Perfil Solicitante\n+ Repositorio ChromaDB"] --> B["agente_perfilador\nEnriquece personalidade_ia"]
+    B --> C["construir_documento_semantico\n+ _gerar_embedding\n→ vetor de consulta 768d"]
+    C --> D["Filtros Hard no ChromaDB\nobjetivo == perfil.objetivo\ngenero == genero_preferido\n(quando != todos)"]
+    D --> E["Busca Vetorial Top-30\n(cosine distance — CONS-03)"]
+    E --> F["calcular_score para cada candidato\nSCR-01 ate SCR-03"]
+    F --> G["score_semantico  60pct: 1-dist/2 x100\nscore_interesses 20pct: min(comum,4)x5\nscore_objetivo   10pct: 100 se igual\nscore_idade       5pct: 100-Didade×2\nscore_geografia   5pct: 100 se mesma cidade"]
+    G --> H{"score_final >= 85?\nSCR-04"}
+    H -- "Sim" --> I["Incluir no resultado"]
+    H -- "Nao" --> J["Descartar candidato"]
+    I --> K["Ordenar por score desc\nLimitar a Top-10\nSCR-04"]
+    K --> L["Retorno: Lista de ate 10 dicts\nid, score, nome, cidade, idade\n+ breakdown dos 5 fatores\nSCR-05"]
+
+    style A fill:#4CAF50,color:#fff,stroke:#388E3C
+    style L fill:#2196F3,color:#fff,stroke:#1565C0
+    style H fill:#FF9800,color:#fff,stroke:#E65100
+    style G fill:#9C27B0,color:#fff,stroke:#6A1B9A

@@ -1,0 +1,14 @@
+graph TD
+    A["Entrada: Perfil (Pydantic)"] --> B["Validacao Pydantic\n(na construcao do objeto)"]
+    B --> C["agente_perfilador\nEnriquece personalidade_ia\n(mock deterministico — AGT-02)"]
+    C --> D["construir_documento_semantico\nbio + interesses + objetivo + personalidade_ia"]
+    D --> E{"GOOGLE_API_KEY\ndisponivel?"}
+    E -- "Sim" --> F["text-embedding-004\n(Google Generative AI)\nvetor 768 dimensoes"]
+    E -- "Nao" --> G["Mock hashlib MD5\nvetor 768d deterministico\n(sem rede)"]
+    F --> H["Repositorio.inserir\nupsert idempotente\n(ChromaDB — REPO-01)"]
+    G --> H
+    H --> I["ingerir_perfil / ingerir_lote\nRetorno:\nsucesso: bool\nid: str\nerro: str ou None"]
+
+    style A fill:#4CAF50,color:#fff,stroke:#388E3C
+    style I fill:#2196F3,color:#fff,stroke:#1565C0
+    style E fill:#FF9800,color:#fff,stroke:#E65100
