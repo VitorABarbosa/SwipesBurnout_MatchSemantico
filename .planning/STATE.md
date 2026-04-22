@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Em execucao — Fase 6 plano 01 concluido, pronto para plano 02
-last_updated: "2026-04-22T03:48:00.000Z"
+status: Em execucao — Fase 6 plano 02 concluido, pronto para Fase 7
+last_updated: "2026-04-22T13:31:00.000Z"
 progress:
   total_phases: 7
-  completed_phases: 5
+  completed_phases: 6
   total_plans: 15
-  completed_plans: 14
+  completed_plans: 15
 ---
 
 # Estado do Projeto
@@ -22,12 +22,12 @@ Ver: .planning/PROJECT.md (atualizado em 2026-04-19)
 
 ## Posição Atual
 
-Fase: 6 de 7 (Front Streamlit — em execucao)
-Plano: 1 de 2 na fase atual (06-01 — COMPLETO)
-Status: Em execucao — Fase 6 plano 01 concluido, pronto para plano 02
-Última atividade: 2026-04-22 — Plano 06-01: app/streamlit_app.py criado com navegacao sidebar, CSS injetado e pagina Cadastro funcional (216 linhas).
+Fase: 6 de 7 (Front Streamlit — COMPLETO)
+Plano: 2 de 2 na fase atual (06-02 — COMPLETO)
+Status: Fase 6 concluida — app/streamlit_app.py completo com 3 paginas funcionais; pronto para Fase 7
+Última atividade: 2026-04-22 — Plano 06-02: paginas Matches e Visualizacao implementadas (411 linhas, APP-03/04/05/07 entregues).
 
-Progresso: [█████████░] 93%
+Progresso: [██████████] 100%
 
 ## Métricas de Desempenho
 
@@ -101,6 +101,10 @@ Decisões relevantes para o trabalho atual:
 - 05-02: score_interesses usa multiplicador 1.0 (nao 0.20) — escala [0,20] representa diretamente os 20 pts de contribuicao; teto=100
 - 05-02: seed_data com 15 perfis gate-garantido (masculino+namoro+SP+4interesses) para viabilizar gate com mock embedding MD5
 - 06-01: ingerir_perfil retorna {"sucesso": bool, "id": str, "erro": str|None} — plano especificava {"status": "ok"|"erro"} mas implementacao real usa chave "sucesso"; front adaptado sem alterar o backend
+- 06-02: perfis_disponiveis vazio causa retorno antecipado antes do st.selectbox — evita lista vazia no seletor
+- 06-02: justificativas tratadas com try/except silencioso — falha do agente RAG nao bloqueia exibicao dos matches
+- 06-02: st.warning (nao st.error) para APP-07 — aviso informativo, nao erro fatal; usuario pode prosseguir
+- 06-02: fallback em cascata para artefatos de grafo: os.path.exists(png) > os.path.exists(mmd) > diagrama Mermaid inline
 
 ### Pendências (Todos)
 
@@ -113,5 +117,5 @@ Nenhum bloqueador ativo.
 ## Continuidade da Sessão
 
 Última sessão: 2026-04-22
-Parou em: Completou 06-01 — app/streamlit_app.py criado com CSS, navegacao sidebar, pagina Cadastro funcional e stubs Matches/Visualizacao.
-Proximo: Fase 6 — Plano 02 (Matches e Visualizacao)
+Parou em: Completou 06-02 — app/streamlit_app.py completo (411 linhas) com paginas Matches (cards, RAG, breakdown) e Visualizacao (grafos, fallback Mermaid).
+Proximo: Fase 7 — Notebook Demo

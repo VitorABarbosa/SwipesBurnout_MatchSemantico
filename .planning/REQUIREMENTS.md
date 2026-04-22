@@ -70,9 +70,9 @@ Cada requisito mapeia para exatamente uma fase do roadmap.
 
 - [x] **APP-01**: `app/streamlit_app.py` com navegação entre páginas (cadastro, matches, visualização do grafo)
 - [x] **APP-02**: Página de cadastro permitindo criar um perfil e disparar a ingestão (com loader/feedback)
-- [ ] **APP-03**: Página de matches recebendo um perfil (existente ou recém-cadastrado), executando o pipeline de consumo e exibindo os 10 matches em cards
-- [ ] **APP-04**: Cada card de match exibe: nome, idade, cidade, score total, breakdown dos fatores e justificativa do RAG
-- [ ] **APP-05**: Página de visualização exibindo o grafo LangGraph + diagramas dos pipelines de ingestão e consumo
+- [x] **APP-03**: Página de matches recebendo um perfil (existente ou recém-cadastrado), executando o pipeline de consumo e exibindo os 10 matches em cards
+- [x] **APP-04**: Cada card de match exibe: nome, idade, cidade, score total, breakdown dos fatores e justificativa do RAG
+- [x] **APP-05**: Página de visualização exibindo o grafo LangGraph + diagramas dos pipelines de ingestão e consumo
 - [x] **APP-06**: Botão para popular o ChromaDB com o seed data caso o banco esteja vazio
 - [x] **APP-07**: Mensagens de erro claras em PT-BR quando o pipeline não retorna 10 matches ≥ 85
 
