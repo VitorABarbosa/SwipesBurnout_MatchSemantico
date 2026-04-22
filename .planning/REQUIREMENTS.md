@@ -78,9 +78,9 @@ Cada requisito mapeia para exatamente uma fase do roadmap.
 
 ### Saídas, Visualizações e Insumos para o Relatório
 
-- [ ] **OUT-01**: Função para gerar tabela Top-10 (Pandas DataFrame) com scores e breakdown
-- [ ] **OUT-02**: Gráfico de distribuição de scores entre os Top-30 candidatos
-- [ ] **OUT-03**: Métrica de tempo de execução do pipeline de consumo
+- [x] **OUT-01**: Função para gerar tabela Top-10 (Pandas DataFrame) com scores e breakdown
+- [x] **OUT-02**: Gráfico de distribuição de scores entre os Top-30 candidatos
+- [x] **OUT-03**: Métrica de tempo de execução do pipeline de consumo
 - [ ] **OUT-04**: Diagrama do pipeline de ingestão exportado como imagem para `relatorio/`
 - [ ] **OUT-05**: Diagrama do pipeline de consumo exportado como imagem para `relatorio/`
 - [ ] **OUT-06**: Visualização do grafo LangGraph exportada como imagem para `relatorio/`
@@ -88,10 +88,10 @@ Cada requisito mapeia para exatamente uma fase do roadmap.
 
 ### Notebook (Demo)
 
-- [ ] **NB-01**: `notebook/demo_cp5.ipynb` rodando do zero sem erros, importando exclusivamente de `connect_ai/`
-- [ ] **NB-02**: Notebook contém células de: setup, schema, ChromaDB, seed data, ingestão, visualização do grafo, demo do pipeline de consumo, Top-10 com breakdown e justificativas, análises e visualizações, conclusão
-- [ ] **NB-03**: Notebook compatível com Google Colab (instala dependências na primeira célula via `pip install`)
-- [ ] **NB-04**: Outputs em PT-BR, células de cadastro do perfil de teste destacadas, resultados visualmente claros
+- [x] **NB-01**: `notebook/demo_cp5.ipynb` rodando do zero sem erros, importando exclusivamente de `connect_ai/`
+- [x] **NB-02**: Notebook contém células de: setup, schema, ChromaDB, seed data, ingestão, visualização do grafo, demo do pipeline de consumo, Top-10 com breakdown e justificativas, análises e visualizações, conclusão
+- [x] **NB-03**: Notebook compatível com Google Colab (instala dependências na primeira célula via `pip install`)
+- [x] **NB-04**: Outputs em PT-BR, células de cadastro do perfil de teste destacadas, resultados visualmente claros
 
 ### Ética e LGPD
 
@@ -107,15 +107,15 @@ Cada requisito mapeia para exatamente uma fase do roadmap.
 
 ### Critérios de Aceitação (auditoria final)
 
-- [ ] **ACC-01**: Notebook `demo_cp5.ipynb` roda end-to-end no Google Colab sem erros
-- [ ] **ACC-02**: Para o perfil de teste, o pipeline retorna **10 matches com score ≥ 85**
-- [ ] **ACC-03**: Cada match vem com score, breakdown dos fatores e justificativa textual
-- [ ] **ACC-04**: Os 3 agentes (Perfilador, Casamenteiro, RAG) são visivelmente distintos no código e no grafo
-- [ ] **ACC-05**: O grafo LangGraph é visualizado no notebook e no front
-- [ ] **ACC-06**: ChromaDB é efetivamente usado para busca vetorial (não apenas armazenamento)
-- [ ] **ACC-07**: Pipelines de ingestão e consumo claramente separados e documentados
-- [ ] **ACC-08**: Todo output, markdown, docstring e mensagem em Português do Brasil
-- [ ] **ACC-09**: Não há credenciais hardcoded
+- [x] **ACC-01**: Notebook `demo_cp5.ipynb` roda end-to-end no Google Colab sem erros
+- [x] **ACC-02**: Para o perfil de teste, o pipeline retorna **10 matches com score ≥ 85**
+- [x] **ACC-03**: Cada match vem com score, breakdown dos fatores e justificativa textual
+- [x] **ACC-04**: Os 3 agentes (Perfilador, Casamenteiro, RAG) são visivelmente distintos no código e no grafo
+- [x] **ACC-05**: O grafo LangGraph é visualizado no notebook e no front
+- [x] **ACC-06**: ChromaDB é efetivamente usado para busca vetorial (não apenas armazenamento)
+- [x] **ACC-07**: Pipelines de ingestão e consumo claramente separados e documentados
+- [x] **ACC-08**: Todo output, markdown, docstring e mensagem em Português do Brasil
+- [x] **ACC-09**: Não há credenciais hardcoded
 - [ ] **ACC-10**: O notebook + `relatorio/` geram material suficiente (tabelas, métricas, diagramas) para sustentar o relatório
 
 ## Requisitos da v2 (Diferidos — fora do CP5)

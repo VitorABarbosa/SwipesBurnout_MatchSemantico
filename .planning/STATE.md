@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Fase 6 concluida — app/streamlit_app.py completo com 3 paginas funcionais; pronto para Fase 7
-last_updated: "2026-04-22T13:31:15.735Z"
+status: Fase 7 concluida — notebook/demo_cp5.ipynb completo com 17 celulas end-to-end; PROJETO CP5 COMPLETO
+last_updated: "2026-04-22T17:52:41Z"
 progress:
   total_phases: 7
-  completed_phases: 6
-  total_plans: 15
-  completed_plans: 15
+  completed_phases: 7
+  total_plans: 17
+  completed_plans: 17
 ---
 
 # Estado do Projeto
@@ -22,10 +22,10 @@ Ver: .planning/PROJECT.md (atualizado em 2026-04-19)
 
 ## Posição Atual
 
-Fase: 6 de 7 (Front Streamlit — COMPLETO)
-Plano: 2 de 2 na fase atual (06-02 — COMPLETO)
-Status: Fase 6 concluida — app/streamlit_app.py completo com 3 paginas funcionais; pronto para Fase 7
-Última atividade: 2026-04-22 — Plano 06-02: paginas Matches e Visualizacao implementadas (411 linhas, APP-03/04/05/07 entregues).
+Fase: 7 de 7 (Demo Notebook e Entregaveis Finais — COMPLETO)
+Plano: 1 de 1 na fase atual (07-01 — COMPLETO)
+Status: Fase 7 concluida — notebook/demo_cp5.ipynb completo (17 celulas) com ACC-01..ACC-09 validados; PROJETO CP5 COMPLETO
+Última atividade: 2026-04-22 — Plano 07-01: notebook Colab end-to-end criado com 8 secoes, tabela Top-10, distribuicao de scores, grafo LangGraph e checklist de aceitacao.
 
 Progresso: [██████████] 100%
 
@@ -105,6 +105,9 @@ Decisões relevantes para o trabalho atual:
 - 06-02: justificativas tratadas com try/except silencioso — falha do agente RAG nao bloqueia exibicao dos matches
 - 06-02: st.warning (nao st.error) para APP-07 — aviso informativo, nao erro fatal; usuario pode prosseguir
 - 06-02: fallback em cascata para artefatos de grafo: os.path.exists(png) > os.path.exists(mmd) > diagrama Mermaid inline
+- 07-01: Repositorio() chamado com diretorio= (nao caminho_db=) — parametro real da implementacao; plano usava nome de interface diferente do codigo
+- 07-01: GOOGLE_API_KEY via userdata.get() com try/except fallback os.environ — padrao Colab-safe sem credencial hardcoded
+- 07-01: relatorio/grafo_pipeline.mmd gerado via execucao direta durante plano (salvar_visualizacao_grafo gerara sempre .mmd + .png quando graphviz disponivel)
 
 ### Pendências (Todos)
 
@@ -117,5 +120,5 @@ Nenhum bloqueador ativo.
 ## Continuidade da Sessão
 
 Última sessão: 2026-04-22
-Parou em: Completou 06-02 — app/streamlit_app.py completo (411 linhas) com paginas Matches (cards, RAG, breakdown) e Visualizacao (grafos, fallback Mermaid).
-Proximo: Fase 7 — Notebook Demo
+Parou em: Completou 07-01 — notebook/demo_cp5.ipynb completo (17 celulas) com ACC-01..ACC-09 validados. PROJETO CP5 COMPLETO.
+Proximo: Nenhum — todas as fases concluidas.
