@@ -11,11 +11,15 @@ Estrutura:
 
 from __future__ import annotations
 
+import os
+
 import streamlit as st
 from connect_ai.repositorio import Repositorio
 from connect_ai.schema import Perfil, gerar_uuid
 from connect_ai.ingestao import ingerir_perfil, ingerir_lote
 from connect_ai.seed_data import gerar_pool_perfis
+from connect_ai.agentes import buscar_matches, agente_rag_justificador, AgentState
+from connect_ai.grafo import salvar_visualizacao_grafo
 
 # ── Page config (deve ser a primeira chamada st do arquivo) ──────────────────
 st.set_page_config(
@@ -195,16 +199,207 @@ def _pagina_cadastro() -> None:
                     st.error(f"Erro ao popular banco: {e}")
 
 
+def _renderizar_card(match: dict, justificativas: dict) -> None:
+    """Renderiza um card de match com score badge, breakdown e justificativa RAG."""
+    nome = match["nome"]
+    idade = match["idade"]
+    cidade = match["cidade"]
+    score = match["score"]
+    objetivo = match.get("objetivo", "")
+    mid = match["id"]
+
+    # Card container com HTML + CSS da UI-SPEC
+    st.markdown(
+        f"""<div class="match-card">
+        <span class="score-badge">SCORE: {score:.0f}/100</span>
+        <div class="match-heading">{nome}, {idade} — {cidade}</div>
+        <div class="factor-label">Objetivo: {objetivo}</div>
+        </div>""",
+        unsafe_allow_html=True,
+    )
+
+    # Breakdown dos fatores com st.progress
+    st.markdown("**Fatores de compatibilidade:**")
+
+    fatores = [
+        ("Semântico (60%)",    match.get("score_semantico", 0),    60.0),
+        ("Interesses (20%)",   match.get("score_interesses", 0),   20.0),
+        ("Objetivo (10%)",     match.get("score_objetivo", 0),     10.0),
+        ("Idade (5%)",         match.get("score_idade", 0),        5.0),
+        ("Geografia (5%)",     match.get("score_geografia", 0),    5.0),
+    ]
+
+    for rotulo, valor, maximo in fatores:
+        proporcao = min(valor / maximo, 1.0) if maximo > 0 else 0.0
+        st.markdown(f'<span class="factor-label">{rotulo}</span>', unsafe_allow_html=True)
+        col_bar, col_val = st.columns([4, 1])
+        with col_bar:
+            st.progress(proporcao)
+        with col_val:
+            st.markdown(f"**{valor:.1f}**")
+
+    # Justificativa RAG em expander
+    justificativa = justificativas.get(mid, "")
+    with st.expander("Ver justificativa do RAG"):
+        if justificativa:
+            st.markdown(justificativa)
+        else:
+            st.markdown("_Justificativa não disponível._")
+
+    st.markdown("---")
+
+
 def _pagina_matches() -> None:
-    """Página 2 — Matches (stub para o plano 02)."""
+    """Página 2 — Matches com pipeline de consumo, cards e tratamento de erro."""
     st.title("Matches")
-    st.info("Página de matches — implementação no plano 02.")
+
+    colecao = st.session_state["repositorio"]
+
+    # Verificar se banco tem perfis
+    if colecao.contar() == 0:
+        st.warning("Banco de perfis vazio. Popular com seed data antes de buscar matches.")
+        return
+
+    # Seletor de perfil
+    opcoes = st.session_state.get("perfis_disponiveis", [])
+    if not opcoes:
+        st.info("Selecione um perfil acima e clique em 'Encontrar Matches' para iniciar a busca.")
+        st.info("Nenhum perfil cadastrado ainda. Vá para Cadastro de Perfil e cadastre um perfil primeiro.")
+        return
+
+    perfil_selecionado_label = st.selectbox("Perfil para buscar matches", opcoes)
+
+    if st.button("Encontrar Matches"):
+        # Recuperar o perfil cadastrado correspondente
+        perfil = st.session_state.get("perfil_cadastrado")
+        if perfil is None:
+            st.error("Perfil não encontrado. Faça o cadastro novamente.")
+            return
+
+        with st.spinner("Executando pipeline de consumo (filtros → busca vetorial → scoring)..."):
+            try:
+                matches = buscar_matches(perfil, colecao)
+            except Exception as e:
+                st.error(f"Erro ao executar pipeline: {e}")
+                return
+
+        # Gerar justificativas via agente_rag_justificador
+        if matches:
+            state_rag: AgentState = {
+                "perfil": perfil,
+                "candidatos": [],
+                "matches": matches,
+                "justificativas": {},
+                "erro": None,
+            }
+            try:
+                state_resultado = agente_rag_justificador(state_rag)
+                justificativas = state_resultado.get("justificativas", {})
+            except Exception:
+                justificativas = {}
+        else:
+            justificativas = {}
+
+        st.session_state["matches"] = matches
+        st.session_state["justificativas"] = justificativas
+
+    # Renderizar matches do session_state
+    matches = st.session_state.get("matches", [])
+    justificativas = st.session_state.get("justificativas", {})
+
+    if not matches:
+        return
+
+    # Verificar gate >= 10 matches (APP-07)
+    if len(matches) < 10:
+        n = len(matches)
+        st.warning(
+            f"O pipeline retornou {n} match(es) com score ≥ 85 "
+            f"(mínimo esperado: 10). Verifique se o banco foi populado "
+            f"com o seed data completo e tente novamente."
+        )
+
+    st.markdown(f"### {len(matches)} match(es) encontrado(s)")
+
+    # Grid 2 colunas
+    cols = st.columns(2)
+    for i, match in enumerate(matches):
+        col = cols[i % 2]
+        with col:
+            _renderizar_card(match, justificativas)
 
 
 def _pagina_visualizacao() -> None:
-    """Página 3 — Visualização do Pipeline (stub para o plano 02)."""
+    """Página 3 — Visualização do Pipeline com grafo e diagramas."""
     st.title("Visualização do Pipeline")
-    st.info("Página de visualização — implementação no plano 02.")
+
+    # ── Seção 1: Grafo LangGraph ─────────────────────────────────────────
+    st.subheader("Grafo LangGraph")
+
+    png_grafo = "relatorio/grafo_pipeline.png"
+    mmd_grafo = "relatorio/grafo_pipeline.mmd"
+
+    if os.path.exists(png_grafo):
+        st.image(png_grafo, caption="Grafo LangGraph do CONNECT.AI", use_container_width=True)
+    elif os.path.exists(mmd_grafo):
+        st.code(open(mmd_grafo).read(), language="mermaid")
+        st.info("PNG não disponível. Instale graphviz para gerar a imagem.")
+    else:
+        st.info("Imagem do grafo não encontrada em relatorio/. Execute o pipeline ao menos uma vez para gerar os artefatos.")
+        if st.button("Gerar artefatos do grafo"):
+            with st.spinner("Gerando visualização do grafo..."):
+                try:
+                    salvar_visualizacao_grafo("relatorio/grafo_pipeline.png")
+                    st.success("Artefatos gerados. Recarregue a página.")
+                    st.rerun()
+                except Exception as e:
+                    st.error(f"Erro ao gerar grafo: {e}")
+
+    # ── Seção 2: Pipeline de Ingestão ───────────────────────────────────
+    st.subheader("Pipeline de Ingestão")
+
+    png_ingestao = "relatorio/pipeline_ingestao.png"
+    mmd_ingestao = "relatorio/pipeline_ingestao.mmd"
+
+    if os.path.exists(png_ingestao):
+        st.image(png_ingestao, use_container_width=True)
+    elif os.path.exists(mmd_ingestao):
+        st.code(open(mmd_ingestao).read(), language="mermaid")
+        st.info("PNG não disponível. Instale graphviz para gerar a imagem.")
+    else:
+        # Diagrama Mermaid inline do pipeline de ingestão
+        mermaid_ingestao = """graph TD
+    A[Perfil submetido] --> B[Validação Pydantic]
+    B --> C[Agente Perfilador]
+    C --> D[Gerar embedding text-embedding-004]
+    D --> E[ChromaDB upsert]
+    E --> F[Confirmação PT-BR]"""
+        st.code(mermaid_ingestao, language="mermaid")
+        st.info("Diagrama inline do pipeline de ingestão (PNG em relatorio/ ausente).")
+
+    # ── Seção 3: Pipeline de Consumo e Scoring ───────────────────────────
+    st.subheader("Pipeline de Consumo e Scoring")
+
+    png_consumo = "relatorio/pipeline_consumo.png"
+    mmd_consumo = "relatorio/pipeline_consumo.mmd"
+
+    if os.path.exists(png_consumo):
+        st.image(png_consumo, use_container_width=True)
+    elif os.path.exists(mmd_consumo):
+        st.code(open(mmd_consumo).read(), language="mermaid")
+        st.info("PNG não disponível. Instale graphviz para gerar a imagem.")
+    else:
+        mermaid_consumo = """graph TD
+    A[Perfil solicitante] --> B[Filtros hard: objetivo + gênero]
+    B --> C[Busca vetorial Top-30 ChromaDB]
+    C --> D[Scoring ponderado 60/20/10/5/5]
+    D --> E{score ≥ 85?}
+    E -->|Sim| F[Top-10 matches]
+    E -->|Não| G[Descartado]
+    F --> H[Agente RAG Justificador]
+    H --> I[10 matches com justificativa]"""
+        st.code(mermaid_consumo, language="mermaid")
+        st.info("Diagrama inline do pipeline de consumo (PNG em relatorio/ ausente).")
 
 
 # ── Roteamento ───────────────────────────────────────────────────────────────
