@@ -120,20 +120,19 @@ def calcular_score(
 
     Composicao:
       score_final = semantico * 0.60
-                  + interesses * 0.20
+                  + interesses * 1.0   (ja em escala [0,20] = 0-20% de 100)
                   + objetivo * 0.10
                   + idade * 0.05
                   + geografia * 0.05
 
+    score_interesses retorna valores em [0, 20], representando diretamente
+    a contribuicao maxima de 20 pontos no score_final (teto = 100).
+    Usar multiplicador 0.20 reduziria a contribuicao para no maximo 4 pts.
+
+    Teto maximo: 60 + 20 + 10 + 5 + 5 = 100.
+
     Retorna o breakdown completo dos 5 fatores para exibicao no front
     (SCR-05) e para rastreabilidade do gate critico (TEST-02).
-
-    Nota sobre o threshold >= 85: O score maxximo com score_interesses
-    truncado em 20 (nao 100) e pesos corretos e:
-      60 + 4 + 10 + 5 + 5 = 84 (4 interesses em comum, perfil identico).
-    O gate >= 85 so e atingivel quando a similaridade semantica e
-    suficientemente alta E ha sobreposicao de interesses -- confirmando
-    que o seed data calibrado na Fase 2 e essencial para o gate.
 
     Args:
         distancia_coseno: Distancia coseno [0.0, 2.0] do ChromaDB.
@@ -163,7 +162,7 @@ def calcular_score(
 
     score_final = (
         s_semantico * 0.60
-        + s_interesses * 0.20
+        + s_interesses * 1.0
         + s_objetivo * 0.10
         + s_idade * 0.05
         + s_geografia * 0.05

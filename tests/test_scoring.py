@@ -163,13 +163,13 @@ def test_calcular_score_retorna_dict_com_chaves():
 def test_calcular_score_composicao_pesos():
     """Caso controlado: semantico=100, interesses=20 (4 em comum), objetivo=100, idade=100, geo=100.
 
-    score_final = 100*0.60 + 20*0.20 + 100*0.10 + 100*0.05 + 100*0.05
-               = 60 + 4 + 10 + 5 + 5 = 84.0
+    score_final = 100*0.60 + 20*1.0 + 100*0.10 + 100*0.05 + 100*0.05
+               = 60 + 20 + 10 + 5 + 5 = 100.0
     """
     from connect_ai.scoring import calcular_score
     # Caso controlado: semantico=100, interesses=20 (4 em comum), objetivo=100, idade=100, geo=100
-    # score_final = 100*0.60 + 20*0.20 + 100*0.10 + 100*0.05 + 100*0.05
-    #             = 60 + 4 + 10 + 5 + 5 = 84.0
+    # score_final = 100*0.60 + 20*1.0 + 100*0.10 + 100*0.05 + 100*0.05
+    #             = 60 + 20 + 10 + 5 + 5 = 100.0
     resultado = calcular_score(
         distancia_coseno=0.0,
         interesses_a=["a", "b", "c", "d"],
@@ -181,20 +181,21 @@ def test_calcular_score_composicao_pesos():
         cidade_a="SP",
         cidade_b="SP",
     )
-    assert resultado["score_final"] == pytest.approx(84.0)
+    assert resultado["score_final"] == pytest.approx(100.0)
     assert resultado["score_semantico"] == pytest.approx(100.0)
     assert resultado["score_interesses"] == pytest.approx(20.0)
 
 
 def test_calcular_score_gate_85_com_cinco_interesses():
-    """5+ interesses em comum: interesses truncado em 20, score_final = 84.0.
+    """5+ interesses em comum: interesses truncado em 20, score_final = 100.0.
 
-    O gate >= 85 na busca real e testado via integracao em test_consumo.py,
-    onde os embeddings semanticos reais elevam o score_semantico.
+    Com multiplicador correto (1.0) para score_interesses em [0,20]:
+    score_final = 60 + 20 + 10 + 5 + 5 = 100.0 (teto maximo).
+    O gate >= 85 e viavel em contextos reais com boa similaridade semantica.
     """
     from connect_ai.scoring import calcular_score
     # 5+ interesses em comum: interesses=20, semantico=100, objetivo=100, idade=100, geo=100
-    # score_final = 60 + 4 + 10 + 5 + 5 = 84
+    # score_final = 60 + 20 + 10 + 5 + 5 = 100.0
     resultado = calcular_score(
         distancia_coseno=0.0,
         interesses_a=["a", "b", "c", "d", "e"],
@@ -206,8 +207,8 @@ def test_calcular_score_gate_85_com_cinco_interesses():
         cidade_a="SP",
         cidade_b="SP",
     )
-    # interesses truncado em 20, semantico=100 -> score_final=84
-    assert resultado["score_final"] == pytest.approx(84.0)
+    # interesses truncado em 20, semantico=100 -> score_final=100
+    assert resultado["score_final"] == pytest.approx(100.0)
 
 
 def test_calcular_score_final_nao_negativo():
