@@ -109,7 +109,10 @@ Plans:
   3. Após cadastrar o perfil de teste via formulário, a página de matches exibe 10 cards com nome, idade, cidade, score total, breakdown dos fatores e justificativa textual do RAG
   4. A página de visualização exibe o grafo LangGraph (imagem) e os diagramas dos pipelines
   5. Quando o pipeline não retorna 10 matches ≥ 85, uma mensagem de erro clara em PT-BR é exibida (não uma tela branca ou traceback)
-**Planos**: TBD
+**Plans:** 1/2 plans executed
+Plans:
+- [ ] 06-01-PLAN.md — Estrutura do app, CSS, navegação sidebar, session state, página Cadastro completa e botão seed data (APP-01, APP-02, APP-06, APP-07)
+- [ ] 06-02-PLAN.md — Página Matches com pipeline + cards de match + tratamento de erro; página Visualização com grafo e diagramas (APP-03, APP-04, APP-05, APP-07)
 
 ### Phase 7: Demo, Notebook e Entregáveis Finais
 **Objetivo**: Todos os entregáveis do CP5 estão prontos — notebook Colab roda end-to-end sem erros, visualizações e métricas estão em `relatorio/`, documentação de ética e LGPD está completa, e os critérios de aceitação oficiais do enunciado são todos atendidos.
@@ -138,5 +141,5 @@ Plans:
 | 3. Agentes e Grafo LangGraph | 3/3 | Complete    | 2026-04-20 |
 | 4. Pipeline de Ingestão | 2/2 | Complete    | 2026-04-21 |
 | 5. Pipeline de Consumo e Scoring | 2/2 | Complete   | 2026-04-21 |
-| 6. Front Streamlit | 0/? | Não iniciada | - |
+| 6. Front Streamlit | 1/2 | In Progress|  |
 | 7. Demo, Notebook e Entregáveis Finais | 0/? | Não iniciada | - |

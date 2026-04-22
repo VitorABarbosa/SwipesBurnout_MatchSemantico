@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Em execucao — Fase 5 concluida, pronto para Fase 6
-last_updated: "2026-04-22T03:35:47.264Z"
+status: Em execucao — Fase 6 plano 01 concluido, pronto para plano 02
+last_updated: "2026-04-22T03:48:00.000Z"
 progress:
   total_phases: 7
   completed_phases: 5
-  total_plans: 13
-  completed_plans: 13
+  total_plans: 15
+  completed_plans: 14
 ---
 
 # Estado do Projeto
@@ -22,12 +22,12 @@ Ver: .planning/PROJECT.md (atualizado em 2026-04-19)
 
 ## Posição Atual
 
-Fase: 5 de 7 (Pipeline de Consumo e Scoring — COMPLETO)
-Plano: 2 de 2 na fase atual (05-02 — COMPLETO, gate PASSOU)
-Status: Em execucao — Fase 5 concluida, pronto para Fase 6
-Última atividade: 2026-04-21 — Plano 05-02: gate critico PASSOU apos fix de scoring e seed data calibrado. 102/102 testes GREEN.
+Fase: 6 de 7 (Front Streamlit — em execucao)
+Plano: 1 de 2 na fase atual (06-01 — COMPLETO)
+Status: Em execucao — Fase 6 plano 01 concluido, pronto para plano 02
+Última atividade: 2026-04-22 — Plano 06-01: app/streamlit_app.py criado com navegacao sidebar, CSS injetado e pagina Cadastro funcional (216 linhas).
 
-Progresso: [█████████ ] 100%
+Progresso: [█████████░] 93%
 
 ## Métricas de Desempenho
 
@@ -100,6 +100,7 @@ Decisões relevantes para o trabalho atual:
 - 05-01: test_calcular_score_gate_85_com_cinco_interesses confirma score_final=84 (nao 85) — gate 85 e atingido pela similaridade semantica real dos embeddings, nao por valores literais no teste unitario
 - 05-02: score_interesses usa multiplicador 1.0 (nao 0.20) — escala [0,20] representa diretamente os 20 pts de contribuicao; teto=100
 - 05-02: seed_data com 15 perfis gate-garantido (masculino+namoro+SP+4interesses) para viabilizar gate com mock embedding MD5
+- 06-01: ingerir_perfil retorna {"sucesso": bool, "id": str, "erro": str|None} — plano especificava {"status": "ok"|"erro"} mas implementacao real usa chave "sucesso"; front adaptado sem alterar o backend
 
 ### Pendências (Todos)
 
@@ -111,6 +112,6 @@ Nenhum bloqueador ativo.
 
 ## Continuidade da Sessão
 
-Última sessão: 2026-04-21
-Parou em: Completou 05-02 — gate critico PASSOU (102/102 testes GREEN). Fix aplicado: score_interesses usa multiplicador 1.0; seed_data com 15 perfis gate-garantido.
-Proximo: Fase 6
+Última sessão: 2026-04-22
+Parou em: Completou 06-01 — app/streamlit_app.py criado com CSS, navegacao sidebar, pagina Cadastro funcional e stubs Matches/Visualizacao.
+Proximo: Fase 6 — Plano 02 (Matches e Visualizacao)
