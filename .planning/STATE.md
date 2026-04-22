@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Fase 7 concluida — notebook/demo_cp5.ipynb completo com 17 celulas end-to-end; PROJETO CP5 COMPLETO
-last_updated: "2026-04-22T17:52:41Z"
+status: Fase 7 concluida — relatorio/ completo com CONTEUDO.md, ETICA.md, pipeline_ingestao.mmd, pipeline_consumo.mmd; ACC-10 e ETH-01..ETH-03 atendidos; PROJETO CP5 COMPLETAMENTE CONCLUIDO
+last_updated: "2026-04-22T17:59:00Z"
 progress:
   total_phases: 7
   completed_phases: 7
@@ -23,9 +23,9 @@ Ver: .planning/PROJECT.md (atualizado em 2026-04-19)
 ## Posição Atual
 
 Fase: 7 de 7 (Demo Notebook e Entregaveis Finais — COMPLETO)
-Plano: 1 de 1 na fase atual (07-01 — COMPLETO)
-Status: Fase 7 concluida — notebook/demo_cp5.ipynb completo (17 celulas) com ACC-01..ACC-09 validados; PROJETO CP5 COMPLETO
-Última atividade: 2026-04-22 — Plano 07-01: notebook Colab end-to-end criado com 8 secoes, tabela Top-10, distribuicao de scores, grafo LangGraph e checklist de aceitacao.
+Plano: 2 de 2 na fase atual (07-02 — COMPLETO)
+Status: Fase 7 concluida — relatorio/ completo com CONTEUDO.md, ETICA.md, pipeline_ingestao.mmd, pipeline_consumo.mmd; PROJETO CP5 COMPLETAMENTE CONCLUIDO
+Última atividade: 2026-04-22 — Plano 07-02: 4 artefatos de relatorio criados (CONTEUDO.md 87 linhas, ETICA.md 74 linhas, 2 diagramas Mermaid); ACC-10 e ETH-01..ETH-03 atendidos.
 
 Progresso: [██████████] 100%
 
@@ -108,6 +108,7 @@ Decisões relevantes para o trabalho atual:
 - 07-01: Repositorio() chamado com diretorio= (nao caminho_db=) — parametro real da implementacao; plano usava nome de interface diferente do codigo
 - 07-01: GOOGLE_API_KEY via userdata.get() com try/except fallback os.environ — padrao Colab-safe sem credencial hardcoded
 - 07-01: relatorio/grafo_pipeline.mmd gerado via execucao direta durante plano (salvar_visualizacao_grafo gerara sempre .mmd + .png quando graphviz disponivel)
+- 07-02: ingerir_perfil / ingerir_lote adicionado como no de retorno no pipeline_ingestao.mmd para satisfazer criterio de aceitacao que verifica assert 'ingerir' in content
 
 ### Pendências (Todos)
 
@@ -120,5 +121,5 @@ Nenhum bloqueador ativo.
 ## Continuidade da Sessão
 
 Última sessão: 2026-04-22
-Parou em: Completou 07-01 — notebook/demo_cp5.ipynb completo (17 celulas) com ACC-01..ACC-09 validados. PROJETO CP5 COMPLETO.
-Proximo: Nenhum — todas as fases concluidas.
+Parou em: Completou 07-02 — relatorio/ completo: CONTEUDO.md (87 linhas), ETICA.md (74 linhas), pipeline_ingestao.mmd, pipeline_consumo.mmd. PROJETO CP5 COMPLETAMENTE CONCLUIDO.
+Proximo: Nenhum — todas as fases e planos concluidos.

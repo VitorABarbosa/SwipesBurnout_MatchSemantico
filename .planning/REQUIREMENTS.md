@@ -81,10 +81,10 @@ Cada requisito mapeia para exatamente uma fase do roadmap.
 - [x] **OUT-01**: Função para gerar tabela Top-10 (Pandas DataFrame) com scores e breakdown
 - [x] **OUT-02**: Gráfico de distribuição de scores entre os Top-30 candidatos
 - [x] **OUT-03**: Métrica de tempo de execução do pipeline de consumo
-- [ ] **OUT-04**: Diagrama do pipeline de ingestão exportado como imagem para `relatorio/`
-- [ ] **OUT-05**: Diagrama do pipeline de consumo exportado como imagem para `relatorio/`
-- [ ] **OUT-06**: Visualização do grafo LangGraph exportada como imagem para `relatorio/`
-- [ ] **OUT-07**: Documento `relatorio/CONTEUDO.md` em PT-BR com texto pronto para colar no relatório (descrição dos dados, escolhas, métricas, futuras melhorias)
+- [x] **OUT-04**: Diagrama do pipeline de ingestão exportado como imagem para `relatorio/`
+- [x] **OUT-05**: Diagrama do pipeline de consumo exportado como imagem para `relatorio/`
+- [x] **OUT-06**: Visualização do grafo LangGraph exportada como imagem para `relatorio/`
+- [x] **OUT-07**: Documento `relatorio/CONTEUDO.md` em PT-BR com texto pronto para colar no relatório (descrição dos dados, escolhas, métricas, futuras melhorias)
 
 ### Notebook (Demo)
 
@@ -95,9 +95,9 @@ Cada requisito mapeia para exatamente uma fase do roadmap.
 
 ### Ética e LGPD
 
-- [ ] **ETH-01**: Documento `relatorio/ETICA.md` em PT-BR cobrindo: consentimento, minimização de dados, riscos de viés do Perfilador, considerações para apps de relacionamento
-- [ ] **ETH-02**: Justificativa explícita da decisão de usar mocks textuais ao invés de fotos reais (privacidade + custo + reprodutibilidade)
-- [ ] **ETH-03**: Aviso visível no front sobre uso de dados sintéticos para fins de demonstração
+- [x] **ETH-01**: Documento `relatorio/ETICA.md` em PT-BR cobrindo: consentimento, minimização de dados, riscos de viés do Perfilador, considerações para apps de relacionamento
+- [x] **ETH-02**: Justificativa explícita da decisão de usar mocks textuais ao invés de fotos reais (privacidade + custo + reprodutibilidade)
+- [x] **ETH-03**: Aviso visível no front sobre uso de dados sintéticos para fins de demonstração
 
 ### Testes
 
@@ -116,7 +116,7 @@ Cada requisito mapeia para exatamente uma fase do roadmap.
 - [x] **ACC-07**: Pipelines de ingestão e consumo claramente separados e documentados
 - [x] **ACC-08**: Todo output, markdown, docstring e mensagem em Português do Brasil
 - [x] **ACC-09**: Não há credenciais hardcoded
-- [ ] **ACC-10**: O notebook + `relatorio/` geram material suficiente (tabelas, métricas, diagramas) para sustentar o relatório
+- [x] **ACC-10**: O notebook + `relatorio/` geram material suficiente (tabelas, métricas, diagramas) para sustentar o relatório
 
 ## Requisitos da v2 (Diferidos — fora do CP5)
 
