@@ -145,4 +145,4 @@ Plans:
 | 4. Pipeline de Ingestão | 2/2 | Complete    | 2026-04-21 |
 | 5. Pipeline de Consumo e Scoring | 2/2 | Complete   | 2026-04-21 |
 | 6. Front Streamlit | 2/2 | Complete    | 2026-04-22 |
-| 7. Demo, Notebook e Entregáveis Finais | 2/2 | Complete   | 2026-04-22 |
+| 7. Demo, Notebook e Entregáveis Finais | 2/2 | Complete    | 2026-04-22 |
