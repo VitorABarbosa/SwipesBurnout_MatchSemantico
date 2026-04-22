@@ -124,7 +124,10 @@ Plans:
   3. `relatorio/ETICA.md` cobre consentimento, minimização de dados, riscos de viés do Perfilador e justificativa do uso de mocks em vez de fotos reais
   4. Nenhum arquivo do projeto contém credenciais hardcoded (verificável por `grep -r "AIza\|api_key\s*=" .` sem hits)
   5. Todo texto visível no notebook, front e arquivos markdown está em Português do Brasil
-**Planos**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 07-01-PLAN.md — Notebook demo_cp5.ipynb com 8 células end-to-end: setup, imports, ChromaDB+ingestão, consumo, Top-10 DataFrame, distribuição de scores, grafo LangGraph, checklist ACC (NB-01, NB-02, NB-03, NB-04, OUT-01, OUT-02, OUT-03, ACC-01..ACC-09)
+- [ ] 07-02-PLAN.md — Artefatos relatorio/: CONTEUDO.md, ETICA.md, pipeline_ingestao.mmd, pipeline_consumo.mmd (OUT-04, OUT-05, OUT-06, OUT-07, ETH-01, ETH-02, ETH-03, ACC-10)
 
 ---
 
@@ -142,4 +145,4 @@ Plans:
 | 4. Pipeline de Ingestão | 2/2 | Complete    | 2026-04-21 |
 | 5. Pipeline de Consumo e Scoring | 2/2 | Complete   | 2026-04-21 |
 | 6. Front Streamlit | 2/2 | Complete    | 2026-04-22 |
-| 7. Demo, Notebook e Entregáveis Finais | 0/? | Não iniciada | - |
+| 7. Demo, Notebook e Entregáveis Finais | 0/2 | Não iniciada | - |
