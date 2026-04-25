@@ -23,7 +23,7 @@ from swipes_burnout.grafo import salvar_visualizacao_grafo
 
 # ── Page config (deve ser a primeira chamada st do arquivo) ──────────────────
 st.set_page_config(
-    page_title="CONNECT.AI",
+    page_title="SwipesBurnout",
     page_icon="💞",
     layout="wide",
 )
