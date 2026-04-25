@@ -1,4 +1,4 @@
-# CONNECT.AI — Dating powered by AI
+# SwipesBurnout — Dating powered by AI
 
 > Motor de matchmaking semântico multi-agente desenvolvido para o **Checkpoint 5** da disciplina **Sistemas Multi-Agentes e IA Generativa (NLP)** da FIAP.
 
@@ -21,7 +21,7 @@ Disciplina: Sistemas Multi-Agentes e IA Generativa (NLP)
 
 ## Visão Geral
 
-CONNECT.AI substitui filtros rígidos de apps de relacionamento por uma análise semântica multimodal orquestrada por três agentes:
+SwipesBurnout substitui filtros rígidos de apps de relacionamento por uma análise semântica multimodal orquestrada por três agentes:
 
 - **Perfilador** — gera traços de personalidade a partir do perfil bruto (mock textual do Gemini Vision).
 - **Casamenteiro** — aplica filtros hard, busca vetorial Top-30 no ChromaDB e scoring ponderado.
@@ -105,17 +105,7 @@ Os três agentes são nós distintos de um grafo **LangGraph** com `AgentState` 
 
    Acesse [https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey), faça login com uma conta Google e clique em **"Create API key"**. A chave começa com `AIza...`.
 
-2. **Crie o arquivo `.env`**
-
-   Copie o template:
-
-   ```bash
-   # Linux / macOS / Git Bash
-   cp .env.example .env
-
-   # Windows (PowerShell)
-   Copy-Item .env.example .env
-   ```
+2. **Crie o arquivo `.env`** na raiz do projeto com o seguinte conteúdo:
 
 3. **Preencha o `.env`** com sua chave:
 
@@ -188,7 +178,6 @@ CP5_PLN/
 ├── relatorio/            # Insumos para o relatório (diagramas, tabelas, ETICA.md)
 ├── tests/                # Testes pytest
 ├── chroma_db/            # Persistência local do ChromaDB (gitignored)
-├── .env.example          # Template das variáveis de ambiente
 ├── .env                  # Suas chaves locais (gitignored — NÃO commitar)
 ├── pyproject.toml        # Configuração do pacote Python
 ├── requirements.txt      # Dependências (espelho do pyproject.toml)
@@ -253,4 +242,4 @@ Este projeto é entregue como atividade acadêmica do CP5 da FIAP. Os perfis uti
 
 ---
 
-*CONNECT.AI — Checkpoint 5 — FIAP — 2026*
+*SwipesBurnout — Checkpoint 5 — FIAP — 2026*
