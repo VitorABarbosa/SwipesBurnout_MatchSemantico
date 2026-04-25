@@ -4,11 +4,11 @@ Cobre SEED-01 (diversidade), SEED-02 (>= 10 compativeis), SEED-03 (perfil de
 teste explicito), SEED-04 (reproducibilidade com seed fixa).
 
 Estes testes sao escritos ANTES da implementacao (fase RED do TDD).
-Todos devem falhar com ImportError ate que connect_ai/seed_data.py exista.
+Todos devem falhar com ImportError ate que swipes_burnout/seed_data.py exista.
 """
 
-from connect_ai.schema import Perfil
-from connect_ai.seed_data import PERFIL_TESTE, SEED_FIXA, gerar_pool_perfis
+from swipes_burnout.schema import Perfil
+from swipes_burnout.seed_data import PERFIL_TESTE, SEED_FIXA, gerar_pool_perfis
 
 
 # ── helpers de analise estatica ────────────────────────────────────────────────

@@ -1,10 +1,10 @@
-"""Testes TDD RED para connect_ai/scoring.py.
+"""Testes TDD RED para swipes_burnout/scoring.py.
 
 Cobre os requisitos SCR-01 a SCR-05 (cinco fatores de scoring) e TEST-01
 (contrato verificavel da composicao ponderada 60/20/10/5/5).
 
-Todos os testes DEVEM FALHAR antes da implementacao de connect_ai/scoring.py.
-O modulo connect_ai.scoring ainda nao existe — cada import dentro das funcoes
+Todos os testes DEVEM FALHAR antes da implementacao de swipes_burnout/scoring.py.
+O modulo swipes_burnout.scoring ainda nao existe — cada import dentro das funcoes
 provocara ImportError individual, tornando cada teste independentemente RED.
 
 Fatores cobertos:
@@ -24,25 +24,25 @@ import pytest
 
 def test_score_semantico_distancia_zero():
     """Distancia coseno 0.0 (perfil identico) deve retornar score 100.0."""
-    from connect_ai.scoring import score_semantico
+    from swipes_burnout.scoring import score_semantico
     assert score_semantico(0.0) == pytest.approx(100.0)
 
 
 def test_score_semantico_distancia_um():
     """Distancia coseno 1.0 (perfil ortogonal) deve retornar score 50.0."""
-    from connect_ai.scoring import score_semantico
+    from swipes_burnout.scoring import score_semantico
     assert score_semantico(1.0) == pytest.approx(50.0)
 
 
 def test_score_semantico_distancia_dois():
     """Distancia coseno 2.0 (perfil oposto) deve retornar score 0.0."""
-    from connect_ai.scoring import score_semantico
+    from swipes_burnout.scoring import score_semantico
     assert score_semantico(2.0) == pytest.approx(0.0)
 
 
 def test_score_semantico_distancia_meio():
     """Distancia coseno 0.5 deve retornar score 75.0."""
-    from connect_ai.scoring import score_semantico
+    from swipes_burnout.scoring import score_semantico
     assert score_semantico(0.5) == pytest.approx(75.0)
 
 
@@ -51,19 +51,19 @@ def test_score_semantico_distancia_meio():
 
 def test_score_interesses_zero_comum():
     """Sem interesses em comum deve retornar 0.0."""
-    from connect_ai.scoring import score_interesses
+    from swipes_burnout.scoring import score_interesses
     assert score_interesses(["musica"], ["viagem"]) == pytest.approx(0.0)
 
 
 def test_score_interesses_um_comum():
     """1 interesse em comum deve retornar 5.0."""
-    from connect_ai.scoring import score_interesses
+    from swipes_burnout.scoring import score_interesses
     assert score_interesses(["musica", "viagem"], ["musica", "leitura"]) == pytest.approx(5.0)
 
 
 def test_score_interesses_quatro_comum():
     """4 interesses em comum deve retornar 20.0 (maximo)."""
-    from connect_ai.scoring import score_interesses
+    from swipes_burnout.scoring import score_interesses
     a = ["musica", "viagem", "leitura", "cinema"]
     b = ["musica", "viagem", "leitura", "cinema", "esportes"]
     assert score_interesses(a, b) == pytest.approx(20.0)
@@ -71,7 +71,7 @@ def test_score_interesses_quatro_comum():
 
 def test_score_interesses_truncado_em_vinte():
     """5 interesses em comum: min(5*5, 20) = 20, nao 25 (truncado)."""
-    from connect_ai.scoring import score_interesses
+    from swipes_burnout.scoring import score_interesses
     # 5 em comum -> min(5*5, 20) = 20, nao 25
     a = ["a", "b", "c", "d", "e"]
     b = ["a", "b", "c", "d", "e", "f"]
@@ -83,13 +83,13 @@ def test_score_interesses_truncado_em_vinte():
 
 def test_score_objetivo_iguais():
     """Mesmo objetivo deve retornar 100.0."""
-    from connect_ai.scoring import score_objetivo
+    from swipes_burnout.scoring import score_objetivo
     assert score_objetivo("namoro", "namoro") == pytest.approx(100.0)
 
 
 def test_score_objetivo_diferentes():
     """Objetivos diferentes devem retornar 0.0."""
-    from connect_ai.scoring import score_objetivo
+    from swipes_burnout.scoring import score_objetivo
     assert score_objetivo("namoro", "amizade") == pytest.approx(0.0)
 
 
@@ -98,26 +98,26 @@ def test_score_objetivo_diferentes():
 
 def test_score_idade_iguais():
     """Mesma idade deve retornar 100.0."""
-    from connect_ai.scoring import score_idade
+    from swipes_burnout.scoring import score_idade
     assert score_idade(27, 27) == pytest.approx(100.0)
 
 
 def test_score_idade_cinco_anos():
     """Diferenca de 5 anos: 100 - 5*2 = 90.0."""
-    from connect_ai.scoring import score_idade
+    from swipes_burnout.scoring import score_idade
     assert score_idade(27, 32) == pytest.approx(90.0)
 
 
 def test_score_idade_truncado_zero():
     """Diferenca de 50 anos: 100 - 50*2 = 0, nao negativo (truncado)."""
-    from connect_ai.scoring import score_idade
+    from swipes_burnout.scoring import score_idade
     # 100 - 50*2 = 0, nao negativo
     assert score_idade(20, 70) == pytest.approx(0.0)
 
 
 def test_score_idade_quarenta_e_nove_anos():
     """Diferenca de 49 anos: 100 - 49*2 = 2.0."""
-    from connect_ai.scoring import score_idade
+    from swipes_burnout.scoring import score_idade
     # 100 - 49*2 = 2
     assert score_idade(20, 69) == pytest.approx(2.0)
 
@@ -127,13 +127,13 @@ def test_score_idade_quarenta_e_nove_anos():
 
 def test_score_geografia_mesma_cidade():
     """Mesma cidade deve retornar 100.0."""
-    from connect_ai.scoring import score_geografia
+    from swipes_burnout.scoring import score_geografia
     assert score_geografia("Sao Paulo", "Sao Paulo") == pytest.approx(100.0)
 
 
 def test_score_geografia_cidades_diferentes():
     """Cidades diferentes devem retornar 0.0."""
-    from connect_ai.scoring import score_geografia
+    from swipes_burnout.scoring import score_geografia
     assert score_geografia("Sao Paulo", "Rio de Janeiro") == pytest.approx(0.0)
 
 
@@ -142,7 +142,7 @@ def test_score_geografia_cidades_diferentes():
 
 def test_calcular_score_retorna_dict_com_chaves():
     """calcular_score deve retornar dict com as 6 chaves esperadas."""
-    from connect_ai.scoring import calcular_score
+    from swipes_burnout.scoring import calcular_score
     resultado = calcular_score(
         distancia_coseno=0.0,
         interesses_a=["musica"],
@@ -166,7 +166,7 @@ def test_calcular_score_composicao_pesos():
     score_final = 100*0.60 + 20*1.0 + 100*0.10 + 100*0.05 + 100*0.05
                = 60 + 20 + 10 + 5 + 5 = 100.0
     """
-    from connect_ai.scoring import calcular_score
+    from swipes_burnout.scoring import calcular_score
     # Caso controlado: semantico=100, interesses=20 (4 em comum), objetivo=100, idade=100, geo=100
     # score_final = 100*0.60 + 20*1.0 + 100*0.10 + 100*0.05 + 100*0.05
     #             = 60 + 20 + 10 + 5 + 5 = 100.0
@@ -193,7 +193,7 @@ def test_calcular_score_gate_85_com_cinco_interesses():
     score_final = 60 + 20 + 10 + 5 + 5 = 100.0 (teto maximo).
     O gate >= 85 e viavel em contextos reais com boa similaridade semantica.
     """
-    from connect_ai.scoring import calcular_score
+    from swipes_burnout.scoring import calcular_score
     # 5+ interesses em comum: interesses=20, semantico=100, objetivo=100, idade=100, geo=100
     # score_final = 60 + 20 + 10 + 5 + 5 = 100.0
     resultado = calcular_score(
@@ -213,7 +213,7 @@ def test_calcular_score_gate_85_com_cinco_interesses():
 
 def test_calcular_score_final_nao_negativo():
     """score_final nao pode ser negativo mesmo com pior caso (dist=2, sem comum, obj diff)."""
-    from connect_ai.scoring import calcular_score
+    from swipes_burnout.scoring import calcular_score
     resultado = calcular_score(
         distancia_coseno=2.0,
         interesses_a=[],

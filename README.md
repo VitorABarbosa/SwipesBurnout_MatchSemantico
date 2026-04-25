@@ -79,7 +79,7 @@ Os três agentes são nós distintos de um grafo **LangGraph** com `AgentState` 
    pip install -e .
    ```
 
-   Isso instala o pacote `connect_ai` e todas as dependências listadas em `pyproject.toml`.
+   Isso instala o pacote `swipes_burnout` e todas as dependências listadas em `pyproject.toml`.
 
    Para incluir as dependências de teste:
 
@@ -90,7 +90,7 @@ Os três agentes são nós distintos de um grafo **LangGraph** com `AgentState` 
 4. **Verifique a instalação**
 
    ```bash
-   python -c "import connect_ai; print(connect_ai.__version__)"
+   python -c "import swipes_burnout; print(swipes_burnout.__version__)"
    ```
 
    Deve imprimir: `0.1.0`
@@ -122,7 +122,7 @@ Os três agentes são nós distintos de um grafo **LangGraph** com `AgentState` 
    ```
    GOOGLE_API_KEY=AIza...sua-chave-real-aqui
    CHROMA_PERSIST_DIR=./chroma_db
-   CHROMA_COLLECTION=perfis_connect_ai
+   CHROMA_COLLECTION=perfis_swipes_burnout
    ```
 
    Se a chave não for configurada, a aplicação falhará com mensagem clara em PT-BR (não com `KeyError`).
@@ -175,7 +175,7 @@ A célula de instalação no topo do notebook é segura para rodar mesmo após `
 
 ```
 CP5_PLN/
-├── connect_ai/           # Pacote Python (schema, agentes, pipelines, scoring, repositório)
+├── swipes_burnout/           # Pacote Python (schema, agentes, pipelines, scoring, repositório)
 │   ├── __init__.py
 │   ├── config.py         # Leitura de .env e chaves de API
 │   ├── schema.py         # Modelo Pydantic Perfil + utilitários
@@ -183,7 +183,7 @@ CP5_PLN/
 │   └── scoring_utils.py  # Conversão distância coseno → score 0-100
 ├── app/                  # Front Streamlit
 │   └── streamlit_app.py  # (criado nas fases seguintes)
-├── notebook/             # Notebook Colab fino que importa connect_ai
+├── notebook/             # Notebook Colab fino que importa swipes_burnout
 │   └── demo_cp5.ipynb    # (criado na Fase 7)
 ├── relatorio/            # Insumos para o relatório (diagramas, tabelas, ETICA.md)
 ├── tests/                # Testes pytest
@@ -229,7 +229,7 @@ Os testes cobrem o schema, o módulo de configuração, o wrapper do ChromaDB, a
 
 O arquivo `.env` não foi criado ou não contém a chave. Volte para a seção [Configuração de Chaves de API](#configuração-de-chaves-de-api).
 
-### "ModuleNotFoundError: No module named 'connect_ai'"
+### "ModuleNotFoundError: No module named 'swipes_burnout'"
 
 O pacote não foi instalado em modo editável. Execute:
 

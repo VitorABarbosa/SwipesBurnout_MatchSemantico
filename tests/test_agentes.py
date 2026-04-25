@@ -1,21 +1,21 @@
-"""Testes RED para connect_ai/agentes.py.
+"""Testes RED para swipes_burnout/agentes.py.
 
 Cobre AgentState (AGT-01), Agente Perfilador (AGT-02),
 Agente Casamenteiro stub (AGT-03) e Agente RAG mock (AGT-04).
 
-Todos os testes DEVEM FALHAR antes da implementacao de connect_ai/agentes.py.
+Todos os testes DEVEM FALHAR antes da implementacao de swipes_burnout/agentes.py.
 """
 from __future__ import annotations
 
 import pytest
 
-from connect_ai.agentes import (
+from swipes_burnout.agentes import (
     AgentState,
     agente_casamenteiro,
     agente_perfilador,
     agente_rag_justificador,
 )
-from connect_ai.seed_data import PERFIL_TESTE
+from swipes_burnout.seed_data import PERFIL_TESTE
 
 
 # ── fixtures ──────────────────────────────────────────────────────────────────

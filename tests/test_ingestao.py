@@ -1,4 +1,4 @@
-"""Testes RED para connect_ai/ingestao.py — Pipeline de Ingestao.
+"""Testes RED para swipes_burnout/ingestao.py — Pipeline de Ingestao.
 
 Cobre os 4 requisitos do Pipeline de Ingestao:
   ING-01 — ingerir_perfil executa fluxo completo (retorna dict + persiste no ChromaDB)
@@ -6,9 +6,9 @@ Cobre os 4 requisitos do Pipeline de Ingestao:
   ING-03 — logs em PT-BR emitidos durante a ingestao (verificado via caplog)
   ING-04 — idempotencia: reinserir o mesmo perfil nao duplica a colecao
 
-Todos os 6 testes DEVEM FALHAR antes da implementacao de connect_ai/ingestao.py.
+Todos os 6 testes DEVEM FALHAR antes da implementacao de swipes_burnout/ingestao.py.
 O erro esperado e ModuleNotFoundError ou ImportError ao tentar importar
-ingerir_perfil / ingerir_lote de connect_ai.ingestao.
+ingerir_perfil / ingerir_lote de swipes_burnout.ingestao.
 
 Cada funcao de teste importa lazily (dentro do corpo) para que o erro de
 ImportError seja gerado individualmente por teste, garantindo RED puro.
@@ -31,7 +31,7 @@ def colecao_temporaria(tmp_path):
     para este teste, evitando interferencia entre execucoes. Chama
     colecao.resetar() no teardown via yield para garantir limpeza.
     """
-    from connect_ai.repositorio import Repositorio
+    from swipes_burnout.repositorio import Repositorio
 
     colecao = Repositorio(
         diretorio=str(tmp_path / "chroma_test"),
@@ -48,7 +48,7 @@ def perfil_unico():
     Usa dados completamente deterministicos (sem aleatoriedade) para que
     os testes sejam reproduziveis independentemente da seed ou do pool gerado.
     """
-    from connect_ai.schema import Perfil
+    from swipes_burnout.schema import Perfil
 
     return Perfil(
         id="test-ing-001",
@@ -69,7 +69,7 @@ def perfil_unico():
 
 def test_ingerir_perfil_retorna_dict(colecao_temporaria, perfil_unico):
     """ingerir_perfil deve retornar dict com chaves 'sucesso', 'id' e 'erro' (ING-01)."""
-    from connect_ai.ingestao import ingerir_perfil
+    from swipes_burnout.ingestao import ingerir_perfil
 
     resultado = ingerir_perfil(perfil_unico, colecao_temporaria)
     assert isinstance(resultado, dict)
@@ -80,7 +80,7 @@ def test_ingerir_perfil_retorna_dict(colecao_temporaria, perfil_unico):
 
 def test_ingerir_perfil_persiste_no_chromadb(colecao_temporaria, perfil_unico):
     """Apos ingerir_perfil, a colecao deve conter exatamente 1 documento (ING-01)."""
-    from connect_ai.ingestao import ingerir_perfil
+    from swipes_burnout.ingestao import ingerir_perfil
 
     ingerir_perfil(perfil_unico, colecao_temporaria)
     assert colecao_temporaria.contar() == 1
@@ -91,8 +91,8 @@ def test_ingerir_perfil_persiste_no_chromadb(colecao_temporaria, perfil_unico):
 
 def test_ingerir_lote_retorna_dict_com_contagens(colecao_temporaria):
     """ingerir_lote deve retornar dict com chaves 'sucesso', 'falha' e 'total' (ING-02)."""
-    from connect_ai.ingestao import ingerir_lote
-    from connect_ai.seed_data import gerar_pool_perfis
+    from swipes_burnout.ingestao import ingerir_lote
+    from swipes_burnout.seed_data import gerar_pool_perfis
 
     perfis = gerar_pool_perfis()[:5]
     resultado = ingerir_lote(perfis, colecao_temporaria)
@@ -103,8 +103,8 @@ def test_ingerir_lote_retorna_dict_com_contagens(colecao_temporaria):
 
 def test_ingerir_lote_todos_perfis_inseridos(colecao_temporaria):
     """Apos ingerir_lote com 10 perfis, a colecao deve conter 10 documentos (ING-02)."""
-    from connect_ai.ingestao import ingerir_lote
-    from connect_ai.seed_data import gerar_pool_perfis
+    from swipes_burnout.ingestao import ingerir_lote
+    from swipes_burnout.seed_data import gerar_pool_perfis
 
     perfis = gerar_pool_perfis()[:10]
     ingerir_lote(perfis, colecao_temporaria)
@@ -116,7 +116,7 @@ def test_ingerir_lote_todos_perfis_inseridos(colecao_temporaria):
 
 def test_ingerir_perfil_emite_log_ptbr(colecao_temporaria, perfil_unico, caplog):
     """ingerir_perfil deve emitir ao menos um log contendo 'ingeri', 'ingerindo' ou 'perfil' (ING-03)."""
-    from connect_ai.ingestao import ingerir_perfil
+    from swipes_burnout.ingestao import ingerir_perfil
 
     with caplog.at_level(logging.INFO):
         ingerir_perfil(perfil_unico, colecao_temporaria)
@@ -132,7 +132,7 @@ def test_ingerir_perfil_emite_log_ptbr(colecao_temporaria, perfil_unico, caplog)
 
 def test_idempotencia_nao_duplica(colecao_temporaria, perfil_unico):
     """Reinserir o mesmo perfil duas vezes nao deve duplicar a colecao (ING-04)."""
-    from connect_ai.ingestao import ingerir_perfil
+    from swipes_burnout.ingestao import ingerir_perfil
 
     ingerir_perfil(perfil_unico, colecao_temporaria)
     ingerir_perfil(perfil_unico, colecao_temporaria)  # segunda chamada identica

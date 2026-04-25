@@ -13,7 +13,7 @@ cobrindo os requisitos ING-01 a ING-04:
             colecao (garantido pelo upsert do Repositorio).
 
 Uso tipico:
-    from connect_ai.ingestao import ingerir_perfil, ingerir_lote
+    from swipes_burnout.ingestao import ingerir_perfil, ingerir_lote
     resultado = ingerir_perfil(perfil, colecao)  # {"sucesso": True, "id": ..., "erro": None}
     totais   = ingerir_lote(perfis, colecao)     # {"sucesso": N, "falha": 0, "total": N}
 """
@@ -24,12 +24,12 @@ import hashlib
 import logging
 from typing import List
 
-import google.generativeai as genai
+from google import genai as google_genai
 
-from connect_ai.agentes import AgentState, agente_perfilador
-from connect_ai.config import obter_chave_api
-from connect_ai.repositorio import Repositorio
-from connect_ai.schema import Perfil, construir_documento_semantico
+from swipes_burnout.agentes import AgentState, agente_perfilador
+from swipes_burnout.config import obter_chave_api
+from swipes_burnout.repositorio import Repositorio
+from swipes_burnout.schema import Perfil, construir_documento_semantico
 
 # ── Logger do modulo (mensagens sempre em PT-BR — ING-03) ─────────────────────
 logger = logging.getLogger(__name__)
@@ -46,8 +46,8 @@ def _gerar_embedding(texto: str) -> list:
          ConfigError; permite que o modulo funcione sem credencial.
       2. Se a chave estiver ausente/vazia, retorna embedding deterministico
          baseado em hashlib.md5 (vetor de 768 dimensoes, reproducivel).
-      3. Se a chave estiver presente, usa google.generativeai com o modelo
-         "models/text-embedding-004" e task_type="RETRIEVAL_DOCUMENT".
+      3. Se a chave estiver presente, usa google-genai (novo SDK) com o modelo
+         "gemini-embedding-001" e output_dimensionality=768.
 
     A chave de API nunca e logada (seguranca — ACC-09).
 
@@ -66,13 +66,13 @@ def _gerar_embedding(texto: str) -> list:
         return vetor[:768]  # exatamente 768 dimensoes
 
     logger.debug("Gerando embedding via API Google.")
-    genai.configure(api_key=api_key)
-    resultado = genai.embed_content(
-        model="models/text-embedding-004",
-        content=texto,
-        task_type="RETRIEVAL_DOCUMENT",
+    client = google_genai.Client(api_key=api_key)
+    resultado = client.models.embed_content(
+        model="gemini-embedding-001",
+        contents=texto,
+        config={"output_dimensionality": 768},
     )
-    return resultado["embedding"]
+    return list(resultado.embeddings[0].values)
 
 
 # ── Pipeline individual ───────────────────────────────────────────────────────

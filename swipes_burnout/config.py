@@ -72,6 +72,6 @@ def obter_diretorio_chroma() -> str:
 def obter_nome_colecao() -> str:
     """Retorna o nome da colecao do ChromaDB.
 
-    Le `CHROMA_COLLECTION` do ambiente; padrao = 'perfis_connect_ai'.
+    Le `CHROMA_COLLECTION` do ambiente; padrao = 'perfis_swipes_burnout'.
     """
-    return obter_chave_api("CHROMA_COLLECTION", padrao="perfis_connect_ai")
+    return obter_chave_api("CHROMA_COLLECTION", padrao="perfis_swipes_burnout")

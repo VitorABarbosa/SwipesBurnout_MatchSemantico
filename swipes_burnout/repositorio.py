@@ -33,8 +33,8 @@ from typing import Any, Dict, List, Optional, Sequence
 import chromadb
 from chromadb.config import Settings
 
-from connect_ai.config import obter_diretorio_chroma, obter_nome_colecao
-from connect_ai.schema import Perfil, construir_documento_semantico
+from swipes_burnout.config import obter_diretorio_chroma, obter_nome_colecao
+from swipes_burnout.schema import Perfil, construir_documento_semantico
 
 
 @dataclass
@@ -70,7 +70,7 @@ class Repositorio:
     busca vetorial Top-K com filtros hard via metadata, contagem, verificacao
     de presenca por id e reset (limpeza completa).
 
-    O construtor le configuracao via `connect_ai.config` se nao receber
+    O construtor le configuracao via `swipes_burnout.config` se nao receber
     overrides explicitos -- centraliza a fonte da verdade dos caminhos
     (env var `CHROMA_PERSIST_DIR`) e evita literais espalhados.
     """
@@ -87,7 +87,7 @@ class Repositorio:
                 `CHROMA_PERSIST_DIR` (env) ou "./chroma_db" (decisao de
                 PROJECT.md, gitignored).
             nome_colecao: Nome da colecao dentro do banco. Default: lido de
-                `CHROMA_COLLECTION` (env) ou "perfis_connect_ai".
+                `CHROMA_COLLECTION` (env) ou "perfis_swipes_burnout".
 
         A flag `allow_reset=True` em Settings habilita o metodo `resetar`
         em ambientes de teste e no botao "Repopular banco" do front (Fase 6).
@@ -135,8 +135,9 @@ class Repositorio:
             "faixa_etaria_min": int(faixa_min),
             "faixa_etaria_max": int(faixa_max),
             "objetivo": str(perfil.objetivo),
-            "nome": str(perfil.nome),  # util para exibicao no front
-            "interesses_csv": ",".join(perfil.interesses),  # ex: "musica,viagem,leitura"
+            "nome": str(perfil.nome),
+            "interesses_csv": ",".join(perfil.interesses),
+            "bio": str(perfil.bio),
         }
 
     # ------------------------------------------------------------------ #
@@ -276,6 +277,27 @@ class Repositorio:
         resultado = self._colecao.get(ids=[id_perfil])
         ids = resultado.get("ids") or []
         return id_perfil in ids
+
+    def listar_todos(self) -> List[Dict[str, Any]]:
+        """Retorna id + metadata de todos os perfis na colecao.
+
+        Usado pelo front (Streamlit) para popular o seletor de perfis na
+        inicializacao da sessao, sem depender do session_state efemero.
+
+        Returns:
+            Lista de dicts com chaves "id" e "metadata" para cada perfil.
+            Vazia se a colecao estiver vazia.
+        """
+        total = self._colecao.count()
+        if total == 0:
+            return []
+        resposta = self._colecao.get(include=["metadatas"])
+        ids = resposta.get("ids") or []
+        metadatas = resposta.get("metadatas") or []
+        return [
+            {"id": ids[i], "metadata": dict(metadatas[i]) if metadatas[i] else {}}
+            for i in range(len(ids))
+        ]
 
     def resetar(self) -> None:
         """Apaga todos os documentos da colecao (recria do zero).

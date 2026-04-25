@@ -20,7 +20,7 @@ from pathlib import Path
 
 from langgraph.graph import END, START, StateGraph
 
-from connect_ai.agentes import (
+from swipes_burnout.agentes import (
     AgentState,
     agente_casamenteiro,
     agente_perfilador,

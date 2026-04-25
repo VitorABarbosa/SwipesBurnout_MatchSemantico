@@ -7,7 +7,7 @@
 
 ## 1. Descrição da Arquitetura
 
-O CONNECT.AI é um sistema de matchmaking semântico estruturado como um pacote Python modular (`connect_ai/`), com separação clara entre pipeline de ingestão e pipeline de consumo. O pacote é composto pelos módulos: `schema.py` (modelo de dados Pydantic), `repositorio.py` (wrapper ChromaDB), `seed_data.py` (gerador de perfis sintéticos), `agentes.py` (os três agentes LangGraph), `grafo.py` (montagem do StateGraph), `ingestao.py` (pipeline de ingestão) e `scoring.py` (cálculo de compatibilidade).
+O CONNECT.AI é um sistema de matchmaking semântico estruturado como um pacote Python modular (`swipes_burnout/`), com separação clara entre pipeline de ingestão e pipeline de consumo. O pacote é composto pelos módulos: `schema.py` (modelo de dados Pydantic), `repositorio.py` (wrapper ChromaDB), `seed_data.py` (gerador de perfis sintéticos), `agentes.py` (os três agentes LangGraph), `grafo.py` (montagem do StateGraph), `ingestao.py` (pipeline de ingestão) e `scoring.py` (cálculo de compatibilidade).
 
 A persistência vetorial é feita pelo ChromaDB em modo embedded, armazenado localmente no diretório `chroma_db/` (excluído do controle de versão). O banco armazena, para cada perfil, o vetor de embedding gerado pelo modelo `text-embedding-004` da Google junto com metadados estruturados (idade, cidade, gênero, objetivo, interesses) que permitem a aplicação de filtros hard antes da busca vetorial.
 
@@ -27,7 +27,7 @@ O fluxo do grafo é: `START → perfilador → casamenteiro → rag_justificador
 
 ## 3. Sistema de Scoring — Pesos 60/20/10/5/5
 
-O score de compatibilidade é calculado pela função `calcular_score` em `connect_ai/scoring.py`, compondo cinco fatores com pesos diferenciados que somam 100%:
+O score de compatibilidade é calculado pela função `calcular_score` em `swipes_burnout/scoring.py`, compondo cinco fatores com pesos diferenciados que somam 100%:
 
 - **Score Semântico (60%)**: Converte a distância coseno do ChromaDB [0, 2] em similaridade [0, 100] pela fórmula `(1 - distancia / 2) * 100`. Este fator domina o score porque captura afinidade global de estilo de vida, valores e interesses expressos na bio e no campo de personalidade gerado pelo Perfilador.
 - **Score de Interesses (20%)**: Calculado como `min(interesses_em_comum, 4) * 5`, onde cada interesse compartilhado vale 5 pontos e o máximo é atingido com 4 interesses em comum. Penaliza candidatos sem sobreposição de hobbies.
@@ -39,7 +39,7 @@ O score final é `min(100, soma_ponderada)`, garantindo truncamento em 100. O th
 
 ## 4. Seed Data Sintético
 
-O gerador `gerar_pool_perfis(seed=42)` em `connect_ai/seed_data.py` produz um pool reproduzível de 100 perfis sintéticos. O pool é estruturado em duas camadas: 20 perfis de alta compatibilidade (masculino, objetivo namoro, São Paulo, com >= 4 interesses em comum com o perfil de teste) e 80 perfis de diversidade (variação de cidade, gênero, objetivo e faixa etária).
+O gerador `gerar_pool_perfis(seed=42)` em `swipes_burnout/seed_data.py` produz um pool reproduzível de 100 perfis sintéticos. O pool é estruturado em duas camadas: 20 perfis de alta compatibilidade (masculino, objetivo namoro, São Paulo, com >= 4 interesses em comum com o perfil de teste) e 80 perfis de diversidade (variação de cidade, gênero, objetivo e faixa etária).
 
 O perfil de teste é Ana Lima: 27 anos, São Paulo, objetivo namoro, interesses em musica, viagem, fotografia, yoga, cinema, arte e gastronomia. Os IDs dos perfis são determinísticos (`seed-compat-XXXX`, `seed-diverso-XXXX`) para garantir reprodutibilidade total incluindo rastreabilidade de resultados entre execuções.
 

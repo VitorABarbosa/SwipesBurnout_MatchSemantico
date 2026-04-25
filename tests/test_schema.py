@@ -7,7 +7,7 @@ Cobre validacoes Pydantic dos 3 grupos de campos definidos no BRIEFING secao 6
 import pytest
 from pydantic import ValidationError
 
-from connect_ai.schema import Perfil
+from swipes_burnout.schema import Perfil
 
 
 def _perfil_valido_kwargs(**overrides):
@@ -128,7 +128,7 @@ def test_personalidade_ia_pode_ser_preenchida():
 # Testes da funcao construir_documento_semantico
 # ===================================================================
 
-from connect_ai.schema import construir_documento_semantico
+from swipes_burnout.schema import construir_documento_semantico
 
 
 def test_documento_inclui_bio_interesses_objetivo():

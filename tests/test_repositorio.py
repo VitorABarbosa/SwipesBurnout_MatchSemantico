@@ -13,8 +13,8 @@ from typing import List, Optional
 
 import pytest
 
-from connect_ai.repositorio import Repositorio, ResultadoBusca
-from connect_ai.schema import Perfil
+from swipes_burnout.repositorio import Repositorio, ResultadoBusca
+from swipes_burnout.schema import Perfil
 
 
 # Embedding sintetico curto (16 dimensoes) -- ChromaDB aceita qualquer

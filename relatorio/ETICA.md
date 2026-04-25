@@ -8,7 +8,7 @@
 
 ## 1. Dados Utilizados — Natureza Sintética
 
-Todos os dados de perfis utilizados neste projeto são inteiramente sintéticos, gerados programaticamente pelo módulo `connect_ai/seed_data.py` com seed fixa (42). Nenhum dado real de pessoas físicas foi coletado, armazenado ou processado em qualquer etapa do desenvolvimento ou demonstração.
+Todos os dados de perfis utilizados neste projeto são inteiramente sintéticos, gerados programaticamente pelo módulo `swipes_burnout/seed_data.py` com seed fixa (42). Nenhum dado real de pessoas físicas foi coletado, armazenado ou processado em qualquer etapa do desenvolvimento ou demonstração.
 
 Os perfis sintéticos incluem nomes fictícios, idades geradas aleatoriamente dentro de faixas pré-definidas, cidades brasileiras reais (usadas apenas como categoria, sem dado de localização precisa), biografias textuais geradas a partir de templates e listas de interesses pré-definidas. O objetivo da síntese é demonstrar as capacidades técnicas do sistema sem nenhum risco à privacidade.
 

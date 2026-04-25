@@ -53,3 +53,10 @@ Thumbs.db
 # Logs e outputs temporários
 *.log
 outputs/
+
+# Claude Code e planejamento interno
+.claude/
+.planning/
+
+# Arquivo de exemplo de env (removido)
+.env.example

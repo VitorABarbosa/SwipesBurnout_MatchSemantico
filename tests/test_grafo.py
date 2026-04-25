@@ -1,15 +1,15 @@
-"""Testes RED para connect_ai/grafo.py.
+"""Testes RED para swipes_burnout/grafo.py.
 
 Cobre compilacao do grafo LangGraph (AGT-05) e visualizacao (AGT-06).
 
-Todos os testes DEVEM FALHAR antes da implementacao de connect_ai/grafo.py.
+Todos os testes DEVEM FALHAR antes da implementacao de swipes_burnout/grafo.py.
 """
 from __future__ import annotations
 
 import os
 import pytest
 
-from connect_ai.seed_data import PERFIL_TESTE
+from swipes_burnout.seed_data import PERFIL_TESTE
 
 
 # ── Grafo LangGraph (AGT-05) ──────────────────────────────────────────────────
@@ -17,7 +17,7 @@ from connect_ai.seed_data import PERFIL_TESTE
 
 def test_grafo_compila() -> None:
     """pipeline_consumo deve ser um grafo LangGraph compilado (tem .invoke)."""
-    from connect_ai.grafo import pipeline_consumo
+    from swipes_burnout.grafo import pipeline_consumo
 
     assert hasattr(pipeline_consumo, "invoke"), (
         "pipeline_consumo deve ser um CompiledStateGraph com metodo .invoke"
@@ -26,7 +26,7 @@ def test_grafo_compila() -> None:
 
 def test_grafo_tem_tres_nos() -> None:
     """Grafo deve ter exatamente os nos 'perfilador', 'casamenteiro', 'rag_justificador'."""
-    from connect_ai.grafo import pipeline_consumo
+    from swipes_burnout.grafo import pipeline_consumo
 
     # LangGraph expoe nos via get_graph()
     nos = set(pipeline_consumo.get_graph().nodes.keys())
@@ -37,7 +37,7 @@ def test_grafo_tem_tres_nos() -> None:
 
 def test_grafo_invoke_com_perfil_teste() -> None:
     """Invocar o grafo com PERFIL_TESTE deve retornar state com matches preenchido."""
-    from connect_ai.grafo import pipeline_consumo
+    from swipes_burnout.grafo import pipeline_consumo
 
     state_entrada = {
         "perfil": PERFIL_TESTE,
@@ -60,7 +60,7 @@ def test_grafo_invoke_com_perfil_teste() -> None:
 
 def test_mermaid_exportado(tmp_path: "pytest.fixture") -> None:
     """salvar_visualizacao_grafo deve gerar arquivo .mmd com texto Mermaid."""
-    from connect_ai.grafo import salvar_visualizacao_grafo
+    from swipes_burnout.grafo import salvar_visualizacao_grafo
 
     caminho_mmd = str(tmp_path / "grafo_pipeline.mmd")
     # A funcao salva PNG no caminho informado e MMD substituindo extensao
@@ -79,7 +79,7 @@ def test_mermaid_exportado(tmp_path: "pytest.fixture") -> None:
 
 def test_visualizacao_cria_diretorio(tmp_path: "pytest.fixture") -> None:
     """salvar_visualizacao_grafo deve criar o diretorio de destino se nao existir."""
-    from connect_ai.grafo import salvar_visualizacao_grafo
+    from swipes_burnout.grafo import salvar_visualizacao_grafo
 
     subdir = tmp_path / "novo_relatorio"
     assert not subdir.exists()

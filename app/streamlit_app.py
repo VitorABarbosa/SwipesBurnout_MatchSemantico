@@ -14,12 +14,12 @@ from __future__ import annotations
 import os
 
 import streamlit as st
-from connect_ai.repositorio import Repositorio
-from connect_ai.schema import Perfil, gerar_uuid
-from connect_ai.ingestao import ingerir_perfil, ingerir_lote
-from connect_ai.seed_data import gerar_pool_perfis
-from connect_ai.agentes import buscar_matches, agente_rag_justificador, AgentState
-from connect_ai.grafo import salvar_visualizacao_grafo
+from swipes_burnout.repositorio import Repositorio
+from swipes_burnout.schema import Perfil, gerar_uuid
+from swipes_burnout.ingestao import ingerir_perfil, ingerir_lote
+from swipes_burnout.seed_data import gerar_pool_perfis
+from swipes_burnout.agentes import buscar_matches, agente_rag_justificador, AgentState
+from swipes_burnout.grafo import salvar_visualizacao_grafo
 
 # ── Page config (deve ser a primeira chamada st do arquivo) ──────────────────
 st.set_page_config(
@@ -95,6 +95,39 @@ if "banco_populado" not in st.session_state:
     st.session_state["banco_populado"] = False
 if "perfis_disponiveis" not in st.session_state:
     st.session_state["perfis_disponiveis"] = []
+# Dict label → Perfil para lookup rápido na página Matches
+if "perfis_por_label" not in st.session_state:
+    st.session_state["perfis_por_label"] = {}
+
+# ── Carregar perfis existentes do ChromaDB ao iniciar (resolve reload da página)
+if not st.session_state["perfis_disponiveis"]:
+    colecao_init = st.session_state["repositorio"]
+    for entrada in colecao_init.listar_todos():
+        meta = entrada["metadata"]
+        pid = entrada["id"]
+        nome = meta.get("nome", "?")
+        label = f"{nome} ({pid[:8]})"
+        if label not in st.session_state["perfis_por_label"]:
+            st.session_state["perfis_disponiveis"].append(label)
+            st.session_state["perfis_por_label"][label] = Perfil(
+                id=pid,
+                nome=nome,
+                idade=int(meta.get("idade", 18)),
+                cidade=str(meta.get("cidade", "")),
+                genero=meta.get("genero", "outro"),
+                genero_preferido=meta.get("genero_preferido", "todos"),
+                faixa_etaria_pref=(
+                    int(meta.get("faixa_etaria_min", 18)),
+                    int(meta.get("faixa_etaria_max", 99)),
+                ),
+                objetivo=meta.get("objetivo", "namoro"),
+                bio=meta.get("bio", "") or "Perfil sintético.",
+                interesses=[
+                    i.strip()
+                    for i in meta.get("interesses_csv", "").split(",")
+                    if i.strip()
+                ],
+            )
 
 # ── Sidebar — navegação principal ────────────────────────────────────────────
 with st.sidebar:
@@ -162,9 +195,10 @@ def _pagina_cadastro() -> None:
                         "Vá para Matches para ver seus resultados."
                     )
                     st.session_state["perfil_cadastrado"] = perfil
-                    st.session_state["perfis_disponiveis"].append(
-                        f"{nome} ({perfil.id[:8]})"
-                    )
+                    label = f"{nome} ({perfil.id[:8]})"
+                    if label not in st.session_state["perfis_por_label"]:
+                        st.session_state["perfis_disponiveis"].append(label)
+                        st.session_state["perfis_por_label"][label] = perfil
                 else:
                     mensagem = resultado.get("erro") or "erro desconhecido"
                     st.error(
@@ -270,10 +304,10 @@ def _pagina_matches() -> None:
     perfil_selecionado_label = st.selectbox("Perfil para buscar matches", opcoes)
 
     if st.button("Encontrar Matches"):
-        # Recuperar o perfil cadastrado correspondente
-        perfil = st.session_state.get("perfil_cadastrado")
+        # Buscar o perfil pelo label selecionado no dropdown
+        perfil = st.session_state["perfis_por_label"].get(perfil_selecionado_label)
         if perfil is None:
-            st.error("Perfil não encontrado. Faça o cadastro novamente.")
+            st.error("Perfil não encontrado. Recarregue a página e tente novamente.")
             return
 
         with st.spinner("Executando pipeline de consumo (filtros → busca vetorial → scoring)..."):

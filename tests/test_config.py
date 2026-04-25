@@ -2,7 +2,7 @@
 
 import pytest
 
-from connect_ai.config import (
+from swipes_burnout.config import (
     ConfigError,
     carregar_env,
     obter_chave_api,
@@ -57,9 +57,9 @@ def test_obter_diretorio_chroma_customizado(monkeypatch):
 
 
 def test_obter_nome_colecao_padrao(monkeypatch):
-    """Sem CHROMA_COLLECTION no ambiente, deve retornar o padrao 'perfis_connect_ai'."""
+    """Sem CHROMA_COLLECTION no ambiente, deve retornar o padrao 'perfis_swipes_burnout'."""
     monkeypatch.delenv("CHROMA_COLLECTION", raising=False)
-    assert obter_nome_colecao() == "perfis_connect_ai"
+    assert obter_nome_colecao() == "perfis_swipes_burnout"
 
 
 def test_config_error_e_runtime_error():

@@ -14,8 +14,8 @@ from typing import Any, Dict, List, Optional
 
 from typing_extensions import TypedDict
 
-from connect_ai.schema import Perfil
-from connect_ai.repositorio import Repositorio
+from swipes_burnout.schema import Perfil
+from swipes_burnout.repositorio import Repositorio
 
 
 class AgentState(TypedDict):
@@ -82,11 +82,11 @@ def agente_perfilador(state: AgentState) -> AgentState:
     return {**state, "perfil": perfil_atualizado}
 
 
-# ── Stub de scoring (substituido na Fase 5 por connect_ai.scoring) ─────────────
+# ── Stub de scoring (substituido na Fase 5 por swipes_burnout.scoring) ─────────────
 
 
 def _calcular_score_stub(candidato: Dict[str, Any], perfil_ref: Perfil) -> float:
-    """DEPRECATED: use calcular_score de connect_ai.scoring diretamente.
+    """DEPRECATED: use calcular_score de swipes_burnout.scoring diretamente.
 
     Mantido para compatibilidade com agente_casamenteiro (stub da Fase 3).
     Quando o candidato nao possui 'distancia_coseno' (uso da Fase 3 sem ChromaDB),
@@ -96,7 +96,7 @@ def _calcular_score_stub(candidato: Dict[str, Any], perfil_ref: Perfil) -> float
     if "distancia_coseno" not in candidato:
         # Modo Fase 3: sem distancia real, retorna score fixo (comportamento original)
         return 90.0
-    from connect_ai.scoring import calcular_score
+    from swipes_burnout.scoring import calcular_score
     interesses_b = candidato.get("interesses", [])
     resultado = calcular_score(
         distancia_coseno=float(candidato["distancia_coseno"]),
@@ -128,7 +128,7 @@ def buscar_matches(perfil_solicitante: Perfil, colecao: "Repositorio") -> List[D
       7. Cada dict de retorno inclui breakdown dos 5 fatores (SCR-05).
 
     PITFALL: ChromaDB retorna distancia [0,2], nao similaridade. A conversao
-    e feita dentro de score_semantico em connect_ai.scoring.
+    e feita dentro de score_semantico em swipes_burnout.scoring.
 
     INTERESSES: Gravados como string CSV ("interesses_csv") no metadata do ChromaDB
     pelo metodo _metadata_de_perfil de repositorio.py. Parseados aqui para lista antes
@@ -145,8 +145,8 @@ def buscar_matches(perfil_solicitante: Perfil, colecao: "Repositorio") -> List[D
           score_idade, score_geografia.
         Ordenada por score decrescente. Vazia se nenhum candidato >= 85.
     """
-    from connect_ai.scoring import calcular_score
-    from connect_ai.ingestao import _gerar_embedding
+    from swipes_burnout.scoring import calcular_score
+    from swipes_burnout.ingestao import _gerar_embedding
 
     # Passo 1: enriquecer personalidade_ia (determinismo via cache)
     state_enriquecido = agente_perfilador({
@@ -159,7 +159,7 @@ def buscar_matches(perfil_solicitante: Perfil, colecao: "Repositorio") -> List[D
     perfil = state_enriquecido["perfil"]
 
     # Passo 2: gerar embedding do documento semantico
-    from connect_ai.schema import construir_documento_semantico
+    from swipes_burnout.schema import construir_documento_semantico
     texto = construir_documento_semantico(perfil)
     embedding_query = _gerar_embedding(texto)
 
@@ -238,7 +238,7 @@ def agente_casamenteiro(state: AgentState) -> AgentState:
     Returns:
         AgentState com 'matches' populado.
     """
-    from connect_ai.seed_data import gerar_pool_perfis
+    from swipes_burnout.seed_data import gerar_pool_perfis
 
     perfil_ref = state["perfil"]
     pool = gerar_pool_perfis()

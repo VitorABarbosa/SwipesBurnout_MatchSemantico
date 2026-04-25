@@ -7,7 +7,7 @@ identicos), 1 -> 50 (ortogonais), 2 -> 0 (opostos), e tolera overshoots numerico
 
 import pytest
 
-from connect_ai.scoring_utils import distancia_cosseno_para_score
+from swipes_burnout.scoring_utils import distancia_cosseno_para_score
 
 
 def test_distancia_zero_retorna_score_maximo():
