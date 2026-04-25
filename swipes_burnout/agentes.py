@@ -112,7 +112,11 @@ def _calcular_score_stub(candidato: Dict[str, Any], perfil_ref: Perfil) -> float
     return resultado["score_final"]
 
 
-def buscar_matches(perfil_solicitante: Perfil, colecao: "Repositorio") -> List[Dict[str, Any]]:
+def buscar_matches(
+    perfil_solicitante: Perfil,
+    colecao: "Repositorio",
+    threshold: float = 85.0,
+) -> List[Dict[str, Any]]:
     """Orquestra o pipeline de consumo end-to-end (CONS-01..03, SCR-04..05).
 
     Fluxo:
@@ -202,7 +206,7 @@ def buscar_matches(perfil_solicitante: Perfil, colecao: "Repositorio") -> List[D
             cidade_b=str(meta.get("cidade", "")),
         )
 
-        if breakdown["score_final"] >= 85.0:
+        if breakdown["score_final"] >= threshold:
             matches.append({
                 "id": resultado.id,
                 "score": breakdown["score_final"],

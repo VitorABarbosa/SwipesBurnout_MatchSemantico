@@ -1,4 +1,4 @@
-"""Aplicação principal do CONNECT.AI — interface Streamlit.
+"""Aplicação principal do SwipesBurnout — interface Streamlit.
 
 Fase 6 — Front Streamlit (CP5 FIAP).
 Estrutura:
@@ -98,6 +98,8 @@ if "perfis_disponiveis" not in st.session_state:
 # Dict label → Perfil para lookup rápido na página Matches
 if "perfis_por_label" not in st.session_state:
     st.session_state["perfis_por_label"] = {}
+if "pipeline_executado" not in st.session_state:
+    st.session_state["pipeline_executado"] = False
 
 # ── Carregar perfis existentes do ChromaDB ao iniciar (resolve reload da página)
 if not st.session_state["perfis_disponiveis"]:
@@ -131,7 +133,7 @@ if not st.session_state["perfis_disponiveis"]:
 
 # ── Sidebar — navegação principal ────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("## CONNECT.AI")
+    st.markdown("## SwipesBurnout")
     pagina = st.radio(
         "Navegação",
         ["Cadastro de Perfil", "Matches", "Visualização"],
@@ -304,7 +306,6 @@ def _pagina_matches() -> None:
     perfil_selecionado_label = st.selectbox("Perfil para buscar matches", opcoes)
 
     if st.button("Encontrar Matches"):
-        # Buscar o perfil pelo label selecionado no dropdown
         perfil = st.session_state["perfis_por_label"].get(perfil_selecionado_label)
         if perfil is None:
             st.error("Perfil não encontrado. Recarregue a página e tente novamente.")
@@ -312,17 +313,26 @@ def _pagina_matches() -> None:
 
         with st.spinner("Executando pipeline de consumo (filtros → busca vetorial → scoring)..."):
             try:
-                matches = buscar_matches(perfil, colecao)
+                matches = buscar_matches(perfil, colecao, threshold=85.0)
             except Exception as e:
                 st.error(f"Erro ao executar pipeline: {e}")
                 return
 
-        # Gerar justificativas via agente_rag_justificador
-        if matches:
+            # Fallback sem threshold se não houver resultados >= 85
+            matches_fallback: list = []
+            if not matches:
+                try:
+                    matches_fallback = buscar_matches(perfil, colecao, threshold=0.0)
+                except Exception:
+                    matches_fallback = []
+
+        justificativas: dict = {}
+        lista_para_rag = matches or matches_fallback
+        if lista_para_rag:
             state_rag: AgentState = {
                 "perfil": perfil,
                 "candidatos": [],
-                "matches": matches,
+                "matches": lista_para_rag,
                 "justificativas": {},
                 "erro": None,
             }
@@ -331,36 +341,51 @@ def _pagina_matches() -> None:
                 justificativas = state_resultado.get("justificativas", {})
             except Exception:
                 justificativas = {}
-        else:
-            justificativas = {}
 
         st.session_state["matches"] = matches
+        st.session_state["matches_fallback"] = matches_fallback
         st.session_state["justificativas"] = justificativas
+        st.session_state["pipeline_executado"] = True
 
-    # Renderizar matches do session_state
+    # Renderizar resultados do session_state
     matches = st.session_state.get("matches", [])
+    matches_fallback = st.session_state.get("matches_fallback", [])
     justificativas = st.session_state.get("justificativas", {})
 
-    if not matches:
+    if not st.session_state.get("pipeline_executado"):
         return
 
-    # Verificar gate >= 10 matches (APP-07)
-    if len(matches) < 10:
-        n = len(matches)
+    if matches:
+        if len(matches) < 10:
+            st.warning(
+                f"O pipeline retornou {len(matches)} match(es) com score ≥ 85 "
+                f"(esperado: 10). Verifique se o banco foi populado com seed data."
+            )
+        st.markdown(f"### {len(matches)} match(es) encontrado(s) com score ≥ 85")
+        cols = st.columns(2)
+        for i, match in enumerate(matches):
+            with cols[i % 2]:
+                _renderizar_card(match, justificativas)
+
+    elif matches_fallback:
         st.warning(
-            f"O pipeline retornou {n} match(es) com score ≥ 85 "
-            f"(mínimo esperado: 10). Verifique se o banco foi populado "
-            f"com o seed data completo e tente novamente."
+            "Nenhum match atingiu score ≥ 85. "
+            "Exibindo os melhores resultados disponíveis para referência. "
+            "Dica: popule o banco com seed data e verifique se seu objetivo e gênero preferido "
+            "têm perfis compatíveis."
         )
+        st.markdown(f"### {len(matches_fallback)} melhor(es) resultado(s) disponível(is)")
+        cols = st.columns(2)
+        for i, match in enumerate(matches_fallback):
+            with cols[i % 2]:
+                _renderizar_card(match, justificativas)
 
-    st.markdown(f"### {len(matches)} match(es) encontrado(s)")
-
-    # Grid 2 colunas
-    cols = st.columns(2)
-    for i, match in enumerate(matches):
-        col = cols[i % 2]
-        with col:
-            _renderizar_card(match, justificativas)
+    else:
+        st.error(
+            "Nenhum candidato encontrado. Verifique se:\n"
+            "- O banco foi populado com seed data (página Cadastro)\n"
+            "- Seu objetivo e gênero preferido têm perfis compatíveis no banco"
+        )
 
 
 def _pagina_visualizacao() -> None:
